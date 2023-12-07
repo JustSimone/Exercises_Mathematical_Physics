@@ -1,6 +1,8 @@
 # Extensions of files which should not be pushed
 .aux
+.vscode
 .fls
 .log
 .synctex.gz
+.DS_Store
 .fdb_latexmk
