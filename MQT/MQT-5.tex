@@ -1,0 +1,310 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathcal F}
+\newcommand{\C}{\mathbb C}
+\newcommand{\ex}{\textit}
+\newcommand{\1}{1\!\!1}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+
+\title{Exercises - Mathematical Quantum Theory}
+\author{Simone Coli - 6771371}
+\date{Sheet 5}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+
+b) We want to show that the operator $\{P_f (f) | t \in \R\}$ is not continuous in the operator norm-sens.
+\proof To see that let us assume that it is continuous and show that with this assumption then we obtain an absurd. The norm of $P_f(t)$ is
+\[
+    \|P_f(t)\| = \sup_{\|\psi\|_{\mathcal H} < 1} \| P_f(t) \psi \|_{\mathcal{H}}
+\]
+Now let us consider a sequence $\{ \psi_n \}_{n>0} \subset \mathcal H$, we want to show that if $\| \psi_n - \psi \|_\mathcal{H} \to 0$ then $\| P_f(t)(\psi_n - \psi) \|_\mathcal{H} \to 0$.
+\[
+    \sup_{\|\psi_n - \psi\|_{\mathcal H} < 1} \| P_f(t)(\psi_n - \psi) \|_\mathcal{H} \leq \sup_{\|\psi_n - \psi\|_{\mathcal H}<1} \| P_f(t) \| \| \psi_n - \psi \|_\mathcal{H}
+\]
+from which we get that
+\[
+    \|P_f(t)\| \leq \sup_{\|\psi_n - \psi\|_{\mathcal H}<1} \| P_f(t) \| \| \psi_n - \psi \|_\mathcal{H}
+\]
+\[
+    1 \leq \sup_{\|\psi_n - \psi\|_{\mathcal H}<1} \| \psi_n - \psi \|_\mathcal{H}
+\]
+Taking the limit for $\| \psi_n - \psi \|_\mathcal{H} \to 0$ we obtain that $1 \geq 0$, which is an absurd.
+\section{Exercise}
+
+a) Let us consider the unbounded operator $H_0 = -\Delta$ in the domain $D(H_0) = H^2(\R^2)$, we want to show that such an operator is symmetric.
+\proof Let us first define $H^p (\R^d) = \{ \psi \in L^2(\R^d) | (1+k^2)^{1/2} \hat \psi \in L^2(\R^d) \}$ with a scalar product of the form
+\[
+    \langle \psi, \phi \rangle_H = \int_{\R^d} \overline{\hat \psi (k)} (1+k^2)^p \hat \phi (k) dk
+\]
+To be symmetric we want $H_0$ to be such that $\langle H_0 \psi , \phi \rangle = \langle \psi, H_0 \phi \rangle$. We can calculate explicitly
+\[
+    \begin{split}
+        \langle \psi , H_0 \phi \rangle_H &= - \int_{\R^2} \overline{\hat \psi (k)} \Delta ((1+k^2)^2 \hat \phi (k)) dk = \\
+        & = - \int_{\R^2} \overline{\hat \psi (k)} (1+k^2)^2 \Delta \hat \phi (k) dk
+    \end{split}
+\]
+Using Green's first identity, being careful of distinguishing the Euclidean scalar product $\langle \cdot, \cdot \rangle$ from Sobolev's $\langle \cdot, \cdot\rangle_H$
+\[
+    \begin{split}
+        - \int_{B_r} (1+k^2)^2 \overline{\hat \psi (k)} \Delta \hat \phi (k) dk &= \int_{B_r} (1+k^2)^2 \langle \nabla \overline{\hat \psi (k)}, \nabla \hat \phi (k) \rangle dk +\\
+        &+ \int_{\partial B_r} (1+k^2)^2 \nabla \overline{\hat \psi (k)} \langle \nabla \hat \phi (k), \nu \rangle dk
+    \end{split}
+\]
+Since $\psi, \phi \in H^2(\R^2)$ then the integral over the boundaries is zero and we are left with 
+\[
+    \int_{B_r} (1+k^2)^2 \langle \nabla \overline{\hat \psi (k)}, \nabla \hat \phi (k) \rangle dk = - \int_{\R^2} \Delta(\overline{\hat \psi (k)}) (1+k^2)^2 \hat \phi (k) dk
+\]
+which is the definition of $\langle H_0 \psi,  \phi \rangle_H$.
+
+b) We now w2ant to show that such an operator is semi postive defined, that is 
+\[
+    \langle  \psi, H_0  \psi \rangle_H \geq 0
+\]
+\proof Similarly as before, let us use the definition of Sobolev scalar product and Green's first identity:
+\[
+    \begin{split}
+        \langle  \psi, H_0  \psi \rangle_H & = - \int_{\R^2} \overline{\hat \psi (k)} (1+k^2)^2 \Delta \hat \psi (k) dk = \\
+        & = \int_{B_r} (1+k^2)^2 \langle \nabla \overline{\hat \psi (k)}, \nabla \hat \psi (k) \rangle dk
+    \end{split}
+\]
+the integral over the boundary is again zero for the same reason as in part a). Since the integrated is non negative, by definition of Euclidean product and the fact that $(1+k^2)^2\geq0$, then
+\[
+   \langle  \psi, H_0  \psi \rangle_H = \int_{B_r} (1+k^2)^2 \langle \nabla \overline{\hat \psi (k)}, \nabla \hat \psi (k) \rangle dk \geq 0
+\]
+
+c) Given $g \in C^\infty_{poly}(\R^d)$ and considering the Fourier multiplier $A_g = g (-i \nabla_x)$ on the domain $ D(A_g ) = \mathcal S (\R^d)$, we want to find the conditions such that this operator is symmetric and then find the conditions under which this operator is positively defined.
+\sol To prove that one operator is symmetric we need to show that
+\[
+    \langle A_g \psi, \varphi \rangle = \langle \psi, A_g \varphi \rangle 
+\]
+now by the definition of Fourier multiplier we know that 
+\[
+    \langle \F^{-1} \mathcal M_g \hat\psi, \varphi \rangle = \langle \psi, \F^{-1} \mathcal M_g \hat\varphi \rangle 
+\]
+since the Fourier transform is a unitary operator, it conserves the norm and therefore 
+\[
+    \langle \mathcal M_g \hat\psi, \hat\varphi \rangle = \langle \hat\psi, \mathcal M_g \hat\varphi \rangle 
+\]
+expressing the scalar product in the integral form and using $\mathcal M_g \hat\psi = \hat\psi g(k)$
+\[
+    \int_{\R^d}\overline{ g(k) \hat\psi(k)} \hat\varphi(k) dk =  \int_{\R^d}\overline{\hat\psi(k)} g(k)  \hat\varphi(k) dk
+\]
+The condition for this operator to be symmetric is that is must attains real values ($ g(k) = \overline{ g(k) }$).
+
+Now to have it semi-positively defined we want that
+\[
+    \langle \psi, A_g \psi \rangle \geq 0
+\]
+Using the definition of Fourier multiplier
+\[
+    \langle \psi, \F^{-1} \mathcal M_g \hat\psi \rangle \geq 0
+\]
+ since the Fourier transform is unitary:
+\[
+    \langle \hat\psi , \mathcal M_g \hat \psi \rangle \geq 0
+\]
+In the integral form:
+\[
+    \int_{\R^d} g(k) |\hat\psi (k)|^2 dx
+\]
+the condition for it to be semi-positive defined is that $g(k) \geq 0$.
+\section{Exercise}
+
+a) We want to show that $(AB)^* = B^* A^*$.
+\proof Let us consider the scalar product
+\[
+    \langle (AB)^* \psi, \varphi \rangle = \langle \psi, AB \varphi \rangle = \langle A^* \psi, B\varphi \rangle = \langle B^*A^* \psi, \varphi  \rangle
+\]
+which proves the statements.
+
+b) Let us now prove that $\| A \| = \|A^*\|$.
+\proof Let us start by considering
+\[
+    \| A^* \psi \|^2 = \langle  A^* \psi, A^* \psi\rangle  = \langle  \psi, A A^* \psi\rangle
+\]
+using Cauchy-Schwarz:
+\[
+    \langle  \psi, A A^* \psi\rangle \leq \|AA^* \psi\|\|\psi\|
+\]
+using the boundness of $A$, we have $\|A \psi\| \leq \|A\|\|\psi\|$ which allows us to say
+\[
+    \| A^* \psi \|^2 \leq \|A\| \|A^* \psi\|\|\psi\|
+\]
+And therefore 
+\[
+    \| A^* \psi \| \leq \|A\| \|\psi\|
+\]
+\[
+    \| A^* \| \leq \|A\|
+\]
+Now from the fact that $A = {(A^*)}^*$ the claim follows, since taking the adjoint in both parts leaves the direction of the inequality unchanged. Meaning $\| A^* \| = \| A \| $.
+
+c) We want to prove that the Hilbert space adjoint $A^* \in \mathcal L (\mathcal H)$ is uniquely characterized by the following relation:
+\[
+    \langle \psi, A \varphi \rangle = \langle A^* \psi, \varphi \rangle
+\]
+\proof 
+\[
+    \langle \psi, A \varphi \rangle = J \psi (A \varphi) = JJ^{-1} A' J \psi (\varphi) = J A^* \psi (\varphi) = \langle A^* \psi, \varphi \rangle 
+\]
+To prove the uniqueness let us assume that it is not unique and there exists $\eta$ such that
+\[
+    \langle \psi, A \varphi \rangle = \langle \eta, \varphi \rangle
+\]
+however we see that, since $\langle \psi, A \varphi \rangle = \langle A^* \psi, \varphi \rangle$ then $ \eta = A^* \psi$.
+
+d) We want to prove that an operator $A$ is self-adgoint ($A= A^*$ in $\mathcal L(\mathcal H)$) if, and only, if it is symmetric.
+\proof ($\Rightarrow$) Let us assume that A is self-adjoint then by part c) we get that 
+\[
+    \langle A^* \psi, \varphi \rangle = \langle \psi, A \varphi \rangle
+\]
+Using the definition $A= A^*$ we have the first part of the claim:
+\[
+    \langle A \psi, \varphi \rangle = \langle \psi, A \varphi \rangle
+\]
+($\Leftarrow$)
+\[
+    \langle \psi, A \varphi \rangle = \langle A \psi, \varphi \rangle = \langle  A^*\psi, \varphi \rangle
+\]
+by what we just proved in c) we therefore have that it must be self ajdoint.
+\section{Exercise}
+
+a) Let us consider $\mathcal H = \C^n$ with an Hermitian matrix $H$ ($H = \overline{H^T}$). We want to show that $U(t) = e^{-itH}$ is a SCOPUG, i.e. a strongly continuous one-parameter unitary group.
+\proof To show it is a SCOPUG we want to verify all their property:
+\begin{enumerate} [label = \roman*)]
+    \item The fact that it is a one-parameter function is trivial since it only depends from the free variable $t$.
+    \item To show that it is a group we need to prove that 
+    \[
+        U(t)U(s) = U(t+s)
+    \]
+    that is
+    \[
+        \begin{split}
+            U(t)U(s) &= e^{-itH}e^{-isH} = \sum_{k= 0}^\infty \frac{1}{k!} {(-itH)}^k \sum_{\ell= 0}^\infty \frac{1}{\ell!} {(-itH)}^\ell = \\
+            & = \sum_{k, \ell = 0}^\infty \frac{(-iH)^{k+\ell}}{k!\ell!} t^k s^l
+        \end{split}
+    \]
+    let now $m = k + \ell$
+    \[
+        \begin{split}
+            = \sum_{m=0}^\infty \sum_{\ell}^\infty \frac{{(-iH)}^m t^{m-\ell} s^\ell}{(m-\ell)! \ell!} = \sum_{m=0}^\infty \frac{{(-iH)}^m}{m!} \sum_{\ell}^\infty \frac{ m!}{(m-\ell)! \ell!}t^{m-\ell} s^\ell
+        \end{split}
+    \]
+    which by the binomial theorem is
+    \[
+        \sum_{m=0}^\infty \frac{(-iH(t+s))^m}{m!} = e^{-iH(t+s)}
+    \]
+    showing it is a group
+    \item To show it is unitary we want use the result which tells us that an operator is unitary iff $U^* = U^{-1}$ holds. Firs we find the inverse of an exponential matrix, which, by definition, is the operator such that ${(e^{-itH})}^-1 e^{-iHt} = \1$. let us choose it to be $e^{itH}$, we see that from the group property
+    \[
+        e^{itH} e^{-iHt} = e^{iH(t-t))} = \1
+    \]
+    Now we want to find the adjoint of the exponential matrix which translates in finding the complex conjugate of a matrix
+    \[
+        \overline{(e^{-itH})^T} = \overline{\left(\1 - itH + \frac{(-itH)^2}{2!} + \cdots \right)^T} = \overline \1 + \overline{(-itH)^T} + \cdots
+    \]
+    but by definition of Hermitian
+    \[
+        = \1 + itH + \cdots = e^{itH}
+    \]
+    which proves the claim.
+    \item We finally want to show that it is strongly continuous meaning that
+    \[
+        e^{-itH} \to e^{-it_0 H} \iff \| ( e^{-itH} - e^{-it_0 H} )z \|_{\C} \to 0
+    \]
+    for all $z \in \C$ and with $t_0 \in \R$. Let us take the limit:
+    \[
+        \lim_{t \to t_0} \| ( e^{-itH} - e^{-it_0 H} )z \|_{\C}^2 = \lim_{t \to t_0} | ( e^{-itH} - e^{-it_0 H} )|^2 |z|^2 = 0
+    \]
+\end{enumerate}
+Showing that it is indeed a SCOPUG.
+
+b) We want to show that $H^* = H$ using what we found in exercise 3.
+\proof We know that 
+\[
+    \langle \varphi, \sum_k \frac{1}{k!} (-itH)^k \psi \rangle = \langle \left( \sum_k \frac{1}{k!} (-itH)^k \right)^*\varphi, \psi \rangle
+\]
+Using the sesqlinearity of the scalar product
+\[
+    \langle \varphi, \1 \psi \rangle + \langle \varphi, -itH \psi \rangle + \cdots = \langle \1 \varphi, \psi \rangle + \langle \overline{(-itH)^T}\varphi, \psi \rangle + \cdots
+\]
+we have that 
+\[
+    -it\langle \varphi, H \psi \rangle =\langle \overline it H^T\varphi, \psi \rangle
+\]
+\[
+    -it\langle \varphi, H \psi \rangle = -it\langle \overline H^T\varphi, \psi \rangle
+\]
+\[
+    \langle \varphi, H \psi \rangle = \langle \overline H^T\varphi, \psi \rangle = \langle  H \varphi, \psi \rangle
+\]
+but we know that $\langle \psi, A \varphi \rangle = \langle A^* \psi, \varphi \rangle$. Then $H = H^*$.
+
+c) We want to show that $T_t$ is a SCOPUG  with generator $(-i\nabla_x, H^1(\R))$.
+\proof To show that we need to show that satisfies the properties of a SCOPUG:
+\begin{enumerate} [label = \roman*)]
+    \item Since $T_t \psi (x) \eqdef \psi (x-t)$ we can say that it has as only parameter $t$, meaning it is one-parameter.
+    \item We assume it is strongly continuous from measure theory.
+    \item To show it is unitary we want to show that it preserves the norm, in particular 
+    \[
+        \| T_t \psi(x)\| = \bigg\| \int_\R e^{-ikt} e^{ikx} \hat\psi(k) dk \bigg\| = \bigg\| \int_\R e^{ik(x-t)} \hat\psi(k) dk \bigg\|
+    \]
+    using a change of variable such as $y = x-t$ the norm remain the same. Proving it is unitary.
+    \item Similarly for the group property
+    \[
+       (T_tT_s) \psi(x) = \int_\R e^{-ikt} e^{-iks} e^{ikx} \hat\psi(k) dk = \int_\R e^{-ik(t+s)} e^{ikx} \hat\psi(k) dk = T_{t+s}
+    \]
+\end{enumerate}
+which is enough to prove it is a SCOPUG.
+\section{Exercise}
+Let us consider the indicator function $\chi$ for the two measurable and bounded sets $A, B \subset \R^d$. Given the operator
+\[
+    (Q_{A,B} \psi) (x) = \chi_B(x) \langle \chi_A, \psi \rangle
+\]
+
+a) we want to show that this is a bounded operator.
+\proof To do so, we want to see that 
+\[
+    \| Q_{A,B} \psi \|_2 \leq C \| \psi\|_2
+\]
+for $\psi \in L^2(\R^d)$. In this norm we have that
+\[
+    \| Q_{A,B} \psi \| = \int_{ \R^d} | \chi_B \langle \chi_A, \psi \rangle |^2 dx = \int_B | \langle \chi_A, \psi \rangle |^2 dx
+\]
+Using Cauchy Schwarz
+\[
+    \int_B | \langle \chi_A, \psi \rangle |^2 dx \leq \int_B \| \chi_A \|^2 \| \psi \|^2 dx \leq \mu(A) \mu(B) \| \psi \|_2
+\]
+where $\mu(\cdot)$ is the measure of the set, since both sets are measurable and bounded those a measures are just constants $C= \mu(A) \mu(B)$. Proving the claim.
+\[
+    \| Q_{A,B} \psi \|_2 \leq C \| \psi\|_2.
+\]
+
+c) We now want to prove that such an operator is not strongly continuous.
+\proof To do that let us assume it is and show that this brings us to an absurd. The definition of strongly continuous tells us that given a sequence $\{ \psi_n \} \subset L^2(\R^d)$ if 
+\[
+    \| \psi_n - \psi \|_2 \to 0
+\]
+then
+\[
+    \| Q_{A,B} (\psi_n - \psi)\|_2 \to 0
+\]
+We consider 
+\[
+    \| Q_{A,B} (\psi_n -\psi) \| = \int_{ \R^d} | \chi_B \langle \chi_A, \psi_n - \psi \rangle |^2 dx
+\]
+\end{document}

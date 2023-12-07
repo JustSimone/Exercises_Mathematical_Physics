@@ -1,0 +1,251 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{dsfont}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage[shortlabels]{enumitem}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+\newcommand{\ondv}[3]{\frac{d^{#1} #2}{d{#3}^{#1}}}
+\newcommand{\F}{\mathcal F}
+
+\title{Exercises - Mathematical quantum theory}
+\author{Simone Coli - 6771371}
+\date{Sheet 4}
+\begin{document}
+\maketitle
+\section{Exercise}
+a) \ex{To prove that $T_a \in \mathcal{S'}$ we need to prove that it is both continuous and linear.}
+
+\proof Let us start by proving linearity. Consider two functions $f, g \in \mathcal{S}$ and two complex constants $\alpha, \beta$. Then 
+\[
+    T_a (\alpha f + \beta g)\int_{\R} a(x) (\alpha f + \beta g) dx = \alpha \int_\R a(x) f(x) dx + \beta \int_\R a(x) g(x) dx
+\]
+by linearity of the integral.
+
+To prove continuity we want to show that given a sequence of functions $\{ f_n \}_{n > 0} \subset \mathcal{S}$ converging to $f \in \mathcal{S}$ in the Schwartz norm
+\[
+    || f_n - f ||_\mathcal{S} \to 0 \text{ as } n \to \infty
+\]
+then
+\[
+    ||T_a f_n - T_a f ||_\C \to 0 \text{ as } n \to \infty
+\]
+Let us therefore consider:
+\[
+\begin{split}
+     T_a(f_n -f ) &= \int_\R |x| (f_n -f)(x) dx \leq \int_\R |x||f_n -f| dx = \\
+    &=  \int_\R |x(f_n -f)| dx \leq \int_\R \sup_{x \in \R}|x(f_n -f)| dx
+\end{split}
+\]
+which is just the definition of Schwartz norm for $\alpha = 1, \beta = 0$. The norm in $\C$ of $T_a (f_n -f)$ will be 
+\[
+    ||T_a(f_n-f)||_\C = | T_a (f_n - f)|
+\]
+since it only admits real values. Taking the limit for $n \to \infty$ of 
+\[
+    \lim_{n \to \infty} \left|\int_\R \sup_{x \in \R}|x(f_n -f)| dx \right|
+\]
+by dominant convergence we can bring the limit inside the integral obtaining that the integrated goes to zero as $n \to \infity$. From continuity of integrals $||T_a(f_n-f)||_\C$ goes to zero at that limit. Proving the continuity of the operator
+\\
+b) \ex{Find $\ondv{n}{T_a}{x}(f)$ for all $n \in \mathbb N$}
+
+\sol From its definition we know that
+\[
+    \odv{T_a}{x}(f) = \int_\R -1 |x| (\partial_x ^n f) d(x)x =  \int_{-\infty}^0 x (\partial_x f) dx - \int_0 ^\infty x (\partial_x f) dx
+\]
+integrating by parts we get that $ \partial_x T_a (f)= - \text{sign}{f}$. Whose derivative is just a delta function, in particular:
+\[
+    \partial_x (-\text{sign} (f)) = 2 \delta(x)
+\]
+And so on,
+\[
+    (\partial_x^m \delta) (f) = \delta ((-1)^m \partial_x^m) = (-1)^m \partial ^m_x f (0)
+\]
+for $m >2$.
+\\
+c) \ex{We want to show that there is no polynomial function $g_n(x)$ such that $\frac{d^n T_a}{dx^n} (x) = T_{g_n (x)}$}.
+
+\proof This fact arises directly from the calculation of the distribution derivative of $T_a$ which becomes first the sign function and then a delta function both of which, although can be approximated as functions, are not real functions therefore is not possible to find a continuous polynomial function such that $\frac{d^n}{dx^n}T_a = T_{g_n}$
+
+\section{Exercise}
+a) \ex{We want to show that there exists a distributional solution of the free Schrödinger equation given a boundary condition of the form $\psi_0 = T_{\chi_{[-1, 1]}/\sqrt 2}$}.
+
+\proof Let us consider the free Schrödinger equation with $f \in \mathcal S$ a generic Schwartz function:
+\[
+    i \partial_t (\psi_t (f)) = i \partial_t \left( (\F')^{-1}\matcal M_{e^{-ik^2 t / 2}} \F' \psi_0 \right) (f) 
+\]
+using the definition of dual operators ($\F'$ is dual to $\F$)
+\[
+     i \partial_t \left( (\F')^{-1}\matcal M_{e^{-ik^2 t / 2}} \F' \psi_0 \right) (f) =  i \partial_t \psi_0\left( \F\matcal M_{e^{-ik^2 t / 2}} \F^{-1} f \right)
+\]
+Bringing the derivative inside the parenthesis, using also continuity of $\psi_0$
+\[
+    \begin{split}
+        \psi_0\left( i \partial_t \F\matcal M_{e^{-ik^2 t / 2}} \F^{-1} f \right) &= \psi_0\left(\F\matcal e^{-ik^2 t / 2} \F^{-1} (-\frac{\Delta}{2}f) \right) = \\
+        & = \left(\F\matcal e^{-ik^2 t / 2} \F^{-1}\psi_0  \right) (-\frac{\Delta}{2}f)
+    \end{split}
+\]
+again using the definition of dual operator the result arises:
+\[
+    \begin{split}
+        \left( \F \matcal M_{e^{-ik^2 t / 2}} \F^{-1}\psi_0  \right) (-\frac{\Delta}{2}f) &= \left( -\frac{\Delta}{2} (\F')^{-1} \matcal M_{e^{-ik^2 t / 2}} \F' \psi_0  \right) (f) = \\
+        & = \left( -\frac{\Delta}{2} \psi_t \right) (f)
+    \end{split}
+\]
+Given a Schwartz function, there exists a solution of the free Schrödinger equation of the form:
+\[
+    \psi_t = \F^{-1} \matcal M_{e^{-ik^2 t / 2}} \F \psi_0
+\]
+Since in this case the boundary condition is in $\masthcal S$ then the solution exists.
+
+In case the case of $\psi_0 = T_{\chi_{[-1, 1]}/\sqrt 2}$
+\[
+     \psi_t = \F^{-1} \matcal M_{e^{-ik^2 t / 2}} \F T_{\chi_{[-1, 1]}/\sqrt 2}(f) = \int_{-1}^1 \frac{1}{\sqrt 2} \F^{-1} (e^{-\frac{ik^2t}{2}} \hat f ) dx
+\]
+\\
+b) \ex{ Show that the distribution solution $\psi_t$ can be identified with a function $\tilde\psi_t \in L^2$}
+
+\proof From the extension theorem we know that if we have a bounded linear operator $ L$ from a subset of the normed space $X$, $Z$ to a Banach space $Y$ then it is possible to find an extension of it $\tilde L$, that is a map such that $\tilde L z = L z, \forall z \in Z$. 
+
+In this case the dual Schwartz space is a normed space while $L^2$ is a Banach space. From a corollary of this theorem we also know that the Fourier transform are unitary operator as well as the Multiplier defined above. This means that it is possible to define an extension of $\psi_t$, $\tilde \psi_t$ to the Banach space $L^2$ \\
+c) After a long time, the wave function of the particle spreads out this can be interpreted as say that the probability of finding a particle a specific place goes to zero, meaning that after a certain amount of time the particle can be found everywhere with the same probability.
+\section{Exercise}
+a)
+\begin{em}
+    Let us consider the series:
+    \[
+        \sum_{n=0}^\infty \frac{(-i t H)^n}{n!} 
+    \]
+    we want to show that it converges.
+\end{em}
+
+\proof Since we assumed $H$ to be hermitian, by the spectral theorem for hermitian matrices it is diagonalizable through a orthogonal matrix $P$ so that $D = P^{-1} H P$ with $P^{-1} = P^T$. We have therefore that
+\[
+    H^2 = (P D P^T)^2 = P D P^TP D P^T = P D^2 P^T
+\]
+since $PP^T = \mathds{1}$. Iterating this process we get that $H^n = P D^n P^T$.
+\[
+    P\left(\sum_{n=0}^\infty \frac{(-i t D)^n}{n!}\right)P^T
+\]
+since $D$ is in the diagonal form we can consider $d$ series with $\lambda_i$ the eigenvalues of the matrix ($i = 1, \dots, d$)
+\[
+    \sum_{n=0}^\infty \frac{(-i t \lambda_i)^n}{n!}
+\]
+Each one of this series is the exponential series which converges to $e^{-it\lambda_i}$ from analysis.
+\\
+b)\ex{Let us consider the operator $U(t) = e^{-itH}$, we want to show that it is a SCOPUG}.
+
+\proof To obtain the thesis we want to show that $U(t)$ satisfies the properties of a SCOPUG.
+\begin{enumerate} [label = \roman*)]
+    \item Let us consider an arbitrary $z \in \C$
+    \[
+        ||e^{.itH}z|| = \sqrt{\int |z|^2 \left| e^{-itH} e^{itH} \right|^2 dz} = \sqrt{\int |z|^2 dz} = ||z||
+    \]
+    meaning that the operator conserves the norm and therefore is unitary.
+    \item We now want to show that it is continuous, to do so we want to show that $||e^{-itH}z - e^{-it_0H}z|| \to 0$ if, and only if, $e^{-itH} \to e^{-it_0H}z$ where $t_0 \in \R$. Let us therefore consider
+    \[
+        \lim_{t \to t_0}||(e^{-itH} - e^{-it_0H})z||  = \lim_{t \to t_0} \sqrt{\int |e^{-itH} e^{-it_0H}|^2 |z|^2 dz }
+    \]
+    using dominant convergence, since $|e^{-itH} -e^{-it_0H}|^2<4$ we can bring the limit inside the integral.
+    \[
+        \sqrt{\int \lim_{t \to t_0} |e^{-itH} e^{-it_0H}|^2 |z|^2 dz } = 0
+    \]
+    showing it is strongly continuous.
+    \item The fact that it is a one parameter function arises directly from the definition so that the parameter is $t$.
+    \item If we set $t = 0$  we get the identity element of the group. Moreover
+    \[
+        U(t) U(s) =  e^{-itH} e^{-isH} = e^{-i(t+s)H} = U(t+s)
+    \]
+\end{enumerate}
+Which proves the thesis.\\
+c) \ex{We want to show that for all $\psi \in \C^d$, $i \partial_t U(t) \psi_0 = H U(t) \psi_0$}.
+
+\proof 
+\[
+     i \partial_t  U(t) = i \partial_t e^{-itH} = i(-iH)e^{-itH} = H U(t)
+\]
+\\
+d) \ex{We want to show that there exists a a sequence of $\tau_n$ such that for any $\epsilon > 0$ we have that}
+\[
+    ||\psi_{\tau_n} - \psi_0 || < \epsilon
+\]
+
+\proof Let us start considering two state of the system one at time $T$ and the other at time $0$, we want to show that there is some kind of sequence such that this states are very close to one another. Given the evolution of the states using the unitary operatore in the above exercise
+\[
+    || \psi_T - \psi_0||^2 = \sum_{n=0}^\infty |c_n|^2 |e^{-i\lambda_n T} - 1|^2
+\]
+such series can be truncate at some value of $n = N$ since 
+\[
+    \sum_{n=0}^\infty |c_n|^2 |e^{-i\lambda_n T} - 1|^2 \leq 4 \sum_{n = 0}^\infty |cn|^2
+\]
+then we can construct a sequence of $T$, let us call it $\tau_n$, such that there are a series of integers $k_n$ with the property that chosen an arbitrary $\delta>$
+\[
+    |\lambda_n \tau_n - 2\pi k_n|<\delta
+\]
+This choice of $\delta$ we have $e^{-i\lambda_n \tau_n} -1 < \delta^2$ and therefore this bounds our series.
+\[
+    \sum_{n=0}^N |c_n|^2 |e^{-i\lambda_n T}- 1|^2 < \delta^2 \sum_{n=0}^N |c_n|^2 < \delta^2
+\]
+This meas that for an arbitrary choice of $\delta^2$ which we define equal to $\espilon$, there exists a sequence $\tau_n$, which we constructed such that the two states are close to each other after a particular amount of time.
+\section{Exercise}
+a)
+\begin{em}
+Let us consider the $\ell^2$ set of bounded series. We want to prove that 
+\[
+||(a_n)_{n\geq}1||_{\ell^2} = \sqrt{\sum_n |a_n|^2}
+\]
+\end{em}
+
+\proof To show this, we just have to show that this map satisfies the norm property.
+\begin{enumerate} [label = \roman*)]
+    \item $||\cdot || \geq 0$ and $||a_n|| = 0$ if, and only if, $a_n = 0$. This is quite trivial from the definition since we are taking the positive square root of a positive number. Moreover if $a_n = 0$, then the sum will add up to zero. Vice versa if the sum is equal to zero, since the element of the series are non negative, then the only way the series vanishes is that the elements of the sum are all zero.
+    \item let us take an arbitrary $a_n \in \ell^2$ and an number $\lambda \in \C$ then
+    \[
+        ||\lambda a_n||_{\ell^2} = \sqrt{\sum_n|\lambda a_n|^2} =  \sqrt{ |\lambda|^2 \sum_n |a_n|^2} = |\lambda|\sqrt{ \sum_n |a_n|^2} = |\lambda| \cdot||a_n||_{\ell^2}
+    \]
+    using the property of summations and absolute value.
+    \item For the triangular inequality let us consider two elements of the space $(a_n)_n, (b_n)_n \in \ell^2$. Then:
+    \[
+        \begin{split}
+            ||a_n +b_n || &= \sqrt{\sum_n |a_n +b_n |^2}
+        \end{split}
+    \]
+    squaring it,
+    \[
+        \begin{split}
+            ||a_n +b_n ||^2 &= \sum_n |a_n +b_n |^2 = \sum_n |a_n|^2 + \sum_n |b_n|^2 + 2 \sum_n |a_n||b_n|
+        \end{split}
+    \]
+    by the Cauchy-Schwarz inequality we have that:
+    \[
+        \sum_n |a_n||b_n| \leq \left( \sum_n |a_n|^2 \right)^{1/2} \left( \sum_n |b_n|^2 \right)^{1/2}
+    \]
+    then
+    \[
+        \begin{split}
+            ||a_n +b_n ||^2 &\leq \sum_n |a_n|^2 + \sum_n |b_n|^2 + 2 \left( \sum_n |a_n|^2 \right)^{1/2} \left( \sum_n |b_n|^2 \right)^{1/2} = \\
+            & = \left( \left( \sum_n |a_n|^2 \right)^{1/2} + \left( \sum_n |b_n|^2 \right)^{1/2} \right)^2 = \left( ||a_n||_{\ell^2} + ||b_n||_{\ell^2}  \right)^2
+        \end{split}
+    \]
+    which just proves the triangular inequality.
+    \[
+        ||a_n +b_n || \leq ||a_n||_{\ell^2} + ||b_n||_{\ell^2} 
+    \]
+\end{enumerate}
+\\
+b) \ex{Given a set $X$ as the one in the exercise sheet and an operator $\mathcal N$ such that $\mathcal{N} a_n = n a_n$ we want to show that this is unbounded between the two normed space defined by X equipped the $\ell^2$ norm and $\ell^2$ itself with its norm.}
+
+\proof Let us consider the basis of $X$, that is the sequence $e_n$, such that it is null for all $n \neq m$ and equal to $1$ if $n = m$.  This way we have that the $||\mathcal N e_n||_{\ell^2} = n$ while $||e_n||_{\ell^2} = 1$ meaning that the $\mathcal N$ is unbounded.
+\end{document}

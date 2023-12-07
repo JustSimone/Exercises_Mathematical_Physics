@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{dsfont}
+\usepackage{amsfonts}
+
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Exercises of \\Mathematical Quantum Theory}
+\author{Simone Coli - 6771371}
+\date{Sheet 3}
+\begin{document}
+\maketitle
+\section{Exercise}
+Let us consider the function $\psi_0 \in \mathcal S (\mathbb R^d)$ and a ball $B_r(0) $ with $r>0$. We want to compute for $\alpha > 0$
+\[
+    \lim_{t \to \infty} \mathbb P_{\psi_t}(q \in t^{\alpha} B_r(x_0))
+\]
+where $q$ is the quantum-position, distinguishing the cases for $\alpha = 1$. $\alpha < 1$, and $\alpha > 1$. In general we know from a lemma that a function $\psi_t$ can be decomposed into its main part and a remainder $\psi_t (x) = \phi_t (x) + r_t (x) $ where, $||r_t||_2 \to 0$ for $t\to \infty$ while
+\[
+    \phi_t (x)= \widehat\psi_0\left(\frac{x}{t}\right) e^{\frac{ix^2}{2t}} (it)^{-d/2}.
+\]
+From these considerations we find that the original limit of the probability can also be expressed in the form:
+\[
+    \begin{split}
+        \lim_{t \to \infty} \mathbb P_{\psi_t}(q \in t^\aplha B_r(x_0)) & = \langle \phi_t, \mathds{1}_{t^\alpha B} \phi_t \rangle =\\
+        & = \int_{t^\alpha B} t^{-d} \left| \widehat \psi_t \left( \frac{x}{t}\right) \right|^2 dx
+    \end{split}
+\]
+Let us consider the different cases separately.
+\begin{itemize}[label = --]
+    \item $\alpha = 1$
+    \[
+        \lim_{t \to \infty}\int_{tB} t^{-d} \left|\widehat\psi_t\left(\frac{x}{t}\right) \right|^2 dx 
+    \]
+    adopting a change of variables $y = x/t$ we get the new integral
+    \[
+        \lim_{t \to \infty} \int_{B} \left|\widehat\psi_t(y) \right|^2 dy = \mathbb P_{\psi_t}(p \in B_r(x_0))
+    \]
+    where this is the definition of the probability of finding the momentum in a ball B.
+    \item $\alpha < 1$
+    \[
+        \lim_{t \to \infty} \int_{t^\alpha B} t^{-d} \left|\widehat\psi_t\left(\frac{x}{t}\right) \right|^2 dx,
+    \]
+    again adopting a change of variable $y = x/t$ the integral becomes
+    \[
+        \lim_{t \to \infty} \int_{t^{\alpha -1} B}  \left|\widehat\psi_t (y) \right|^2 dy
+    \]
+    This integral is smaller than the measure of the space we are integrating over times the supremum of the integrated.
+    \[
+        \begin{split}
+            \lim_{t \to \infty} \int_{t^{\alpha -1} B}  \left|\widehat\psi_t (y) \right|^2 dy &\leq \lim_{t \to \infty} \mu(t^{\alpha -1}B)  \sup\left|\widehat\psi_t (y) \right|^2 =\\
+            & =  \lim_{t \to \infty} \mu(t^{\alpha -1}B) \sup \left| \int_{\mathbb R^d} e^{-iky} \psi_t(k)dk \right|^2 \leq\\
+            & \leq \lim_{t \to \infty} \mu(t^{\alpha -1}B) \sup \int_{\mathbb R^d} \left| e^{-iky} \psi_t(k) \right|^2 dk =\\
+            &= \lim_{t \to \infty} \mu(t^{\alpha -1}B) \sup \int_{\mathbb R^d} \left| \psi_t(k) \right|^2 dk = 0
+        \end{split}
+    \]
+    Therefore for $\alpha <1$ the limit of the probability to find the position in the ball goes to zero as time grows.
+    \item $\alpha > 1$
+    \[
+        \lim_{t \to \infty} \int_{t^\alpha B} t^{-d} \left|\widehat\psi_t\left(\frac{x}{t}\right) \right|^2 dx,
+    \]
+    If we adopt a change of variables such that $y = x/t$ we get that the integral becomes:
+    \[
+        \lim_{t \to \infty} \int_{t^{\alpha-1} B} \left|\widehat\psi_t (y) \right|^2 dy,
+    \]
+    where $\alpha -1>0$. as t goes to infinity the dimension of the ball become larger and larger as to cover all $\mathbb R^d$, so that the integral becomes
+    \[
+       \int_{\mathbb R^d} \left|\widehat\psi_t (y) \right|^2 dy,
+    \]
+    which by the definition of wave function is equal to 1.
+\end{itemize}
+
+\section{Exercise}
+a) Let us consider two functions $f, g \in \mathcal{S}(\mathbb{R}^d)$ and let us define the convolution between those two as
+\[
+    (f*g)(x) = \int_{\mathbb{R}} f(x-y)g(y)dy.
+\]
+Then it is possible to prove that such an operator is commutative with respect two the two functions. For the sake of simplicity let us consider the 1-dimensional case.
+\[
+        (f*g)(x) = \int_{-\infty}^{\infty} f(x-y)g(y)dy =.
+\]
+Using a change of variables $z = x-y$, we have that $dy= -dz$ and therefore,
+\[
+    =  \int_{x+\infty}^{x-\infty} f(z)g(x-z)(-dz) = .
+\]
+fixing $x$ the extreme of integration remain unchanged by the addition of a finite value.
+\[
+    \begin{split}
+        &=  \int_{\infty}^{-\infty} f(z)g(x-z)(-dz) =\\
+        &= \int_{-\infty}^{\infty} f(z)g(x-z)(dz) =,
+    \end{split}
+\]
+where we inverted the extremes by inverting the sign of the integral. Obtaining the thesis:
+\[
+    = \int_{-\infty}^{+\infty} f(z)g(x-z)(dz) = (g*f)(x).
+\]
+
+b) Now taking the Fourier transform of the convolution of two functions it is possible to show that it is equal to the convolution of the Fourier transform of those two function.
+\[
+    (\widehat{f*g}) = (\hat{f}* \hat{g}).
+\]
+To do so let us compute the Fourier transform of the convolution of the two functions. Using the definition of the two operators:
+\[
+    (\widehat{f*g}) (k) = (2\pi)^{-d/2}\int_{\mathbb R^d} e^{-ikx}\left( \int_{\mathbb R ^ d} f(x-y)g(y) dy\right) dx,
+\]
+let us multiply and divide by $e^{iky}$ inside the convolution integral:
+\[
+   \begin{split}
+        &= (2\pi)^{-d/2}\int_{\mathbb R^d} e^{-ikx}\left( \int_{\mathbb R ^ d} f(x-y) e^{iky} e^{-iky} g(y) dy\right) dx\\
+        &= (2\pi)^{-d/2} \int_{\mathbb R^d} \left( \int_{\mathbb R ^ d} e^{-ik(x-y)} f(x-y)  e^{-iky} g(y) dy\right) dx.
+   \end{split}
+\]
+Since the two functions are integrable it is possible to apply Fubini's theorem and swap the order of integration:
+\[
+    =(2\pi)^{-d/2} \int_{\mathbb R^d} \left( \int_{\mathbb R ^ d} e^{-ik(x-y)} f(x-y)  e^{-iky} g(y) dx\right) dy,
+\]
+because $ e^{-iky} g(y)$ do not depend on $x$ it is possible to bring them out of the first integral:
+\[
+   = (2\pi)^{-d/2} \int_{\mathbb R^d} e^{-iky} g(y) \left( \int_{\mathbb R ^ d} e^{-ik(x-y)} f(x-y)   dx\right) dy.
+\]
+The integral in the parenthesis is equal to the Fourier transformation of $f$, which does not depend on $x$, while the other integral is the Fourier transform of $g$ up to a normalization constant factor:
+\[
+    = (2\pi)^{d/2}(\hat f * \hat g)(k).
+\]
+\section{Exercise}
+a) Let us consider the one dimensional Schrödinger equation:
+\[
+    \partial_t \psi_t(x) = \partial_x \psi_t(x)
+\]
+If we want to find a solution $\psi_t(x)$ that is constant in time, we imply that it must be a solution for the Laplace equation (since the time derivative cancels out) $\Delta \psi_t(x) = 0$. In the one dimensional case the solution of this equation is just a linear function: $\psi_t(x) = \psi_0(x) = ax+b$ where $a, b \in mathbb C$. Imposing the periodic boundary condition $\psi_t(0) = \psi_t(L)$ we get that
+\[
+     a0 + b = aL +b 
+\]
+Meaning $a= 0$ and $\psi_t (x) = b$. Normalizing the solution means imposing:
+\[
+    \int_0^L |b|^2 dx = 1.
+\]
+Therefore $|b| = 1/\sqrt{L}$ since we are in a complex space we know that the value of the absolute value of a complex constant is the same up to a phase, meaning that the solution we are looking for is $\psi_t (x) = L^{-1/2} e^{i \phi}$, meaning that there are infinite different possible solution other than the one with $\phi = 0$, i.e. $\psi_t(x) = L^{-1/2}$
+
+b) Considering a solution of the Schrödinger equation with the form $psi_t (x) = f(t)g(x)$ it is possible to find the general solution using the separation of variables. Inserting this solution we get that 
+\[
+    i\dot f(t)g(x)= - \frac{1}{2} \ddot g(x)f(t),
+\]
+\[
+    i \frac{\dot f (t)}{f(t)} = -\frac{1}{2}\frac{\ddot g(x)}{g(x)} = \lambda,
+\]
+where $\lambda$ is a constant since the two sides of the equation have different dependency. We have to study two different ordinary differential equations:
+\[
+    \odv{f}{t} =-i f(t) \lambda,
+\]
+\[
+    \frac{d^2 g}{dx^2} = - 2 g(x) \lambda.
+\]
+Both of this equations have known solutions, in particular $f(t) = B e^{-i\lambda t}$ and $g(x) = A \cos{(\omega x + \phi)}$ where $\omega = \sqrt{2 \lambda}$. the general solution has therefore the form of $\psi_t (x) = Be^{-i\lambda t}A \cos{(\omega x + \phi)}$. Imposing the boundary conditions of $\psi_t (0) = \psi_t(L) = 0$ for the Dirichlet problem, we get that $\phi = 0$ and that $\sqrt{2\lamnda} L = n \pi$, meaning $\omega_n = n\pi/L$ and $\lambda_n = (n^2 \pi^2/2L^2)$ so that the final solution will be:
+\[
+     \psi_t = c \sin{\left(\frac{n\pi}{L}x\right)} e^{-i\frac{n^2\pi^2}{2L^2}t}.
+\]
+Because of the imaginary component we have that this solution is periodic in time. The period is given by finding for which value of T,
+\[
+    \cos{\left(\frac{n^2\pi^2}{2L^2}t\right)} = \cos{\left(\frac{n^2\pi^2}{2L^2}(t+T)\right)},
+\]
+meaning that $\frac{n^2\pi^2}{2L^2}T = 2 \pi$, which implies $T = 4L^2/n^2 \pi$.
+
+c) Given a function $\psi_t(x) = c + f(t)g(x)$ is basically the same as for the previous case, with the difference that the ordinary differential equation that we have to solve do not contain the imaginary component, since the equation itself does not contain an imaginary component. Le us consider the heat equation to be of the form:
+\[
+    \partial_t \psi_t(x) = \frac{1}{2} \Delta \psi_t (x).
+\]
+Then from the shape for the solution we require we can reduce it to finding the solution of the following ordinary differential equations:
+\[
+    \odv{f}{t} =- \kappa f(t) ,
+\]
+\[
+    \frac{d^2 g}{dx^2} = -2 \kappa g(x) .
+\]
+of which we already know the solutions: $f(t) = a e^{-\kappa t}$, $g(x) = b \cos{(\omega x + \phi)}$ with $\omega = \sqrt{2\kappa}$. the solution takes therefore the form of:
+\[
+    \psi_t(x) = c e^{-\kappat} \cos{(\omega x + \phi)}.
+\]
+Imposing the boundary conditions  $\psi_t (0) = \psi_t(L) = c$ we get that, using the same strategy we used in the case of the Dirichlet problem for the Schrödinger equation:
+\[
+    \psi_t(x) = c + c' \sin{\left(\frac{n\pi}{L} x\right)} e^{-\frac{n^2\pi^2}{2L^2}}
+\]
+which for $t \to \infty$ tens to $c$ since $e^{-\kappa t} \to 0$.
+\section{Exercise}
+a) Let $\mathcal H$ be an Hilbert space on which it is defined a norm of form $||\phi|| = \langle \phi, \phi \rangle^{1/2}$, then expanding the following expression we get that it is equal to the scalar product between $\psi, \phi$ in this space.
+\[
+    ||\psi + \phi||^2 - ||\psi - \phi||^2 - i||\psi + i\phi||^2 + i||\psi - i\phi||^2.
+\]
+We have that making explicit the elements of this sum, through the definition of the norm, we have that:
+\[
+    ||\psi + \phi||^2 = \langle \psi +\phi, \psi +\phi\rangle = \langle \psi, \psi \rangle + \langle \phi,\phi \rangle + \langle \psi, \phi \rangle + \langle \phi , \psi \rangle,
+\]
+using the linearity of the scalar product. The other components will be:
+\[
+    ||\psi - \phi||^2 = \langle \psi -\phi, \psi -\phi\rangle = \langle \psi, \psi \rangle + \langle \phi,\phi \rangle - \langle \psi, \phi \rangle - \langle \phi , \psi \rangle,
+\]
+\[
+    i||\psi + i\phi||^2 = i\langle \psi + i\phi, \psi +i \phi\rangle = i\langle \psi, \psi \rangle + i\langle i\phi,i\phi \rangle + i\langle \psi, i\phi \rangle + i\langle i\phi , \psi \rangle =
+\]
+Using the sesqlinearity of the scalar product we get
+\[
+    = i\langle \psi, \psi \rangle + i\langle \phi,\phi \rangle - \langle \psi, \phi \rangle + \langle \phi , \psi \rangle.
+\]
+Similarly for the last element of the sum we get
+\[
+   i||\psi - i\phi||^2 = i\langle \psi, \psi \rangle + i\langle \phi,\phi \rangle + \langle \psi, \phi \rangle - \langle \phi , \psi \rangle,
+\]
+plugging these results into the original expression we have:
+\[
+    \begin{split}
+        ||\psi + \phi||^2 - &||\psi - \phi||^2 - i||\psi + i\phi||^2 + i||\psi - i\phi||^2 = \\
+        &= \langle \psi, \psi \rangle + \langle \phi,\phi \rangle + \langle \psi, \phi \rangle + \langle \phi , \psi \rangle -\\
+        &-\langle \psi, \psi \rangle - \langle \phi,\phi \rangle + \langle \psi, \phi \rangle + \langle \phi , \psi \rangle -\\
+        & -i\langle \psi, \psi \rangle - i\langle \phi,\phi \rangle + \langle \psi, \phi \rangle - \langle \phi , \psi \rangle+\\
+        &+ i\langle \psi, \psi \rangle + i\langle \phi,\phi \rangle + \langle \psi, \phi \rangle - \langle \phi , \psi \rangle = 4 \langle \psi, \phi \rangle.
+    \end{split}
+\]
+From which it follows that
+\[
+    \langle \psi, \phi \rangle = \frac{1}{4} ( ||\psi + \phi||^2 - ||\psi - \phi||^2 - i||\psi + i\phi||^2 + i||\psi - i\phi||^2).
+\]
+
+b) If $T: \mathcal H \to \mathcal H$ is a isometric linear transformation it preserve the norm, i.e. $||T \psi|| = ||\psi||$, meaning that
+\[
+     \begin{split}
+         \langle T\psi, T\phi \rangle &= \frac{1}{4} ( ||T(\psi + \phi)||^2 - ||T(\psi - \phi)||^2 - i||T(\psi + i\phi)||^2 + i||T(\psi - i\phi)||^2)\\
+         &= \frac{1}{4} ( ||\psi + \phi||^2 - ||\psi - \phi||^2 - i||\psi + i\phi||^2 + i||\psi - i\phi||^2) = \langle \psi, \phi \rangle,
+     \end{split}
+\]
+since the linear composition of two elements of the linear space is still an element of the linear space, which in this case is defined over a complex field. It therefore preserves the scalar product.
+\end{document}

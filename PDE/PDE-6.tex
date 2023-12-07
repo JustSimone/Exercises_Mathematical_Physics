@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+
+\title{Exercises - Partial Differential Equations}
+\author{Simone Coli - 6771371}
+\date{Sheet 6}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+Let us consider the integral
+\[
+    \int_{\R} u' \varphi' dx = 0
+\]
+with $u \in C^1 (\R)$ and $\varphi \in C^\infty_c$. We want to show that $u$ is a linear function.\\
+Let us start considering $u' \equiv k$ than the integral is zero using the fundamental theorem of calculus.
+\\
+If $u' \neq k$ then by the continuity of $u'$ then there exists $\delta >0 : u'(y) = c, u'(z) = d$ such that for all $y' \in (y+\delta , y- \delta),\; |u'(y')-c| < \varepsilon / 2$ and for all $z' = (z+\delta , z-\delta),\; |u'(z')- d|< \varepsilon /2 $. Let us now define $\varphi$ as the difference of two "bump" functions $\varphi(x) \eqdef |\Psi_1| - |\Psi_2|$ where we have that:
+\[
+    \Psi_1 = \begin{cases}
+        e^{-\frac{1}{1-x^2}} & (y+\delta , y- \delta)\\
+        1 & \text{otherwise}
+    \end{cases}
+\]
+\[
+    \Psi_2 = \begin{cases}
+        e^{-\frac{1}{1-x^2}} & (z+\delta , z- \delta)\\
+        1 & \text{otherwise}
+    \end{cases}
+\]
+Then, by the compactness of the support of $\varphi$, the integral will be
+\[
+    \begin{split}
+        \int_\R u' (x) \varphi'(x)dx & = \int_{y- \delta}^{y+ \delta} | \Psi_1 (x)| u'(x) dx - \int_{z- \delta}^{z+ \delta} |\Psi_2 (x)| u'(x) dx <\\
+        &< \sup|\Psi_1 (x)| \frac{\varepsilon}{2} - \sup|\Psi_2 (x)| \frac{\varepsilon}{2} = 0
+    \end{split}
+\]
+which is a contradiction, proving the statement.
+\section{Exercise}
+\section{Exercise}
+Let $u \in C^1_c (\R)$ then we want to show that
+\[
+    \sup_{\R} |u| \leq\frac{1}{2} \| Du\|_1
+\]
+By definition of $L^1(\R)$ we have that
+\[
+    \int_\R |Du| dx
+\]
+using the compactness of the support of $u$ we have that:
+\[
+    \int_\R |Du| dx = \int_c^a |Du| dx
+\]
+Moreover, since $u$ is continuous in a compact support then it admits maximum in it, such that $u(b) = \sup_{\R} |u|$, then
+\[
+    \int_c^a |Du| dx = \int_b^a |Du| dx + \int_c^b |Du| dx \geq \bigg| \int_b^a Du dx \bigg| + \bigg| \int_c^b |Du| dx \bigg|
+\]
+by the fundamental theorem of calculus we have
+\[
+    |u(a)- u(b)| + |u(b)-u(c)|
+\]
+but by compactness $u(a) = u(c) = 0$, meaning that
+\[
+    \| Du \|_1 \geq 2 |u(b)| = 2 \sup_\R|u|
+\]
+Which proves the claim.
+\section{Exercise}
+a) We first want to show that given $1 \leq q \leq p \leq \infty$, then 
+\[
+    L^p(\Omega) \subset L^q(\Omega)
+\]
+\\
+Using Hölder inequality we have that
+\[
+    \| |f|^q 1 \| \leq \| |f|^q \|_{\frac{q}{p}} \| \|_{1-\frac{q}{p}} 
+\]
+which in integral form becomes
+\[
+    \int_\Omega |f|^q 1 dx \leq \left( \int_\Omega |f|^{q \frac{p}{q}} \right)^{\frac{q}{p}} \left( \int_\Omega \ \right)^{1-\frac{q}{p}}
+\]
+and therefore
+\[
+    \left(\int_\Omega |f|^q dx \right)^\frac{1}{q} \leq \left( \int_\Omega |f|^{q \frac{p}{q}} \right)^{\frac{1}{p}}
+\]
+Which is enough to prove the original statement.
+
+b) Now we want to show that given a sequence $\{ f_n \}_{n \geq 1} \subset L^p$, if it converges uniformly to $f$ than $f \in L^p$ and $f_n \to f$ in $L^p$.\\
+Let us consider the integral
+\[
+    \begin{split}
+        \int |f|^p dx &= \int |f- f_n + f_n|^p dx \leq \int (|f-f_n| + |f_n|)^p dx \leq \\
+        &\leq \int |f-f_n|^p + \int |f_n|^p 
+    \end{split}
+\]
+the second integral converges by hypothesis, while the first converges since, by the uniform convergence, $\sup |f_n - f| \to 0 $ and by the previous assumption we have that for $q = \infty$ then $L^\infty \subset L^p$ for $1 \leq p \leq q \leq \infty$, meaning $f-f_n$ converges in the $L^p$ norm. Showing that $ f$ is in fact in $L^p$
+
+c) to shoe
+\end{document}

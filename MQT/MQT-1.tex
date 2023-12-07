@@ -1,0 +1,411 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{derivative}
+
+\title{Exercise sheet Mathematical Quantum Theory - 1}
+\author{Simone Coli}
+\date{October $27^{\mbox{th}}$, 2023}
+
+\begin{document}
+
+\maketitle
+\section{Solution:}
+\subsection*{a)}
+Let us assume that a general solution to the Schrödinger equation
+\begin{equation}\label{eq:1}
+    i \partial_t \psi_t = \hat H \psi_t
+\end{equation}
+has the form $\psi_t = \psi_0 e^{-iEt}$. By inserting this inside \eqref{eq:1} we get that $E = -B\sigma_x$. The diagonalization of $\sigma_x$ gives us the two eigenvalues $\lambda_{\pm} = \pm 1$ and the two orthonormal eigenvectors
+\[
+    \mathbf v_1 = \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1\\
+        1
+    \end{pmatrix}
+    ,\quad
+    \mathbf v_2 = \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1\\
+        -1
+    \end{pmatrix}.
+\]
+So that the general solution takes the form:
+\begin{equation}\label{eq:2}
+    \psi_t = \frac{1}{\sqrt{2}} 
+    \begin{pmatrix}
+        1\\
+        1
+    \end{pmatrix}
+    \psi_+ e^{iBt} + \frac{1}{\sqrt{2}} 
+    \begin{pmatrix}
+        1\\
+        -1
+    \end{pmatrix}
+    \psi_- e^{-iBt}
+\end{equation}
+If we now impose the initial condition on \eqref{eq:2} we get the system
+\[
+    \begin{cases}
+      \,\frac{\psi_+ +\, \psi_-}{\sqrt{2}} = 1\\
+      \,\frac{\psi_+ -\, \psi_-}{\sqrt{2}} = 0
+    \end{cases}\,.
+\]
+From which we get $\psi_+ = \psi_- = 1/\sqrt{2}$, and \eqref{eq:2} becomes
+\begin{equation}\label{eq:3}
+    \psi_t = \frac{1}{2} 
+    \begin{pmatrix}
+        1\\
+        1
+    \end{pmatrix}
+    e^{iBt} + \frac{1}{2} 
+    \begin{pmatrix}
+        1\\
+        -1
+    \end{pmatrix}
+    e^{-iBt} = 
+    \begin{pmatrix}
+        \cos{(Bt)}\\
+        i \sin{(Bt)}
+    \end{pmatrix}
+\end{equation}
+\subsection*{b)}
+The probability of having as outcome of our measurement the eigenvalue $+1$ or $-1$ is given by the projection of the solution on the eigenvector (related to those eigenvalue) of the operator $\sigma_z$. That is:
+\[
+    P(+1)_{\sigma_z} = |\langle 1| \psi_t\rangle|^2 =
+    \begin{vmatrix}
+    \begin{bmatrix}
+        \begin{pmatrix}
+            1 & 0
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\\
+            i\sin{(Bt)}
+        \end{pmatrix}
+    \end{bmatrix}
+    \end{vmatrix}^2 
+    = \cos^2{(Bt)}
+\]
+\[
+    P(-1)_{\sigma_z} = |\langle -1| \psi_t\rangle|^2 =
+    \begin{vmatrix}
+    \begin{bmatrix}
+        \begin{pmatrix}
+            0 & -1
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\\
+            i\sin{(Bt)}
+        \end{pmatrix}
+    \end{bmatrix}
+    \end{vmatrix}^2 
+    = \sin^2{(Bt)}
+\]
+\subsection*{c)}
+The expectation value of $\sigma_z$ is just given by the intern product of the solution with the solution projected on 
+\[
+    \begin{split}
+        \langle \sigma_z \rangle_{\psi_t} &= \langle \psi_t | \sigma_z | \psi_t \rangle =\\
+        &= \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & 0\\
+            0 & -1
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\\ 
+            i \sin{(Bt)}
+        \end{pmatrix}\\
+        &= \cos^2{(Bt)} - \sin^2{(Bt)}
+    \end{split}
+\]
+\subsection*{d)}
+The value of the variance of for the two operator is given by:
+\[
+    \begin{split}
+        (\Delta \sigma_x)_{\psi_t} &= \langle \psi_t, (\sigma_x - \langle \psi_t, \sigma_x \psi_t \rangle)^2 \psi_t\rangle\\
+        &= \langle \psi_t, \sigma_x^2 \psi_t \rangle - 4\langle \psi_t, \cos^2{Bt} \sin^2{Bt} \, \psi_t \rangle - 4i\langle \psi_t, \sigma_x \cos{Bt} \sin{Bt}\psi_t \rangle.
+    \end{split}
+\]
+Given the value of the expected value of $\sigma_x$ to be
+\[ 
+    \begin{split}
+        \langle \sigma_x \rangle_{\psi_t} &=
+    \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}
+        \begin{pmatrix}
+            0 & 1\\
+            1 & 0
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\\ 
+            i \sin{(Bt)}
+        \end{pmatrix}\\
+        &= 2i \sin{Bt} \cos{Bt}.
+    \end{split}
+\]
+The elements of the previous sum are given by
+\[
+    \begin{split}
+        \langle \psi_t, \sigma_x^2 \psi_t \rangle = \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & 0\\
+            0 & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\\ 
+            i \sin{(Bt)}
+        \end{pmatrix}
+    \end{split} = 1
+\]
+\[
+\begin{split}
+     -4\langle \psi_t, \cos^2{Bt} \sin^2{Bt} \, \psi_t \rangle &= -4 \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos^3{(Bt)} \sin^2{Bt}\\ 
+            i \sin^3{(Bt)} \cos^2{Bt}
+        \end{pmatrix} = \\
+        &= -4 \cos^2{Bt} \sin^2{Bt}
+\end{split}
+\]
+\[
+\begin{split}
+     -4i\langle \psi_t, \sigma_x \cos{Bt} \sin{Bt} \, \psi_t \rangle &= -4 \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}\cdot\\
+        &\cdot\begin{pmatrix}
+            0 & \cos{Bt}\sin{Bt}\\
+            \cos{Bt}\sin{Bt} & 0
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\\ 
+            i \sin{(Bt)}
+        \end{pmatrix} = 0
+\end{split}
+\]
+Meaning that $(\Delta \sigma_x)_{\psi_t} = 1-4\cos^2{Bt}\sin^2{Bt} = \cos^2(2Bt)$. For $(\Delta \sigma_z)_{\psi_t}$ the procedure is the same, let
+\[ 
+    \begin{split}
+        (\Delta \sigma_x)_{\psi_t} &= \langle \psi_t, (\sigma_z^2 + \cos^4{Bt} +\\
+        &+ \sin^4{Bt} - 2\sigma_z \cos^2{Bt} +2 \sin^2{Bt} -2\cos^2{Bt}\sin^2{Bt})\, \psi_t \rangle
+    \end{split}
+\]
+where we used the result from part c).
+\[
+    \begin{split}
+        \langle \psi_t, \sigma_z^2 \psi_t \rangle = \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & 0\\
+            0 & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\\ 
+            i \sin{(Bt)}
+        \end{pmatrix}
+    \end{split} = 1
+\]
+\[
+    \begin{split}
+        \langle \psi_t, \cos^4{Bt}\, \psi_t \rangle &= \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos^5{(Bt)}\\ 
+            i \sin{(Bt)} \cos^4{Bt}
+        \end{pmatrix} =\\
+        &= \cos^4{Bt}
+    \end{split} 
+\]
+\[
+    \begin{split}
+        \langle \psi_t, \sin^4{Bt}\, \psi_t \rangle &= \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\sin^4{Bt}\\ 
+            i \sin^5{(Bt)}
+        \end{pmatrix}=\\
+        &= \sin^4{Bt}
+    \end{split}
+\]
+\[
+    \begin{split}
+       -2 \langle \psi_t, \sigma_z \cos^2{Bt}\, \psi_t \rangle &= -2 \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}\cdot\\
+        &\cdot\begin{pmatrix}
+            \cos^2{Bt} & 0\\
+            0 & \cos^2{Bt}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\\ 
+            i \sin{(Bt)}
+        \end{pmatrix}=\\
+        &= -2\cos^4{Bt} +2 \sin^2{Bt}\cos^2{Bt}
+    \end{split}
+\]
+\[
+    \begin{split}
+       2 \langle \psi_t, \sigma_z \sin^2{Bt}\, \psi_t \rangle &= 2 \begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}\cdot\\
+        &\cdot\begin{pmatrix}
+            \sin^2{Bt} & 0\\
+            0 & \sin^2{Bt}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos{(Bt)}\\ 
+            i \sin{(Bt)}
+        \end{pmatrix}=\\
+        &= - 2\sin^4{Bt} + 2 \sin^2{Bt}\cos^2{Bt}
+    \end{split}
+\]
+\[
+    \begin{split}
+        -2 \langle \psi_t, \cos^2{Bt}\sin^2{Bt}\, \psi_t \rangle &= -2\begin{pmatrix}
+            \cos{(Bt)} & -i \sin{(Bt)}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \cos^3{(Bt)}\sin^2{Bt}\\ 
+            i \cos^2{Bt}\sin^3{(Bt)}
+        \end{pmatrix}=\\
+        &= -2 \cos^2{Bt}\sin^2{Bt}
+    \end{split}
+\]
+So that $(\Delta \sigma_z)_{\psi_t} = 1-(\cos^2{Bt}-\sin^2{Bt})^2 = \sin^2(2Bt)$.
+To find the minimum of $(\Delta \sigma_x)_{\psi_t} (\Delta \sigma_z)_{\psi_t}$ find the values for which its first derivative is zero:
+\[
+    \begin{split}
+        \odv{}{t}(\Delta \sigma_x)_{\psi_t} (\Delta \sigma_z)_{\psi_t} &= \sin^2(2Bt) \cos^2{2Bt} =\\
+        &= 4B\sin{2Bt}\cos{2Bt}\cos{4Bt} = 0
+    \end{split}
+\]
+that is when $t_1 = n\pi$ or when $t_2 = n\pi/8B$ with $n \in \mathbb{Z}$. By looking at the graph of the function:
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width = 0.7\textwidth]{graph.png}
+\end{figure}\\
+we see that $t_2$ is a maximum while the minimum is given by $t_1$.
+\section{Solution:}
+\subsection*{a)}
+If we consider a function of the type $f(x)= (1-x^2)^{-p-1}$ it will be in $L^p$ since its integral is bounded but not in $L^q$. Vice versa if we take a function of the form $g(x)= (1-x^2)^{-q-1}$ it will be in $L^q$ but not in $L^p$.
+
+\subsection*{b)}
+Suppose f is supported in $B_R$, that is
+\[
+    \mbox{supp }f = \{ \mathbf{x} \in \mathbb{R} | f(\mathbf{x}) \neq 0 \} = B_R = \{ \mathbf{x}\in \mathbb{R} : |\mathbf{x}|<R \}
+\]
+meaning that if $f \in L^2(\mathbb{R}^d)$, then:
+\[
+    \int_{-R}^{R}\cdots \int_{-R}^{R} |f(\mathbf{x})|^2 d\mathbf{x} = \int_{-R}^{R}\cdots \int_{-R}^{R} |f(\mathbf{x})||f(\mathbf{x})| d\mathbf{x}.
+\]
+Which is bounded from the top as
+\[
+    \int_{-R}^{R}\cdots \int_{-R}^{R} |f(\mathbf{x})||f(\mathbf{x})| d\mathbf{x} < \int_{-R}^{R}\cdots \int_{-R}^{R} |f(\mathbf{x})|C d\mathbf{x} <\infty,
+\]
+since it $f\in L^2(\mathbb{R}^d)$
+\[
+    \int_{-R}^{R}\cdots \int_{-R}^{R} |f(\mathbf{x})| d\mathbf{x} < \int_{-R}^{R}\cdots \int_{-R}^{R}C d\mathbf{x} <\infty
+\]
+\subsection*{c)}
+The fact that a function $f \in L_1 \cap L^\infty$ means that at the same time
+\[
+    \int_{\mathbb{R}^d} |f(\mathbf{x})| d\mathbf{x}< \infty,
+\]
+and
+\[
+    \sup_{\mathbf{x} \in \mathbb{R}^d} |f(\mathbf{x})| < \infty .
+\]
+Since the supremum of the function is bounded, meaning that there exist a $C<\infty$ such that $\sup_{ \mathbf{x} \in \mathbb{R}^d }|f(\mathbf{x})|<C, \; \forall \mathbf{x}$. This means that the integral
+\[
+    \int_{\mathbb{R}^d} |f(\mathbf{x})|^p d\mathbf{x}
+\]
+is also bounded, since $|f(\mathbf{x})|< \sup_{ \mathbf{x} \in \mathbb{R}^d }|f(\mathbf{x})| < C$ and therefore
+\[
+     \int_{\mathbb{R}^d} |f(\mathbf{x})|^p d\mathbf{x} <  \int_{\mathbb{R}^d} |f(\mathbf{x})| C^{p-1} d\mathbf{x} < \infty
+\]
+\subsection*{d)}
+Let $f \in \mathcal{S}$ then $\sup |x^\alpha {\partial^\beta_x f}|<\infty$ that is $||x^\alpha {\partial^\beta_x f}||_\infty$. Now let us consider:
+\[
+    \begin{split}
+        \int_{\mathbb{R^d}} |f(x)|^p dx &= \int_{\mathbb{R^d}} |f(x) \frac{x^{p+1}}{x^{p+1}}|^p dx = \\
+        &= \int_{\mathbb{R^d}} |f(x) x^{p+1}|^p \frac{1}{x}dx \leq || f(x) x^{p+1} ||_{\infty} \int_{\mathbb{R}^d} \frac{1}{x}dx < \infty
+    \end{split}
+\]
+since by hypothesis $\sup |x^\alpha {\partial^\beta_x f}|<\infty$ and the integral converges.
+\subsection*{e)}
+Let $f \in \mathcal{S}$ and consider a polynomial $p: \mathbb{R}^d \to \mathbb{C}$ then for $pf$ to be in $\mathcal{S}$, it means that
+\[
+    \sup|x^\alpha \partial_x^\beta (pf)|<\infty
+\]
+which using the chain rule becomes
+\[
+    \sup|x^\alpha \partial_x^\beta (pf)| = \sup|x^\alpha p \partial_x^\beta f| +\sup|x^\alpha f \partial_x^\beta p|<\infty
+\]
+since the derivative of a polynomial is still a polynomial and by hypothesis $\sup|x^\alpha \partial_x^\beta (f)|<\infty$.
+\section{Solution:}
+$(\Rightarrow)$ Let us assume that $d_S (f_j -f) \rightarrow 0$, then:
+\[
+    \forall \epsilon >0, \exists\, N \in \mathbb N : \forall j>N \, | \, d_S(f_j -f) < \epsilon
+\]
+meaning that, by definition,
+\[
+    \sum_{n=0}^\infty 2^{-n} \sup_{\substack{|\alpha|+|\beta| = n \\ \alpha, \beta \in \mathbb N_0^d}} \frac{|| f_j - f||_{\alpha\beta}}{1+||f_j - f||_{\alpha, \beta}} < \epsilon.
+\]
+From the fact that the $\sup_{x \in \Omega} g(x) \geq g(x)$ and since $\sum_{n=0}^\infty 2^{-2} > 1/2$ then we can say that,
+\[
+    \frac{1}{2} \frac{|| f_j - f||_{\alpha\beta}}{1+||f_j - f||_{\alpha, \beta}} < \epsilon.
+\]
+Acting on the inequality,
+\[
+    \frac{1}{2}|| f_j - f||_{\alpha\beta} < (1+||f_j - f||_{\alpha, \beta}) \epsilon.
+\]
+\[
+    || f_j - f||_{\alpha\beta} < \frac{\epsilon}{\frac{1}{2}-\epsilon} = \bar{\epsilon}.
+\]
+Proving the first direction of the statement.\\
+$(\Leftarrow)$
+In this case we know that there for all $\epsilon>0$ there exists an $N>0$ such that for $n>N$, $||f - f_n||_{\alpha,\beta}<\epsilon$. From this we know that the norm is define to be non-negative meaning that
+\[
+    \frac{||f - f_n||_{\alpha,\beta}}{1 + ||f - f_n||_{\alpha,\beta}} < ||f - f_n||_{\alpha,\beta}.
+\]
+In addition to that,
+
+\section{Solution:}
+Let us consider the function $g_\lambda (\mathbf{x}) = e^{-\lambda \frac{|\mathbf{x}|^2}{2}}$ such that $g_\lambda (\mathbf{x}) \in L^1(\mathbb{R}^d)$. To compute the Fourier transform of this function $\hat{g}_\lambda (\mathbf{k})$ we need to compute:
+\[
+    \hat{g}_\lambda (\mathbf{k}) = \frac{1}{(2 \pi)^{d/2}} \int_\mathbb{R}{ e^{-i\mathbf{k \cdot x}} g_\lambda (\mathbf{x})d\mathbf{x}}.
+\]
+Then by focusing only on the integral we will have that
+\[
+    \begin{split}
+        I &= \int_{\mathbb R^d} e^{-i \mathbf{k \cdot x}} e^{-\lambda \frac{|\mathbf{x}|^2}{2}} d\mathbf{x} = \int_{\mathbb R^d} e^{-i \mathbf{k \cdot x} - \lambda \frac{|\mathbf{x}|^2}{2}} d\mathbf{x} =\\
+	   &= \int_{\mathbb R^d} e^{-(\sqrt{\frac{\lambda}{2}} \mathbf{x} + \frac{1}{\sqrt{2\lambda}}\mathbf{k})^2} e^{-\frac{|\mathbf{k}|^2}{2\lambda}} d\mathbf{x},
+    \end{split}
+\]
+in which we completed the square in the exponent. Let us now define $\mathbf{u} = \sqrt{\frac{\lambda}{2}} \mathbf{x} + \frac{1}{\sqrt{2\lambda}}\mathbf{k}$ such that $u_i = \sqrt{\frac{\lambda}{2}} x_i + \frac{1}{\sqrt{2\lambda}}k_i$, then $du_i = \sqrt{\frac{\lambda}{2}} dx_i$.
+
+Since $|\mathbf{u}|^2 = \sum^d_{i=1} u_i^2$, if we assume that each component is independent from the others, then it is possible to separate the integral in the product of $d$ integrals
+\[
+    \prod^d_{i=0} \int_{-\infty}^{\infty} \sqrt{\frac{2}{\lambda}} e^{-u_i^2}du_i = \left( \frac{2}{\lambda} \right)^{d/2} \int_{\mathbb R^d} e^{-|\mathbf{u}|^2} d\mathbf{u}.
+\]
+Moreover, we notice that the integrals of each component are of the form of Gauss's integral, we conclude that the I must be
+\[
+    I = \left( \frac{2 \pi}{\lambda} \right)^{d/2} e^{-\frac{|\mathbf{k}|^2}{2\lambda}}.
+\]
+Meaning that the Fourier transform of $g_\lambda (\mathbf{x})$ must be:
+\[
+    \hat{g}_\lambda (\mathbf{k}) = \lambda^{-d/2} e^{-\frac{|\mathbf{k}|^2}{2\lambda}}.
+\]
+
+\end{document}

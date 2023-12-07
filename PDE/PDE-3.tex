@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Exercises - Partial differential equation}
+\author{Simone Coli - 6771371}
+\date{Sheet 3}
+\begin{document}
+\maketitle
+\section{Exercise}
+Let us consider an harmonic bounded function $u: \mathbb R^n \to \mathbb R$, with $u \in C^2$, that is $\Delta u(x) = 0$, and $|u(x)|< M$ with $M>0$. We want to show that a function with these properties must be a constant function.
+
+To prove this statement let us consider two balls with the same radius $R>0$ by centered in two different positions $z$, $y$, with $z \neq y$. The idea is that for $R$ large enough the volume of the two balls overlaps more and more, becoming equal at infinity, and, since the function $u$ has the mean value property, this implies that the mean value of the function inside these two balls must be the same, making the function constant. To do so let us consider the mean value of at the two points:
+\[
+    u(y) = \frac{1}{\left| B_R(y) \right|} \int_{B_R(y)} u(x) dx
+\]
+\[
+    u(z) = \frac{1}{\left| B_R(z) \right|} \int_{B_R(z)} u(x) dx
+\]
+Then by subtracting them, and evaluating the integral over the not shared volume $\Omega \eqdef (B_R(y) \cap B_R(z)) \setminus (B_R(y)\cup B_R(z))^c$ (where $A^c$ is the complement of the set $A$) we get:
+\[
+    \begin{split}
+        u(y)- u(z) &= \frac{1}{\left| B_R(0) \right|} \int_{\Omega} u(x) dx \leq\\
+        & \leq \frac{1}{\left| B_R(0) \right|} \cdot \mu(\Omega) \sup_{\Omega}|u(x)|<\\
+        & < \frac{1}{\left| B_R(0) \right|} \cdot \mu(\Omega) M
+    \end{split}
+\]
+taking the limit for $R \to \infty$ this goes to $0$ proving the thesis.
+
+\section{Exercise}
+Let $\Omega \subset \mathbb R^n$ be an open set such that $u \in C^1(\Omega)$. We want to prove that such function is Lipschitz continuous over a compact subset $K \in \Omega$.
+
+from the fact that $u \in C^1(\Omega)$ we know that its first derivative is continuous over the domain, meaning that it is continuous in $K$. By the Weierstrass theorem a continuous function defined on a compact set is bounded, i.e. $Du(x) < M$, with $M>0$ and admits two points $y, x \in K$ such that $ u(y) = \sup_K (u)$ and $u(x)=\inf_K(u)$. Then we can construct a new one dimensional function $f : \mathbb R \to \matbb R$ defined as $f(t) = u((1-t)x + ty)$, such that $f(0) = u(x)$ and $f(1)= u(y)$. On this function we apply the one dimensional mean value theorem which gives us
+\[
+    u(y) - u(x) = \nablau((1-c)x + cy) (y-x) 
+\]
+Applying Cauchy-Schwarz gives the thesis, in which we called $C = |\nablau((1-c)x + cy)|$:
+\[
+    |u(y) - u(x)| \leq C |y-x|
+\]
+\section{Exercise}
+Let us consider a non-negative function $u\in C^2_c(\mathbb R^n)$, we want to show that given a positive constant $C<\infty$.
+
+Let us begin by saying that since the function is continuous on its second derivative over a compact support, then $|D^2 u(x)|<M$, with $M>0$ and admits a minimum and a maximum.
+Then let us expand the function in its Taylor series:
+\[
+    0\leq u(x+c) = u(x) +c Du(x) + \frac{c^2}{2} D^2u(x)
+\]
+because the second derivative of $u$ admits extremes we have that
+\[
+    u(x) +c Du(x) + \frac{c^2}{2} D^2u(x) < u(x) +c Du(x) + \frac{c^2}{2} M
+\]
+Finding the roots of the quadratic equation on $c$ we have that $\Delta = |Du|^2 (x)- 4M u(x) \leq 0$, to keep the Taylor expansion non negative, since we already know that $M>0$.
+Then using Cauchy-Schwarz the thesis follows.
+\[
+    |Du|^2 (x) \leq M u(x)
+\]
+\section{Exercise}
+\end{document}

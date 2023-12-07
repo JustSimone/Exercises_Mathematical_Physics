@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathcal F}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+
+\title{Exercises - }
+\author{Simone Coli - 6771371}
+\date{Sheet }
+\begin{document}
+\maketitle
+
+\section{Exercise}
+Let us consider a translation $T^{(\theta)} : L^2 ([0,1]) \to L^2([0,1])$ with $\theta \in [0, \pi)$ such that
+\[
+    (T^{(\theta)_t \psi}) (x) = e^{i\theta k} \psi(x-t+k), \quad x-t+k \in [0,1], k\in \mathbb Z
+\]
+
+a) We want to show that given the SCOPUG $\{ T_t^{(\theta)}:t \in \R \}$ the generator $D(H_\theta), H_\theta$ satisfies
+\[
+    D(H_\theta) = \{ \varphi \in H^1([0,1]): e^{i\theta} \varphi(1) = \varphi(0) \}
+\]
+\[
+    H_\theta = -i \odv{}{x}
+\]
+We first want to show that given the definition of the translation $e^{i\theta} \varphi(1) = \varphi(0)$, that is the case $x-t+k = 1$ and $x-t+k = 0$
+\[
+    e^{i\theta (1-x+t)} \psi(1) = e^{i\theta (t-x)} \psi(0)
+\]
+\[
+    e^{i\theta} \psi(1) = \psi(0)
+\]
+moreover if $T_t^{(\theta)} = U(t)$ we have that
+\[
+    \frac{1}{h} \| T_{t+h}^{(\theta)}\psi - T_t^{(\theta)} \psi \|_2 = \left( \int \frac{|\psi(x-(t+h) +k) - \psi(x-t+k)|}{h^2} dx \right)^{1/2}
+\]
+If $\psi  \in H^1([0,1])$ we have that the derivative of $\psi$ exists and is in $L^2$. That is $\lim_{h\to0}|\psi(x-(t+h) +k) - \psi(x-t+k)|/h^2$ is well defined, meaning that $\lim_{h \to 0} | T_{t+h}^{(\theta)}\psi - T_t^{(\theta)} \psi \|_2 / h$ is also well defined by the mean value theorem. The map $t \to T_t^{(\theta)} \psi$ is therefore differentiable. Because of this we have that $D(T_t^{(\theta)}) = H^1([0,1])$. Finally, we have that 
+\[
+    i \odv{}{t}T_t^{(\theta)} \psi = - T_t^{(\theta)} \psi'
+\]
+Proving that $H = - \odv{}{x}$ and that $D(H_\theta), H_\theta$ is actually a generator.
+
+b) We want to show that $D(H_\theta), H_\theta$ is self-adjoint.\\
+Let us begin by considering $\varphi \in D(H_\theta)$ and $\psi \in H^1([0,1])$ then by the definition of scalar product
+\[
+    \begin{split}
+        \langle \psi, H_\theta \varphi \rangle & = \int_0^1 \overline{\psi}(x) (-i\odv{}{x} \varphi(x)) dx
+    \end{split}
+\]
+Integrating by parts we get
+\[
+    \begin{split}
+        \int_0^1 \overline{\psi}(x) (-i\odv{}{x} \varphi(x)) dx & = i (\overline{\psi}(0) \varphi (0) - \overline{\psi}(1) \varphi(1)) + \int_0^1 \overline{\left(-i\odv{}{x} \psi (x)\right)} \varphi(x) dx
+    \end{split}
+\]
+From the fact that the generator of a SCOPUG are symmetric we require that $\overline{\psi}(0) \varphi (0) - \overline{\psi}(1) \varphi(1) = 0$ which is if, and only if, $\frac{\overline{\psi}(0)}{\overline{\psi} (1)} = \frac{\varphi(1)}{\varphi(0)}$ which by the definition of the domain is equal to $e^{i\theta}$ which proves the claim, since $H_\theta = H^*_\theta= -i \odv{}{x} $.
+\section{Exercise}
+Let us consider $\mathcal H = L^2([-1,1])$
+
+a) We want to show that the operator $T = \odv{}{x}$ is not closed over the domain $D(T) = C^1([-1,1])$. We say that an operator is closed if its graph $\Gamma (T) = \{ (\psi, T \psi) \in \mathcal H_1 \oplus \mathcal H_2 | \psi \in D(T)  \}$ \\
+Let us consider the sequence $\psi_n = \sqrt{x^2 + n^{-1}}$, then we have that 
+\[
+    \lim_{n \to \infty} \psi_n (x) = |x| = \psi
+\]
+which is not a $C^1([-1, 1])$. Moreover
+\[
+\lim_{n \to \infty} (T\psi_n) = \lim_{n \to \infty} \frac{x}{\sqrt{x^2 +n^{-1}}} = \frac{x}{|x|} =
+\]
+Meaning that 
+\[
+    \lim_{n\to \infty} (\psi_n, T\psi_n) \in \Gamma(T) = (\psi, T\psi) \notin \Gamma(T)
+\]
+meaning $\Gamma (T)$ is not closed and that $T$ is not closed.
+
+b) Let us now consider a different operator $S = -\odv{}{x}$ in the domain $D(S) = C_c^\infty ({-1,1})$. We want to show that this is not closed.\\
+The new function we have to take into account to prove this must be compactly supported. Let therefore
+\[
+    f_n \eqdef \begin{cases}
+        \sqrt{x^2 +n^{-1}}\; e^{-\frac{1}{1-x^2}} & -1 \leq x \leq 1\\
+        0 & \text{otherwise}
+    \end{cases}
+\]
+Then we will have that
+\[
+    \lim_{n \to \infty} f_n = |x| e^{-\frac{1}{1-x^2}}
+\]
+which is compactly supported but not infinitely differentiable in this interval. 
+\[
+    \begin{split}
+        \lim_{n \to \infty} Sf_n & = \lim_{n \to \infty} \frac{-ix}{\sqrt{x^2+n^{-1}}} \, e^{-\frac{1}{1-x^2}} + i \sqrt{x^+n^{-1}} \frac{(-2x)}{(1-x^2)^2} e^{-\frac{1}{1-x^2}}\\
+        & =-\frac{x}{|x|} e^{-\frac{1}{1-x^2}} - i |x| \frac{2x}{(1-x^2)^2} e^{-\frac{1}{1-x^2}}
+    \end{split}
+\]
+Using a similar argument as before this means that the graph $\Gamma(S)$ is not closed which means that $S$ is not closed.
+
+\section{Exercise}
+
+Let us consider the positive half line $\R_+ = (0, \infty)$. On the Hilbert space $L^2(\R_+)$  consider the momentum $T = -i \odv{}{x}$ with domain $D(T) = C_c^\infty (\R_+)$
+
+a) We want to compute $T^*$. \\
+Let us define the domain of the self adjoint $D(T^*) = \{ \psi \in mathcal H| \varphi \to \langle \psi, T\varphi \rangle \}$, since at the boundary $\varphi \in D(T)$ vanishes and it compactly supported by hypothesis, we have that $\odv{}{x} \in L^2$ meaning that $\psi \in H^1(\R_+)$. Because of that we have that both $\psi, \varphi \in L^2(\R_+)$ meaning that $T=T^*$.
+
+b) We now want to compute $\ker{(T^*-i)}$.\\
+Assuming a $\varphi \in \ker{(T^*\pm i)}$ than we have that $T^* \varphi = \mp i \varphi$ and therefore
+\[
+    \odv{}{x} \varphi = \pm \varphi
+\]
+which means that it has solutions $\varphi(x) = ke^{\pm x}$, with $k$ complex. In case the case of a positive exponent we have that $e^{x}$ is not an $L^2(\R_+)$ function, meaning $\ker{T^* + i} = \{0\}$ while $e^{-x} \in L^2(\R_+)$, because of that $\dim \ker{(T^* - 1)} = 1$
+
+c) Since $\dim \ker {(T^* +i)} \neq \dim \ker{(T^*-i)}$ $T$ is not essentially self-adjoint, using the remark stated in the exercise sheet.
+\section{Exercise}
+
+a) Let us consider a unitary operator $U : \mathcal H_1 \to \mathcal H_2$ and a self adjoint unbounded operator $(H, D(H))$, the we want to show that $(U^* H Y, UD(H)$ is self adjoint.\\
+By definition we have that 
+\[
+    \begin{split}
+        \langle \psi, H \varphi \rangle &= \langle U\psi, U H \varphi \rangle = \langle \psi, U^*UH \varphi \rangle = \langle \psi, U^*HU \varphi \rangle
+    \end{split}
+\]
+since the generator commute with unitary operators. Moreover:
+\[
+    \begin{split}
+        \langle \psi, H \varphi \rangle &= \langle U\psi, U H \varphi \rangle = \langle (UH)^* U\psi, \varphi \rangle = \langle H^* U^* U\psi, \varphi \rangle =\\
+        &= \langle H U^* U\psi, \varphi \rangle = \langle U^*H U\psi, \varphi \rangle
+    \end{split}
+\]
+
+b) We now consider a real valued function $g \in L^\infty(\R^d)$. Let us prove that $(g(-i\nabla), L^2(\R^d))$ is self-adjoint.
+\[
+    \begin{split}
+        \langle \varphi, g(-i\nabla) \psi \rangle &= \langle \varphi, \F ^{-1} \mathcal{M}_g \hat \psi \rangle = \langle \hat \varphi, \mathcal{M}_g \hat \psi \rangle = \\
+        & = \int_{\R^d} \overline{\hat \varphi} (x) g(x) \hat \psi (x) dx = \langle \mathcal{M}_g \hat \varphi, \hat \psi \rangle = \langle \F^{-1} \mathcal{M}_g \hat \varphi, \psi \rangle
+    \end{split}
+\]
+proving it is 
+\end{document}

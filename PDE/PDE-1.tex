@@ -1,0 +1,221 @@
+\documentclass{article}[a4paper]
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+
+\usepackage{amsfonts}
+
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+
+\title{Exercise sheet PDEs - 1}
+\author{Simone Coli}
+\date{October $26^{\mbox{\samll th}}$, 2023}
+
+\begin{document}
+\maketitle
+\section{Solution} %Exercise 1
+Let us first consider the Laplacian of an arbitrary function $u : \mathbb{R}^2 \rightarrow \mathbb{R}$, which in Cartesian coordinates is:
+\[
+    \Delta = \left( \frac{\partial^2}{\partial x^2}, \frac{\partial^2}{\partial y^2} \right)
+\]
+meaning that
+\[
+\Delta u = \frac{\partial^2u}{\partial x^2} + \frac{\partial^2u}{\partial y^2}.
+\]
+From here we want to move into polar coordinates:
+\[
+    \begin{cases}
+        x = r \cos{\theta}\\
+        y = r \sin {\theta}
+    \end{cases},
+\]
+with derivative with respect to $(r, \theta)$:
+\[
+    J =
+    \begin{pmatrix}
+        \cos {\theta} && -r\sin{\theta}\\
+        \sin{\theta} && r\cos{\theta}
+    \end{pmatrix}.
+\]
+To change the Laplacian into polar we need to compute:
+\[
+    \pdv{u}{r} = \pdv{u}{x}\pdv{x}{r} + 
+    \pdv{u}{y} \pdv{y}{r} = \pdv{u}{x}\cos{\theta} + 
+    \pdv{u}{y} \sin{\theta},
+\]
+\[
+%\frac{\partial^2}{\partial r^2}
+\begin{split}
+    \frac{\partial^2u}{\partial r^2} &= \pdv{}{r}\left[ \pdv{u}{x}\cos{\theta} + 
+    \pdv{u}{y} \sin{\theta} \right] =\\
+    &= \left[ \pdv{u}{x}\cos{\theta} + 
+    \pdv{u}{y} \sin{\theta} \right] \cdot \left[ \pdv{}{x}\cos{\theta} + 
+    \pdv{}{y} \sin{\theta} \right] = \\
+    &= \frac{\partial^2u}{\partial x^2} \cos^2{\theta} + \frac{\partial^2u}{\partial y^2} \sin^2{\theta} + 2 \pdv{u}{x,y} \cos{\theta} \sin{\theta}.
+\end{split}
+\]
+Similarly:
+\[
+    \pdv{u}{\theta} = \pdv{u}{x}\pdv{x}{\theta} + 
+    \pdv{u}{y} \pdv{y}{\theta} = -\pdv{u}{x}r\sin{\theta} + 
+    \pdv{u}{y} r \cos{\theta},
+\]
+\[
+    \begin{split}
+        \frac{\partial^2u}{\partial \theta^2} &= \pdv{}{\theta} \left[ -\pdv{u}{x}r\sin{\theta} + 
+        \pdv{u}{y} r \cos{\theta} \right] =\\
+        &= \frac{\partial^2 u}{\partial x^2} r^2 \sin^2{\theta} - \pdv{u}{x}r \cos{\theta} +\frac{\partial^2u}{\partial y^2} r^2 \cos^2{\theta} -\\
+        &- \pdv{u}{y} r \sin{\theta} - 2\pdv{u}{x,y} r^2 \sin{\theta} \cos{\theta}.
+    \end{split}
+\]
+From which we deduce that
+\[
+    \frac{\partial^2 u}{\partial r^2} + \frac{1}{r^2} \frac{\partial^2 u}{\partial \theta^2} = - \frac{1}{r} \pdv{u}{r} + \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2u}{\partial y^2},
+\]
+that is $\Delta_{\mbox{polar}} = (\frac{1}{r}\pdv{}{r} + \frac{1}{r^2}\frac{\partial^2}{\partial r^2}, \frac{\partial^2}{\partial \theta^2})$
+
+After similar calculations we get $\Delta_{\mbox{spherical}} = \frac{\partial^2}{\partial r^2} + \frac{2}{r} \pdv{}{r} + \frac{1}{r^2}\left[ \frac{\partial^2}{\partial \theta^2} + \frac{\cos{\theta}}{\sin{\theta}}\pdv{}{\theta} + \frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial \varphi^2} \right]$
+\section{Solution} %Exercise 2
+\subsection*{i)}
+Using the equation of propagation of waves:
+\[
+    \partial_t^2 u(\mathbf{x}, t) = \Delta u(\mathbf{x}, t),
+\]
+we want to study the high of a stationary membrane over the annulus:
+\[
+    A \eqdef B_R(0) \diagdown\, \bar{B}_1(0) = \{ (x, y) \in \mathbb{R}^2 | 1<x^2+y^2 < R\}.
+\]
+Let us assume that $u(x,y;t) = f(x, y)$ does not depends on time (stationary high) and let $u \equiv 0$ on $B_1(0)$ and $u \equiv u_0$ at $B_R(0)$.
+If we move to a polar coordinate system, from the circular symmetry of the problem, we note that the high does not depend on the angular component, meaning that $u = g(\rho)$ where $\rho >0$ is a radius. In this coordinate system
+\[
+    A = \{ (\rho, \theta) \in [0, \infty) \times [0, 2\pi]| 1<\rho^2 < R\},
+\]
+taking also into account the fact that $u$ is time independent the differential equation becomes:
+\[
+     0 = \Delta_{\mbox{\small polar}} u(\rho) = \frac{1}{\rho} \partial_\rho u + \partial_\rho^2 u,
+\]
+on which the boundary conditions becomes $u = 0$ at $\rho = 1$ and $u = u_0$ at $\rho = \sqrt{R}$.
+
+The solution of this differential equation in one variable is:
+\[
+    u(\rho) = a\ln{\rho} + c
+\]
+where $c=0$ and $u_0 = a \frac{1}{2} \ln(R)$ using the boundary conditions.
+\subsection*{ii)}
+The area of the annulus with high $u(\rho)$ is given by the integral
+\[
+    A_u = a \int_{0}^{2\pi} d \theta \int^{\sqrt{R}}_{1} d\rho \rho \ln{\rho} = 2\pi a\left[ \frac{1}{4} \rho^2 (2\ln{\rho} - 1) \right]^{\sqrt{R}}_1
+\]
+While the area of the cone with same boundary conditions is:
+\[
+    A_c = \int_{0}^{2\pi} d \theta \int^{\sqrt{R}}_{1} \rho^2 \, d\rho = \frac{2}{3}\pi \left[ \rho^3 \right]^{\sqrt{R}}_1
+\]
+
+\section{Solution} %Exercise 3
+Let us consider the Derichlet problem:
+\[
+    \begin{cases}
+        \partial_t u(x,t) = \kappa\, \partial_x u(x,t)\\
+        u(0,t) = 0,\; u(a,t) = 0\\
+        u(x, 0) = f(x)
+    \end{cases}
+\]
+where $0<x<a$ and $t>0$, with $a, k >0$. If we assume that there exist two functions such that $u(x,t) = X(x)\, T(t)$, then we can find a solution to this differential equation using the separation of variables. By inserting the solution into the heat equation we get that:
+\[
+    X(x)\,T'(t) = \kappa\; T(t)\, X''(x),
+\]
+\[
+    \frac{T'(t)}{T(t)} = \kappa \frac{X''(x)}{X(x)} = \lambda,
+\]
+where $\lambda$ is a constant, since the two sides do not depend from the same variables. Then
+\[
+    T'(t) + \lambda T(t) = 0,
+\]
+\[
+    X''(x) + \kappa \lambda X(x) = 0,
+\]
+with the boundary condition state at the beginning. The solutions for this two ordinary differential equations are, respectively:
+\[
+    T(t) = e^{-\lambda t},
+\]
+\[
+    X(x) = \sin{(\omega x)}, \quad \omega^2 = \kappa \lambda.
+\]
+From the initial conditions we learn that $w_n = n \pi / a$ that is $\lambda_n = ( n \pi)^2 / a^2 \kappa$.
+\[
+    T(t) = e^{- t\frac{(n \pi)^2}{\kappa a^2} },
+\]
+\[
+    X(x) = \sin{\left(\frac{n \pi}{a} x \right)}
+\]
+The general solution becomes therefore,
+\[
+    U(x,t) = \sum_{n=0}^{\infty} b_n e^{- t\frac{(n \pi)^2}{\kappa a^2}}\sin{\left(\frac{n \pi}{a} x \right)},
+\]
+where $b_n$ are the Fourier coefficients of the series.
+If we fix $f(x) = \sin{\left(\frac{\pi}{a} x \right)} - 3\sin{\left(\frac{2 \pi}{a} x \right)}$ then the Fourier coefficients will be $b_1 = 1$, $b_2 = -3$ and $b_m =0$ for $m>2, \; m=0$ meaning that the solution gets the form:
+\[
+    u(x,t) = e^{- t\frac{(\pi)^2}{\kappa a^2}}\sin{\left(\frac{\pi}{a} x \right)} - 3e^{- t\frac{(2 \pi)^2}{\kappa a^2}}\sin{\left(\frac{2 \pi}{a} x \right)}
+\]
+
+\section{Solution}
+\subsection*{i)}
+To show that such a function is a solution of the heat equation we need to plug it in and see if it is equal at both sides.
+
+Let us start with the time derivative
+\[
+    \begin{split}
+        \partial_t \rho_{\mathbf{x}_0} (\mathbf{x},t) &= - \frac{n}{2} \frac{4\pi k}{(4\pi k t)^{\frac{n}{2} +1}} e^{-\frac{|\mathbf{x}-\mathbf{x}_0|^2}{4kt}} + \frac{1}{(4\pi k t)^{\frac{n}{2}}} e^{-\frac{|\mathbf{x}-\mathbf{x}_0|^2}{4kt}} \frac{|\mathbf{x}-\mathbf{x}_0|^2}{4 k t^2} = \\
+        &= \rho_{\mathbf{x}_0} (\mathbf{x},t) \left[ -\frac{k n}{2 k t} + \frac{|\mathbf{x}-\mathbf{x}_0|^2}{4kt^2} \right] = \rho_{\mathbf{x}_0} (\mathbf{x},t) \left[\frac{- 2 k n t + |\mathbf{x}-\mathbf{x}_0|^2}{4 k t^2} \right].
+    \end{split}
+\]
+
+And now the spacial derivative
+\[
+    \begin{split}
+        \Delta \rho_{\mathbf{x}_0} (\mathbf{x},t) &= \frac{1}{(4 \pi k t)^{\frac{n}{2}}} e^{-\frac{|\mathbf{x}- \mathbf{x}_0|^2}{4kt}} \left( -\frac{1}{4kt} \right)^2 4\left( \sum_{i=1}^{n} (x_i - x_{0i})^2 \right) -\\
+        &- \frac{1}{(4 \pi k t)^{\frac{n}{2}}} e^{-\frac{|\mathbf{x}- \mathbf{x}_0|^2}{4kt}} \left( -\frac{1}{4kt} \right) 2n = \\
+        &=\rho_{\mathbf{x}_0} (\mathbf{x},t) \left[ -\frac{n}{2kt} + \frac{4}{16k^2t^2} \left( \sum_{i=1}^{n}(x_i - x_{0i})^2 \right) \right] =\\
+        &= \rho_{\mathbf{x}_0} (\mathbf{x},t) \left[ \frac{-2nkt + \left( \sum_{i=1}^{n}(x_i - x_{0i}) \right)^2}{4k^2t^2} \right].
+    \end{split}
+\]
+Proving that $\partial_t \rho_{\mathbf{x}_0} (\mathbf{x},t) = k \Delta \rho_{\mathbf{x}_0} (\mathbf{x},t)$ and therefore that $\rho_{\mathbf{x}_0} (\mathbf{x},t)$ is a solution for the heat equation.
+\subsection*{ii)}
+
+To show that the total heat content is conserved in time we need to see if the derivative of the integral $I$:
+\[
+    I = \frac{1}{(4\pi k t)^\frac{n}{2}} \int_{\mathbb{R}^n} e^{-\frac{|\mathbf{x}- \mathbf{x}_0|^2}{4kt}} d \mathbf{x},
+\]
+with respect to time is equal to zero. Let us first solve the integral, since each component is independent from the other we can decompose the integral into the product of many integrals:
+\[
+     I = \frac{1}{(4\pi k t)^\frac{n}{2}} \prod^n_{i=1}\int^{\infty}_{-\infty} e^{-\frac{|x_i- x_{0i}|^2}{4kt}} d x_i.
+\]
+By a change of variable, $y_i = {(x_i - x_{0i})}/{\sqrt{4kt}}$ so that $d y_i = dx_i / \sqrt{4kt}$, we get
+\[
+    I = \frac{1}{(4\pi k t)^\frac{n}{2}} (4kt)^{\frac{n}{2}} \prod^n_{i=1}\int^{\infty}_{-\infty} e^{-u_i^2} du_i,
+\]
+which is Gauss's integral. $I$ is therefore
+\[
+    I = \frac{1}{(4\pi k t)^\frac{n}{2}} (4kt)^{\frac{n}{2}} \pi^{\frac{n}{2}} = 1.
+\]
+If we derive $I$ with respect to time, it is just the derivative of a constant function, meaning it is equal to 0 ($\partial_t I = 0$) proving that it it conserved through time.
+\subsection*{iii)}
+Similarly to what we have done in the first request of this exercise, to prove that $U(x,t)$ is a solution of the heat equation we need to prove that the two sides are equal. To do so we compute: 
+\[
+    \partial_t u(\mathbf{x},t) = \partial_t \int_{\mathbb{R}^n} f(\mathbf{y}) \rho_{\mathbf{y}} (\mathbf{x}, t) d\mathbf{y},
+\]
+and 
+\[
+    \Delta u(\mathbf{x},t) = \Delta \int_{\mathbb{R}^n} f(\mathbf{y}) \rho_{\mathbf{y}} (\mathbf{x}, t) d\mathbf{y}.
+\]
+Since f is bounded and continuous, as well as $\rho$ is, it is possible to use Leibniz rule and bring the derivative under the integral. That is:
+\[
+    \partial_t \int_{\mathbb{R}^n} f(\mathbf{y}) \rho_{\mathbf{y}} (\mathbf{x}, t) d\mathbf{y} = \int_{\mathbb{R}^n} f(\mathbf{y}) \partial_t \rho_{\mathbf{y}} (\mathbf{x}, t) d\mathbf{y},
+\]
+and 
+\[
+    \Delta u(\mathbf{x},t) = \int_{\mathbb{R}^n} f(\mathbf{y}) \Delta \rho_{\mathbf{y}} (\mathbf{x}, t) d\mathbf{y}.
+\]
+Since $f(\mathbf{y})$ does not depend on $\mathbf{x}$ nor on $t$. From the calculations we did in i) it follows that $\partial_t u(\mathbf{x}, t) = k \Delta u(\mathbf{x}, t)$ and therefore it is a solution of the heat equation.
+\end{document}

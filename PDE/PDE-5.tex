@@ -1,0 +1,120 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+
+\title{Exercises - PDEs}
+\author{Simone Coli - 6771371}
+\date{Sheet 5}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+
+i) We want to show that the inequality
+\[
+    ab \leq \frac{a^2}{2 \varepsilon} + \frac{\varepsilon b^2}{2}
+\]
+holds for $a, b \geq 0$ and $\varepsilon > 0$. Let us therefore consider the binomial expression:
+\[
+    \left( \frac{a}{\sqrt{2\varepsilon}} - (\frac{\sqrt{\varepsilon}}{2})\right) \geq 0
+\]
+Which is positive since we are considering only real values for $a,b$. Then
+\[
+    \frac{a^2}{2 \varepsilon} + \frac{\varepsilon b^2}{2} - ab \geq 0
+\]
+\[
+    ab \leq \frac{a^2}{2 \varepsilon} +\frac{\varepsilon b^2}{2}
+\]
+
+ii) Then given this result for $u \in C^2(\bar \Omega)$ such that $u = 0$ at $\partial \Omega \in C^1$. if $a = \sqrt{2} \Delta u$ and $b = - \frac{1}{\sqrt{2}}u$
+\[
+    u\Delta u \leq \varepsilon (\Delta u)^2 \frac{1}{4 \varepsilon} u^2
+\]
+Integrating over the whole set
+\[
+   -  \int_\Omega u \,\Delta u \;dx \leq \varepsilon \int_\Omega (\Delta u)^2 dx + \frac{1}{4\varepsilon}\int_\Omega u^2 dx
+\]
+Using green's first identity we get that 
+\[
+    \int_\Omega u \,\Delta u \;dx = -\int_\Omega |Du|^2 dx + \int_{\partial \Omega} u \pdv{u}{\nu} d\sigma 
+\]
+however, since $U=0$ on the boundary we get that
+\[
+    \int_\Omega u \,\Delta u \;dx = -\int_\Omega |Du|^2 dx
+\]
+Then
+\[
+    \int_\Omega |Du|^2 dx \leq \varepsilon \int_\Omega (\Delta u)^2 dx + \frac{1}{4\varepsilon}\int_\Omega u^2 dx
+\]
+\section{Exercise}
+\section{Exercise}
+Let $\Omega \in \R^n$ open, $n \geq 3$ and $f \in C(\Omega)$ and $u\in C^2(\Omega)$ be the solution of the Dirichlet problem $-\delta u = f$, we want to show that $\forall B_r(x) \in \Omega$
+\[
+    \begin{split}
+        u(x) &= \frac{1}{\omega_n r^{n-1}n} \int_{\partial B_r} u(y) d\sigma_y +\\
+        & + \frac{1}{(n-2) n \omega_n} \int_{B_r(x)} \left( \frac{1}{|x-z|^{n-2}} -\frac{1}{r^{n-2}} \right) f(z)dz
+    \end{split}
+\]
+
+By Green's representation formula we have
+\[
+    u(x) = \int_{\partial B_r(x)} u(y) \pdv{G}{\nu} (x,y) d \sigma_y + \int_{B_r(x)} G (x,z) f(z) dz
+\]
+where we used the fact that since $u$ is a solution in the whole space then in every ball we will have that the boundary condition $\varphi (x) = u (x)$ at $\partial B_r(x)$. The shape of the Green's function for a ball of radius $r$ is given by
+\[
+    \begin{split}
+        G(x, y) &= \Gamma (|x-z|) - \Gamma \left( \frac{|z|}{r} \left|x-\frac{r^2}{|z|^2}z \right| \right) = \\
+        & = \frac{1}{n(n-2) \omega_n} \left( \frac{1}{|x-z|^{n-2}} -\frac{1}{r^{n-2}} \right)
+    \end{split}
+\]
+The directional derivative in the direction of $\nu$ gives us.
+\[
+    \pdv{G}{\nu} = \frac{1}{n\omega_n r^{n-1}}
+\]
+which allows us to prove the original statement.
+\[
+    \begin{split}
+        u(x) &= \frac{1}{\omega_n r^{n-1}n} \int_{\partial B_r} u(y) d\sigma_y +\\
+        & + \frac{1}{(n-2) n \omega_n} \int_{B_r(x)} \left( \frac{1}{|x-z|^{n-2}} -\frac{1}{r^{n-2}} \right) f(z)dz
+    \end{split}
+\]
+\section{Exercise}
+Let us consider a set $\Omega \ni 0$ such that $\Omega \subset \R^n$ we want to show that there is no integrable function $g$ in $\Omega$ such that 
+\[
+    \int_\Omega g(x) \eta(x) dx = \eta(0)
+\]
+for all $\eta \in C^0_c(\Omega)$.
+
+Let us use a prove by contradiction, assuming that there exists an integrable function with this property in a ball $B_R (0)$
+\[
+    \begin{split}
+        \int_{B_R(0)} g(x) \eta(x) dx &\leq \int_{B_R(0)} |g(x) \eta(x)| dx = \int_{B_R(0)} |g(x)||\eta(x)| dx \leq\\
+        & \leq \sup_{B_R(0)} |\eta(x)| \mu (B_R(0)) \int_{B_R(0)} |g(x)|dx
+    \end{split}
+\]
+If we choose $R$ big enough and we take $\eta(0) = \sup_{B_R(0)}|\eta(x)|$ then
+\[
+    \eta(0) = \int_{B_R(0)} g(x) \eta(x) dx \leq \eta(0) \mu (B_R(0)) \int_{B_R(0)} |g(x)|dx
+\]
+\[
+    1 \leq \mu(B_R(0))\int_{B_R(0)} |g(x)|dx \leq \mu(B_R(0)) \int_{\Omega} |g(x)|dx
+\]
+Then as $R \to 0$, the right hand side tends to $0$ as well, meaning that 
+\[
+    1 \leq 0
+\]
+Which is an absurd and therefore $g(x)$ cannot be an integrable function.
+\end{document}

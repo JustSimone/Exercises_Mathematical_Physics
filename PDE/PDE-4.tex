@@ -1,0 +1,224 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+
+
+\title{Exercises - Geometry in Physics}
+\author{Simone Coli - 6771371}
+\date{Sheet 3}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+
+(i) \ex{We want to find all the harmonic polynomials $p \in C^\infty(\R^3)$ with degree less than or equal to $2$, that is the elements of $H^3_d$ with $d\leq 2$.}
+
+\sol From the theory we know that the number of elements of $H^3_d$ is given by $2d+1$ meaning that for:
+\[
+    H^3_2 = \{ xy, yz, zx, x^2-y^2, y^2-z^2 \}
+\]
+since $x^2-z^2 = (x^2-y^2)- (y^2-z^2)$ meaning it is not linearly dependent.
+\[
+    H^3_1 = {x,y,z}
+\]
+\[
+    H^3_0 = {1}
+\]\\
+(ii) \ex{Show that every harmonic function in $\R^n$ with
+\[
+    \sup_{B_R(0)}\leq C_n R^{3-\delta}
+\]
+with $\delta>0$ and $C$ dependent on $n$.}
+\proof Using the corollary of gradient estimate, if a function is harmonic then
+\[
+    |\Delta D^\alpha (x)| \leq \frac{C(n, \alpha)}{d_x^{|\alpha|}} \sup_{B_R(0)} |u| \leq \frac{C(n, \alpha)}{R^{|\alpha|}} R^{3-\delta} = C(n, \alpha) R^{3-\delta- |\alpha|}
+\]
+To show that it behaves as a second degree polynomial at the most, for $\alpha \geq 3$ the derivative must be zero. Indeed in this case, for $R$ going to infinity, we get that all the derivatives higher than the second will vanish. In particular if $\delta <3$ then by Louville's theorem the function is bounded and therefore constant meaning it is a polynomial.
+\section{Exercise}
+
+\begin{em}
+Let us consider an open set $\Omega \subset \R^n$ with $n \geq 3$ such that $0 \notin \Omega$ and the inversion over the sphere $\partial B_R(0)$:
+\begin{equation} \label{eq: sphere-inversion}
+    x^* = \frac{R^2}{|x|^2}x .
+\end{equation}
+For every function $u \in C^0 (\Omega)$ we define the Kelvin transform $u^* \in C^0 (\Omega^*)$, where $\Omega^* \eqdef \{ x^* : x \in \Omega \}$ with:
+\begin{equation} \label{eq:kelvin-transform}
+    u^* (x^*) \eqdef \frac{u(x)}{|x^*|^{n-2}}
+\end{equation}
+
+(i) We want to prove that such a function is harmonic and we want to find its dependence on $u(x)$
+\end{em}
+
+\proof The inverse of the inversion of \eqref{eq: sphere-inversion} gives the relation:
+\[
+    x = \frac{R^2}{|x^*|^2}x^*
+\]
+meaning that \eqref{eq:kelvin-transform} becomes:
+\[
+    u^* (x^*) = \frac{1}{|x^*|^{n-2}} u\left( \frac{R^2}{ |x^*|^2 }x^* \right)
+\]
+Let us now move to a spherical coordinate system in which we define $x = (r, \theta, \varphi)$ and $x^* = (\rho, \theta, \varphi)$ such that $\rho = R^2/r$. In this coordinate the Laplacian becomes:
+\[
+    \Delta f = \frac{1}{r^{n-1}} \pdv{}{r} \left( r^{n-1} \pdv{f}{r} \right) + \frac{1}{r^2} \Delta_{n-1}f
+\]
+where $\Delta_{n-1}$ is the Laplacian of the $S^{n-1}$ sphere. The new Kelvin transform will be
+\[
+    u^* (\rho, \theta, \varphi) = \frac{1}{\rho^{n-2}}\, u \left( \frac{R^2}{\rho}, \theta, \varphi \right)
+\]
+We have therefore that
+\[
+    \Delta u^* (\rho, \theta, \varphi)=  \frac{1}{r^{n-1}} \pdv{}{r} \left( r^{n-1} \pdv{u^*}{r} \right) + \frac{1}{r^2} \Delta_{n-1} u^*
+\]
+
+For simplicity let us consider the case $n = 3$ then we have:
+\[
+    \Delta u^* (\rho, \theta, \varphi)= \frac{1}{\rho^2} \pdv{}{\rho} \left( \rho^2 \pdv{u^*}{\rho} \right) + \frac{1}{\rho^2} \left[ \frac{1}{\sin{\theta}} \pdv{}{\theta} \left( \sin{\theta} \pdv{u^*}{u} \right) + \frac{1}{\sin^2{\theta}} \ppdv{u^*}{\varphi}\right]
+\]
+\[
+    \begin{split}
+    \Delta u^* (\rho, \theta, \varphi) &= \frac{1}{\rho^2} \pdv{}{\rho} \left( \rho^2 \pdv{}{\rho}\left( \frac{1}{\rho} u \left(\frac{R^2}{\rho}, \theta, \varphi \right) \right) \right) + \frac{1}{\rho^2} \left[ \frac{1}{\sin{\theta}} \pdv{}{\theta} \left( \sin{\theta} \cdot\,\\
+    &\cdot \pdv{}{\theta} \left( \frac{1}{\rho} u \left(\frac{R^2}{\rho}, \theta, \varphi \right) \right) \right)
+    + \frac{1}{\sin^2{\theta}} \ppdv{}{\varphi} \left( \frac{1}{\rho} u \left(\frac{R^2}{\rho}, \theta, \varphi \right) \right)\right].
+    \end{split}
+\]
+Focusing on the radial term,
+\[
+        \frac{1}{\rho^2} \pdv{}{\rho} \left( \rho^2 \pdv{}{\rho}\left( \frac{1}{\rho} u(\frac{R^2}{\rho}, \theta, \varphi) \right) \right) = 
+\]
+\[
+    = \frac{1}{\rho^2} \pdv{}{\rho} \left( -u -\frac{R^2}{\rho} \pdv{u}{\rho} \right) = 
+\]
+\[
+    = \frac{2R^2}{\rho^4} \pdv{u}{\rho} + \frac{R^4}{\rho^5} \ppdv{u}{\rho}
+\]
+Plugging in this result in the equation for the Laplacian of $u^*$
+\[
+    \begin{split}
+    \Delta u^* (\rho,\theta, \varphi)&= \frac{R^4}{\rho^5} \biggl\{ \frac{2\rho}{R^2} \pdv{u}{\rho} + \ppdv{u}{\rho} + \\
+    &+ \frac{\rho^2}{R^4} \left[ \frac{1}{\sin{\theta}} \pdv{}{\theta} \left( \sin{\theta} \pdv{u}{\theta} \right) + \frac{1}{\sin^2{\theta}} \ppdv{u}{\varphi}\right] \biggl\} = 
+    \end{split}
+\]
+\[
+    \Delta u^*(\rho, \theta, \varphi) = \frac{R^4}{\rho^5} \Delta u \left( \frac{R^2}{\rho}, \theta, \varphi \right)
+\]
+which going back to the Euclidean coordinates
+\[
+    \Delta u^*(x^*) = \frac{R^4}{|x^*|^5} \Delta u \left( \frac{R^2}{|x^*|^2} x^* \right)
+\]
+That is the special case of
+\[
+    \Delta u^*(x^*) = \frac{R^4}{|x^*|^{n+2}} \Delta u \left( \frac{R^2}{|x^*|^2} x^* \right).
+\]
+which is harmonic on $\Omega^*$.
+\section{Exercise}
+\ex{Let us consider a finite set of sub-harmonic functions $\{ u_1, \dots, u_N \}$, meaning that $\forall B_R(y) \ssubset \Omega$ and $\forall h$ harmonic functions on $B_R(y)$ with $u\leq h$ on $\partial B_R(y)$ we also $u\leq h$ on $B_R(y)$}. We want to show that the function $u(x)$
+\[
+    u(x) \eqdef \max{\{ u_1(x), \dots, u_N(x) \}}
+\]
+is also sub-harmonic.
+\proof Since $u_i$ is sub-harmonic then every harmonic function $h_i$ on $B_R(y)$, $u_i\leq h_i$ on the boundary of the ball (fixing the index $i$), and therefore on the ball itself. Considering the function
+\[
+    u(x) = \max{\{ u_1(x), \dots, u_N(x) \}}
+\]
+we can assume, without any loss in generality, that $u_N$ is the maximum in this set, and therefore, $u(x)$ will be bounded by $h_N$ on the boundary $\partial B_R (y)$ and therefore on $B_R(y)$
+\[
+    u(x)<h_N(x).
+\]
+The choice of $h_N$ was arbitrary since, by definition of sub-harmonic, the inequality holds for every harmonic function in the ball.
+\section{Exercise}
+\begin{em}
+    Let $\Omega \in \R^n$ be open with smooth boundary, and let $f: \Omega \to \R$ and $\beta : \partial \Omega \to \R$ be smooth. Let us consider the Neumann problem
+    \begin{equation} \label{eq:Neumann-problem}
+        \begin{cases}
+            \Delta u = f & \Omega\\
+            \langle Du, \nu \rangle = \beta & \partial \Omega
+        \end{cases}
+    \end{equation}
+    with $\nu$ a outward unit vector.
+
+    (i) Show that the compatibility condition
+    \begin{equation}\label{eq:condition}
+        \int_{\Omega} f(x) dx = \int_{\partial \Omega} \beta (x) d\sigma
+    \end{equation}
+    is a necessary condition for the solvability of the problem.
+\end{em}
+
+\sol Let us assume that this problem has a solution $u \in C^2 (\Omega)$ which does not satisfies \eqref{eq:condition}. Then let us integrate over the whole space $f$:
+\[
+    \int_\Omega f(x) dx = \int_\Omega \Delta u (x) dx =
+\]
+by the divergence theorem this is equal to
+\[
+    = \int_{\partial \Omega} \pdv{u}{\nu} (x) d\sigma = \int_{\partial \Omega} \beta(x) d\sigma
+\]
+showing that it is a necessary condition of its solvability. 
+
+Physically can be interpreted as the conservation law of the flux. This means that, given the temperature of the boundary, we want that the heat flux from it must be equal to the total variation of temperature inside the domain.
+
+(ii) \ex {Prove that if the solution of \eqref{eq:Neumann-problem} it unique up to a constant}
+
+\proof To show this statement let us use an argument by contradiction. Let us assume that there are two functions $u, u' \in C^2(\Omega)$ solving \eqref{eq:Neumann-problem}, thereby we define $\phi(x) \eqdef u(x) - u'(x)$ which solves the homogeneous Neumann problem.
+\[
+    \begin{cases}
+        \Delta \phi = 0 & \Omega\\
+        \langle D\phi, \nu \rangle = 0 & \partial \Omega
+    \end{cases}
+\]
+Multiplying the first condition of the new problem by $\phi$ and integrating the result, we get
+\[
+    \int_\Omega \phi (x) \Delta \phi (x) dx = 0
+\]
+assuming $\mu(\Omega) \neq 0$. Integrating by parts:
+\[
+    \int_\Omega \phi (x) \Delta \phi (x) dx = \int_\Omega \phi (x) \nabla \phi (x) dx - \int_\Omega |\nabla \phi (x)|^2 dx = 0
+\]
+by the divergence theorem
+\[
+    = \int_{\partial\Omega} \phi (x)  \pdv{\phi}{\nu} (x) d\sigma - \int_\Omega |\nabla \phi (x)|^2 dx = 0
+\]
+Since by the homogeneous Neumann problem $\pdv{\phi}{\nu} = 0$ the only possibility is that $\phi = 0$ meaning that the functions are actually the same function. Which proves the assumption.
+
+(iii) \ex{We want to find the Green's function for the half-plane, i.e. $\Omega \eqdef \{ (x, y)\in \R^2 : y>0 \}$, in the Neumann problem, assuming all functions to be smooth and bounded at infinity.}
+
+\sol The idea is that we want to reduce to the solution of the following Neumann problem:
+\[
+    \begin{cases}
+        \Delta h_g = 0  & \Omega\\
+        \pdv{h_g}{\nu} = - \pdv{\Gamma}{\nu} & \partial \Omega
+    \end{cases}
+\]
+and by defining Green's function as $G(a,b) = \Gamma (a-b) + h(a)$ we have the Neumann problem for Green's function.
+\begin{equation} \label{eq:green}
+    \begin{cases}
+        \Delta G = 0 & x \neq y\\
+        \pdv{G}{\nu} = 0 & \partial \Omega
+    \end{cases}
+\end{equation}
+Let us consider a point in the other half of the space $\tilde b$, $\Omega' = \{ (x,y)\in \R^2 : (x,-y) \in \Omega \}$, so that it cancels the "charge" of the original point.
+The $h$ function at this point will be 
+\[
+    \pdv{h_a}{\nu} (b) = - \pdv{\Gamma}{\nu} (a-\tilde b)
+\]
+Then we have that the Green's function in this domain will be such that 
+\[
+    \pdv{G}{\nu} (a,b) =  \pdv{\Gamma}{\nu} (a- b) - \pdv{\Gamma}{\nu} (a-\tilde b)
+\]
+Now changing the sign of $y$ in $b$ we get that this form of the Green's function satisfies \eqref{eq:green}.
+We therefore have $G(a,b) = \Gamma(a-b) + \Gamma (a-b)$ and therefore, for $n = 2$
+\[
+    G (a,b) = \frac{1}{\pi} \ln{|a-b|}
+\]
+\end{document}

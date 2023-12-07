@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Exercises - Geometry in Physics}
+\author{Simone Coli - 6771371}
+\date{Sheet 3}
+
+\begin{document}
+
+\maketitle
+\section{Exercise}
+Let us consider the set of the n-sphere $S^n$
+\[
+    S^n = \{ (x_0, \dots, x_1) \in \mathbb{R}^{n*1} |\, x_0^2 + \cdots + x_n^2 = 1 \},
+\]
+and define two stereographic projections $\psi_S$ and $\psi_N$ defined as the two maps
+\[
+    \psi_N : S^n \setminus \{ N \} \to \mathbb{R}^n, \quad (x_0, \dots, x_n, x_{n+1}) \mapsto \left( \frac{x_0}{1-x_{n+1}}, \dots ,\frac{x_n}{1-x_{n+1}} \right)
+\]
+\[
+    \psi_S : S^n \setminus \{ S \} \to \mathbb{R}^n, \quad (x_0, \dots, x_n, x_{n+1}) \mapsto \left( \frac{x_0}{1+x_{n+1}}, \dots ,\frac{x_n}{1+x_{n+1}} \right)
+\]
+where $x_{n+1}$ is is one of the poles. We want to show that these define a differentiable atlas, which makes $S^n$ a differentiable manifold.
+
+Let us define two charts $(\psi_S, U)$, $(\psi_N, V)$ where $U \eqdef S^n \setminus \{ S \}$, $V \eqdef S^n \setminus \{ N \}$ we have that
+\[
+    S^n = U \cup V
+\]
+Moreover by a direct calculation we find that the inverse map of $\psi_N$ we get that it maps the $i$ element of the map $X_i \mapsto 2X_i/(1+\sum X_i^2)$, which is a differentiable function. Since $\psi_S$ is differentiable by hypothesis, then
+\[
+    \psi_S \circ \psi_N^{-1}|_{\psi_N (U\cap V)}: \psi_N(U \cap V) \to \psi_S(U\cap V)
+\]
+is the composition of two differentiable maps, making it differentiable. This allows us to prove that this is a differentiable atlas, and that $S^n$ is a manifold.
+
+Now let us consider the map $\psi_S \circ \psi_N^{-1}$ which goes from $\mathbb R^n \to \mathbb R^n$ and define another map $\psi: s^n \subset R^{n+1} \to \mathbb R^{n+1}$. If,
+\[
+    \psi|_\mathbb R \eqdef \psi_S \circ \psi_N^{-1}
+\]
+then, because $\psi_S \circ \psi_N^{-1}$ is a differentiable function, $\psi|_\mathbb R$ is an homeomorphism, which proves that the two typologies are equal.
+\section{Exercise}
+    Let us consider a topological space $(X, \tau_1)$ with support $X = \mathbb{R} \cup \{ 0^* \}$ in which we suppose $U \subset \mathbb{R}$ to be open if either $U \subset X$ or, given $0 \in U$, $U \cup \{ 0^* \} = U' \subset X$ as well as $(U \setminus \{0\} \cup \{ 0^* \}) = U'' \subset X$. We want to show that the this topology is equivalent to the one induced by the atlas defined on $\mathbb{R} \cup \{ 0^* \}$ quipped with the differentiable maps:\\
+    \[
+        \psi_1 : \mathbb{R} \to \mathbb{R}, \quad x \mapsto x
+    \]
+    \[
+        \psi_2 : (\mathbb{R} \setminus \{ 0 \}) \cup \{ 0^* \} \to \mathbb{R}, \quad x \mapsto
+        \begin{cases}
+            x\quad , x \neq 0^*\\
+            0\quad , x = 0^* 
+        \end{cases}
+    \]\\
+    To show the equivalency we need to prove that given an open set in the first topological space, it remains open through $\psi_1$, $\psi_2$.
+    \begin{itemize}[label={--}]
+        \item $U'$ though $\psi_1$: 
+        the pre-image of this map at $U'$ is given by the intersection
+        \[
+            \mathbb{R} \cap( U \cup \{ 0^* \}) = U \setminus \{ 0^* \},
+        \]
+        since $ \{ 0^* \}$ is not contained in $\mathbb{R}$. While the image will be $ U \setminus \{ 0^* \}$, since $\psi_1$ is just the identity map, which is open in $\tau_1$.
+        \item $U'$ though $\psi_2$
+        the pre-image of this map at $U'$ will be
+        \[
+           ( (\mathbb{R} \setminus \{0\}) \cup  \{0^*\}) \cap ( U \cup \{ 0^* \}) = \{0^*\} \cup U \setminus \{ 0 \}
+        \]
+        While the image will be $ U \cup \{0\}$ since in $\psi_2$ the only role of $\{0^*\}$ is to decide whether it is equal to identity or zero. This set is open in $\tau_1$ since it is possible to write it as the union of two open intervals not containing zero.
+         \item $U''$ though $\psi_1$:
+          the pre-image of this map at $U''$ will be
+          \[
+            ((U \setminus \{ 0 \}) \cup \{ 0^* \} ) \cap \mathbb{R} = U\setminus \{0, 0^*\}
+          \]
+          while the image will be $U\setminus \{ 0,0^* \}$, which is open using the same reasoning used in the previous bullet point. 
+          \item $U''$ though $\psi_2$: 
+           the pre-image of this map at $U''$ will be
+          \[
+            ((U \setminus \{ 0 \}) \cup \{ 0^* \} ) \cap   ( (\mathbb{R} \setminus \{0\}) \cup  \{0^*\}) = \{ 0^* \}\cup U \setminus \{0\}
+          \]
+          while the image will be $U\setminus \{ 0 \}$, which again is open for the same reason the previous image was open. 
+    \end{itemize}
+    Proving that the two topology are actuallx equivalent.
+
+    Now, considering the definition of the limit of a sequence converging to $0$, that is $\forall U_i(0), \exists N>0: \forall i>N, x_i \in U_i(0)$, we see that from the definition of open set in $\tau_1$ all the open neighborhoods of $0$ must also contain $0^*$, showing that there exists a sequence that approaches the two values.
+
+    The definition of Hausdorff space says that, given tow distinct points $x,\, y$ there exists two open neighborhood $U,\, V$ such that $x\in U$, $y\in V$ and $U\cap V \emptyset$. However since we have a sequence that approaches two different limits, there does not exist two different open neighborhood of $0 \in O$ and $0^* \in O'$ such that $O \cap O' = \emptyset $. This show that $X$ cannot be an Hausdorff space.
+\end{document}

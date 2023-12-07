@@ -1,0 +1,152 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial{#2}^2}}
+\newcommand{\dist}{\text{ dist}}
+
+
+\title{Exercises \- Partial differential equation}
+\author{Simone Coli \- 6771371}
+\date{Sheet 7}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+Let us consider $\Omega \subset \R^n$ an open set and let us define $\Omega_\varepsilon \doteq \{ x \in \Omega : \dist(x, \partial \Omega) > \varepsilon\}$. Let us now consider $u \in L_{loc}^1(\Omega)$ and its mollification $u_\varepsilon : \Omega_\varepsilon \to \R$
+\[
+    u_\varepsilon (x) = (\rho_\varepsilon * u)(x)
+\]
+we want to show that
+
+a) If $u \in C^0(\Omega)$ than $u_\varepsilon \to u$ uniformly in compact subsets as $\varepsilon \to 0$. By definition of continuous we know that:
+\[
+    \forall \varepsilon >0 \exists \delta : \forall N_\varepsilon \in \N, x,y \in \Omega |x-y| < \delta, | u(x)-u(y) | < \varepsilon
+\]
+If we consider
+\[
+    | u_\varepsilon(x) - u(x)| = \left|\int_{\Omega'} \rho_\varepsilon(x-y) u(y) dy - u(x)\right| 
+\]
+Using the commutability of the convolution operator we have that 
+\[
+    \left|\int_{\Omega'} \rho_\varepsilon(x-y) u(y) dy - u(x)\right| = \left|\int_{\Omega'} \rho_\varepsilon(y) u(x-y) dy - u(x) \int_{\Omega'} \rho_\varepsilon(y) dy\right| 
+\]
+where  $\Omega'$ is the set where $\rho_\epsilon$ is defined.
+\[
+    \begin{split}
+        \left|\int_{\Omega'} \rho_\varepsilon(y) (u(x-y) -u(x)) dy \right| & \leq \int_{\Omega'} |\rho_\varepsilon(y)| |u(x-y) -u(x)| dy < \int_{\Omega'} |\rho_\varepsilon(y)| \varepsilon dy 
+    \end{split}   
+\]
+Let us consider a ball $\overline{B_\varepsilon (0)} \supset \Omega'$
+\[
+    \int_{\Omega'} |\rho_\varepsilon(y)| \varepsilon dy \leq \int_{\overline{B_\varepsilon(0)}} |\rho_\varepsilon(y)| \varepsilon dy 
+\]
+for $\varepsilon \to 0$ this integral goes to zero, meaning that $\sup_{x \in \Omega} |u_\varepsilon (x)- u(x)| \to 0$ and therefore $u_\varepsilon$ converges uniformly to $u$.
+
+b) We now want to show that if $u \in L^p(\Omega)$ than $u_\varepsilon \to u$ in $L_{loc}^p$ as $\varepsilon \to 0$. Let us consider
+\[
+    | u_\varepsilon(x) - u(x)|^p = \left|\int_{\Omega'} \rho_\varepsilon(x-y) u(y) dy - u(x)\right|^p = \left|\int_{\overline{B_\varepsilon(0)}} \rho_\varepsilon(y) (u(x-y) -u(x)) dy\right|^p
+\]
+by the same argument as before. Now this is bounded from above by
+\[
+    \left|\int_{\overline{B_\varepsilon(0)}} \rho_\varepsilon(y) 2\sup_{\overline{B_\varepsilon(0)}}{u(x)} dy\right|^p
+\]
+If we take a subset $\Omega' \ssubset \Omega$ we want to show tha definition of $L^p$ space
+\[
+    \int_{\Omega'} |u_\varepsilon(x) - u(x)|^p dx \leq \int_{\Omega'} 2\sup_{\overline{B_\varepsilon(0)}}{u(x)} dx = 2\sup_{\overline{B_\varepsilon(0)}}{u(x)} \mu(\Omega')
+\]
+which goes to $0$ as $\varepsilon \to 0$ since $\Omega' \ssubset \Omega$.
+
+c) We want to show that if $u \in W^{k,p} (\Omega)$ and $k>0$ then $u_\varepsilon \to u$ for $\varepsilon \to 0$ in $W_{loc}^{k,p}$. By definition of $W^{k,p} (\Omega)$ we know that $D^\alpha u \in L^p$ for $|\alpha| < k$, then, using the previous result and the fact that ${(D^\alpha u)}_\varepsilon= D^\alpha u_\varepsilon$ we get the claim.
+
+d) We want to show that if $u \in C^{0,1}$ with Lipschitz constant $L$ then $u_\varepsilon \in C^{0,1}$ with the same constant. By definition of Lipschitz we want to prove that
+\[
+    |u_\varepsilon(x) - u_\varepsilon(z)| < L |x-z|
+\]
+because of that let us consider
+\[
+    |u_\varepsilon(x) - u_\varepsilon(z) = \left| \int_{\Omega} \rho_\varepsilon(x-y) u(y) dy - \int_\Omega \rho_\varepsilon(z-y) u(y) \right| =
+\]
+Using the commutation property for convolutions we have that:
+\[
+    = \left| \int_\Omega \rho_\varepsilon(y) (u(x-y) - u (z-y)) dy \right| < \int_\Omega |\rho_\varepsilon(y)| L |x-z| dy
+\]
+Since $u \in C^{0,1}(\Omega)$. Proving the statement.
+
+\section{Exercise}
+We want to find the weak derivative of
+\[
+    f(x) = \begin{cases}
+        2x - 1 & x\leq 0 \\
+        1-3x & x \geq 0 \\
+    \end{cases}
+\]
+
+By its definition we have that:
+\[
+    \begin{split}
+        -\int v \varphi dx &= \int u D\varphi dx\\
+        &= \int_{-infty}^0 (2x-1) \varphi' dx + \int_0^{\infty} (1-3x) \varphi' dx = \\
+        &= \int_{-infty}^0 2 \varphi dx + \int_0^{\infty} 3 \varphi dx
+    \end{split}
+\]
+using integration by parts. We then have that the directional derivative of $f$ is 
+\[
+    v(x) = \begin{cases}
+        2 & x < 0\\
+        -3 & x> 0
+    \end{cases}
+\]
+Since we computed it using the definition we have that it is in fact the weak derivative of $f$.
+\section{Exercise}
+Let $\Omega \subset \R^n$ open and bounded such that $0 \in \Omega$. We want to show that a function $u(x) = | x |^{- \alpha}$  is in $W^{ k,0 } (\Omega)$ as long as $k+\alpha < n$.
+
+This means that we want to show that
+\[
+    \int_\Omega v \varphi dx = - {(-1)}^k \int_\Omega D^\beta \varphi |x|^{-\alpha} dx
+\]
+converges, where we used a multi index $\beta$ such that $|\beta| = k$. If we move in spherical coordinates, we will have that:
+\[
+    \int_\Omega D^{k_1}_1 \cdots D^{k_n}_n r^{-\alpha} r^{n-1} dr d\theta
+\]
+where $d\theta$ contains all the angular part of the integral. Using integration by parts then we have that 
+\[
+    {(-1)}^k \int_\Omega \varphi D^k r^{n-1-\alpha} dr d\theta \leq \sup_{\Omega}|\varphi| \int_\Omega D^k r^{n-1-\alpha}drd\theta
+\]
+by the chain rule we know that the directional derivative in the direction of $x_i$ or $r^{n-1-\alpha}$ will be less or equal than its directional derivative in the direction of $r$, because the function does not depend on the angular components. Then, let $\sup_\Omega |\varphi|= c$:
+\[
+    c \int_\Omega r^{n-1-\alpha-k} dr d\theta = {\left[r^{n-\alpha- k} \right]}^R_0
+\]
+This will be non singular if, and only if, the exponent is not less than zero, that is $n-\alpha-k>0$ which proves the statement.
+
+\section{Exercise}
+Let $\Omega \subset \R^n$ and an open and bounded subset $\Omega \subset \subset \Omega$ and $d \doteq \text{dist}(\Omega', \partial \Omega)$, we want to show that there exists a function $\eta \in C^\infty _c (\Omega)$ and a constant $C = C(n)$ such that 
+\[
+    0\leq \eta \leq 1, \quad, \eta|_{\Omega'} \equiv 1, \quad |D\eta |\leq \frac{C}{d}
+\]
+
+What we want to do is construct a function which grows from zero to $1L $ before reaching $\Omega'$, and we want to bound this growth from above. Let us therefore define two subsets $A, B \subset \Omega$ such that $\Omega' \subset B \subset A \subset \Omega$. In particular, we want  $\dist(A, \partial \Omega) = \dist(\Omega', \partial B) = \frac{d}{4}$, meaning that $\dist(B, \partial A) = \frac{d}{2}$. Then consider the function
+\[
+    f(x) = \begin{cases}
+        1 & x \in B\\
+        -\frac{2}{d} x + k& x \in A\setminus B\\
+        0 & x \in \Omega \setminus A
+    \end{cases}    
+\]
+Where $k$ is just a constant which must be chosen to be such that the linear function has value $1$ at $\partial B$ and $0$ at $\partial A$. However, this function is not smooth. To make it $C^\infty_c$ we apply the mollification to $f$ defining $0 < h < \dist(B, \partial A)$
+\[
+    \eta(x) = \int_\Omega \rho_h (x-y) f(y) dy
+\]   
+\end{document}
