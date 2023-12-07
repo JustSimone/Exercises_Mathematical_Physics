@@ -1,3 +1,4 @@
+# Extensions of files which should not be pushed
 .aux
 .fls
 .log
