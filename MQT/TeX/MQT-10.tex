@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{dsfont}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial{#2}^2}}
+
+\title{Exercises - Mathematical Quantum Theory}
+\author{Simone Coli - 6771371}
+\date{Sheet 10}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+(a) Given a PVM ${\{ P(\Omega) \}}_{\Omega \in \mathcal{B} (\R)}$ let $\Phi: S(\R) \to \mathcal{L} (\mathcal{H})$ be the associated measurable functional calculus. Which by definition have the form:
+    \[
+        \Phi(f) = \int_\R f(\lambda) dp(\lambda) := \sum_i c_i P(\Omega_i)
+    \]
+where in this case $f$ is a simple function. We want to prove that $\Phi$ is a $C^*-$algebra homeomorphism, i.e.:
+\begin{itemize}
+    \item $\Phi$ is linear: from the linearity of integrals we have that it is linear.
+    \item $\Phi(1) = \mathds{1}_\mathcal{H}$:
+    \[
+        \Phi(\mathbf 1) = \int_\R 1 dp (\lambda) = \int_\R dp (\lambda) = P(\R) = \mathds{1}_\mathcal{H}
+    \]
+    \item For all $f, g \in S(\R)$, we have $\Phi(fg) = \Phi(f)\Phi(g)$: from the definition of a simple function we can express $f = \sum_j \alpha_j \chi_{\Omega_j}$ and $g = \sum_k \beta_k \chi_{\Gamma_k}$ which allows us to consider
+    \[
+        \begin{split}
+            \Phi(fg) &= \Phi \left(\sum_j \alpha_j \chi_{\Omega_j} \sum_k \beta_k \chi_{\Gamma_k}\right) = \Phi \left(\sum_{j,k} \alpha_j \beta_k \chi_{\Omega_j} \chi_{\Gamma_k}\right) =\\
+            & = \Phi \left(\sum_{j,k} \alpha_j \beta_k \chi_{\Omega_j \cap \Gamma_k}\right)
+        \end{split}
+    \]
+    using now the definition of functional calculus for simple functions:
+    \[
+        \Phi(fg) = \sum_{j,k} \alpha_j \beta_k P(\Omega_j \cap \Gamma_k) = \sum_{j,k} \alpha_j \beta_k P(\Omega_j) P (\Gamma_k) = \Phi(f)\Phi(g)
+    \]
+    \item For all $f \in S(\R), \Phi(\bar f) = \Phi(f)^*$: again using the definition a simple function we have
+    \[
+        f = \sum_j \alpha_j \chi_{\Omega_j}, \quad \bar f = \overline{\sum_j \alpha_j \chi_{\Omega_j}} = \sum_j \overline{\alpha_j} \chi_{\Omega_j}
+    \]
+    from the properties of complex conjugate and the fact that the characteristic function real valued. Then, by the definition of functional calculus for simple functions:
+    \[
+        \Phi(\bar f) = \Phi \left( \sum_j \overline{\alpha_j} \chi_{\Omega_j} \right) = \sum_j \overline{\alpha_j} P(\Omega_j)  = \sum_j \overline{\alpha_j} P(\Omega_j)^* = \Phi(f)^*
+    \]
+\end{itemize} 
+(b) Now let $f, g  : \R \to \C$ be measurable, but not necessarily bounded. We want to show that the $\Phi(f) \Phi(g) = \Phi (g)\Phi(f)$ on $\mathcal{D}_f \cap \mathcal{D}_g$:
+
+Let us consider two sequences $f_k \subset \mathcal{D}_f, g_k \subset \mathcal{D}_g$ converging respectively to $f \in \mathcal{D}_f, g \in \mathcal{D}_g$ and such that $f_k = f \chi_{\Omega_k}, g_k = g \chi_{\Gamma_k}$. By the definition of $(\Phi(\cdot), \mathcal{D})$ we set $\Phi(f) = \lim_{k \to \infty} \Phi(f_k)$, then:
+\[
+    \begin{split}
+        \Phi(f) \Phi(g) &= \lim_{k \to \infty} \Phi(f_k) \Phi(g_k) = \lim_{k \to \infty} \Phi(f\chi_{\Omega_k}) \Phi(g \chi_{\Gamma_k}) =\\
+        & = \lim_{k \to \infty} \Phi(f\chi_{\Omega_k}\, g\, \chi_{\Gamma_k}) = \lim_{k \to \infty}  \Phi(g \chi_{\Gamma_k}) =  \Phi(f\chi_{\Omega_k}) =\\
+        &= \lim_{k \to \infty}  \Phi(g_k) \Phi(f_k) = \Phi(f) \Phi(g)
+    \end{split}
+\]
+since from their definition, $f_k, g_k$ are bounded.
+\section{Exercise}
+
+Let us take $\mathcal{H} = L^2([0,1])$ and consider the Volterra operator
+\[
+    Vf(x) = \int_0^1 f(y) dy.
+\]
+(a) we want to show that such an operator is bounded on $\mathcal{H}$.
+
+The operator norm
+\[
+    \begin{split}
+        \| V \|^2 &= \sup_{{\| f \|}_{L^2} = 1} \|Vf \|_{L^2}^2 =\\
+        &= \sup_{{\| f \|}_{L^2} = 1} \int_{0}^{1} \left| \int_{0}^{x} f(y) dy \right|^2 dx \leq  \sup_{{\| f \|}_{L^2} = 1} \int_{0}^{1} {\left( \int_{0}^{x} |f(y)| dy \right)}^2 dx
+    \end{split}
+\]
+by Cauchy-Schwartz:
+\[
+    \int_{0}^{1} {\left( \int_{0}^{x} |f(y)| dy \right)}^2 dx \leq \int_{0}^{1} {\|f(x)\|}_{L^2} x\, dx < \infty
+\]
+(b)
+\section{Exercise}
+\section{Exercise}
+\end{document}

@@ -1,0 +1,167 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial{#2}^2}}
+
+\title{Exercises - PDEs}
+\author{Simone Coli - 6771371}
+\date{Sheet 9}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+Use the function $f(x) = \ln {\ln {\left( \frac{1}{|x|} \right)}}$ to construct a function which is in $W^{1, n}(\R^n)$ unbounded on every open domain of $\R^n$.
+
+Because we require a function unbounded over every open domain of $\R^n$ we want a function with singularities on countable many points of $\R^n$ which, for example, could be the set of the rational numbers $\Q^n$. Let ${\{z_k\}}_{k \in N} \subset \R^n$ be the sequence of the singular points of our new function. Then we can take
+\[
+    g(x) = \sum_{k = 1}^{\infty} \frac{1}{2^k} \chi_{B_{1 / e}(z_k)}f(x-z_k)
+\]
+Then we need to show that such a function is indeed in $L^n(\R^n)$, and that its weak derivative is also in $L^n(\R^n)$.\\
+Let us begin by showing that $g \in L^n(\R^n)$:
+\[
+    \begin{split}
+        \| g \|_n^n &= \int_{\R^n} {\left| \sum_{k = 1}^{\infty} \frac{1}{2^k} \chi_{B_{1 / 2}(z_k)}f(x-z_k) \right|}^n dx \leq \\
+        & \leq \sum_{k = 1}^{\infty} \frac{1}{2^k} \int_{\R^n} {\left|  \chi_{B_{1 / e}(z_k)}f(x-z_k) \right|}^n dx = 
+    \end{split}
+\]
+by the triangular inequality. Now since it is zero outside the ball
+\[
+    = \sum_{k = 1}^{\infty} \frac{1}{2^k} \int_{B_{1 / e}(z_k)} {\left| f(x-z_k) \right|}^n dx = \sum_{k = 1}^{\infty} \frac{1}{2^k} \int_{B_{1 / e}(z_k)} {\left| \ln {\ln {\left( \frac{1}{|x-z_k|} \right)}} \right|}^n dx = 
+\]
+let us consider a translation so that $y = x - z_k$ then 
+\[
+    = \sum_{k = 1}^{\infty} \frac{1}{2^k} \int_{B_{1 / e}(0)} {\left| \ln {\ln {\left( \frac{1}{|y|} \right)}} \right|}^n dy
+\]
+
+
+\section{Exercise}
+Consider two points $x, y \in \R^n$. We want to show that the shortest smooth curve $\gamma : [0, 1] \to \R^n$ between x and y is a straight line segment.
+
+Let us define $\gamma(1) = y, \gamma(0) = x$, then if we define the length of the curve $\gamma(t)$ as:
+\[
+    L[\gamma] = \int_0^1 |D \gamma| dt,
+\]
+it is possible to minimize it using the variational method. Let $\eta \in C_c^\infty$ and let $s$ be small enough, we want to find $\gamma$ which minimize the previous integral, that is 
+\[
+    \delta d[\gamma + s \eta] = {\left. \odv{}{s}\right|}_{s=0} \int_{0}^{1} |D(\gamma + s \eta)| dx = 0
+\]
+from hypothesis $\gamma$ and $\eta$ are smooth functions, and therefore it is possible to bring the differential operator inside the integral
+\[
+    \delta d[\gamma + s \eta] = {\left. \int_{0}^{1}  \pdv{}{s} |D(\gamma + s \eta)| dx \right|}_{s=0} = 0
+\]
+by the chain rule:
+\[
+    \begin{split}
+        \delta d[\gamma + s \eta] &= {\left. \int_{0}^{1} \frac{D(\gamma^i + s \eta^i)}{|D(\gamma + s \eta)|} D \eta^i \, dt \right|}_{s=0} =\\
+        &= \int_{0}^{1} \frac{D\gamma^i}{|D\gamma|} D \eta^i\, dt = \int_{0}^{1} \frac{1}{|\odv{\gamma}{t}|} \odv{\gamma^i}{t} \odv{\eta^i}{t}\, dt = 0
+    \end{split}
+\]
+Note that we are considering only the variation of the $i$-th component of the parametrization using $|D \gamma| = \sqrt{{D\gamma^1}^2 + \cdots + {D\gamma^n}^2}$.  Moreover, the "speed" along the curve should not depend on the choice of parametrization, then we can choose our to be such that $\odv{\gamma}{t} = 1$.
+\[
+    \int_{0}^{1} \odv{\gamma^i}{t} \odv{\eta^i}{t}\, dt = - \int_{0}^{1} \odv[2]{\gamma^i}{t} \eta^i\, dt = 0
+\]
+integrating by parts. Now, assuming $\eta^i \neq 0$ we have that this is true only if $d^2 \gamma / dt^2 = 0$ almost everywhere. Proving that the curve $\gamma(t)$ which minimize the length of the segment is the segment of a line.
+\section{Exercise}
+Let $u : \overline{\Omega} \times [0, \infty) \to \R$ be a smooth solution to the problem
+\[
+    \Delta u = \pdv{u}{t}, \quad u(\cdot, 0) = u_0, \quad u_{\partial \Omega \times [0, \infty)} = 0
+\]
+(a) Let us show that the $L^2 (\Omega)$ norm of $u$ decays to $0$ exponentially as $t \to \infty$.
+
+First we let us define the functions
+\[
+    E(t) = \int_{\Omega} |u|^2 dx
+\]
+Then
+\[
+    \odv{E}{t} = \odv{}{t} \int_\Omega |u|^2 dx
+\]
+since $u$ is at least $C^2(\Omega)$, we can bring the derivative inside the integral
+\[
+    \odv{E}{t} = \int_\Omega \pdv{}{t}(u \cdot u)\, dx = \int_\Omega 2 \pdv{u}{t} \cdot u\, dx = 2 \int_\Omega \Delta u \cdot u\,dx = -2 \int_\Omega |Du|^2 dx
+\]
+Then by Poincaré inequality
+\[
+    - 2 \int_\Omega |Du|^2 dx \leq -2\, C(n;\Omega)\int_\Omega |u|^2 dx
+\]
+we have 
+\[
+    \odv{E}{t} \leq -2\, C(n, \Omega) E(t)
+\]
+From Grönwall's inequality we have that given two real valued function $f(t), \beta(t)$ on $ [a, \infty)$, then if $f$ is differentiable in the interior of such interval and such that $f'(t) \leq \beta(t) f(t)$ with $t \in (a, \infty)$ then $f$ is bounded by the solution of the corresponding ODE. In our case the ODE has the form:
+\[
+    \odv{E}{t} = -2\, C(n, \Omega) E(t)
+\]
+which is solved by $E(t) = \alpha e^{-2\,C(n;\Omega)\,t}$. Our function $E$ is therefore bounded as
+\[
+    \sqrt{E(t)} ={\left( \int_{\Omega} |u|^2 dx \right)}^{1 / 2}= \| u \|_2 \leq \alpha e^{-\,C(n;\Omega)\,t}
+\]
+
+(b) To show that the $w^{1,2}(\Omega)$ norm goes to zero exponentially we have to shoe that
+\[
+    \int_\Omega |Du|^2 dx 
+\]
+decreases exponentially. Let us consider 
+\[
+    \begin{split}
+        \odv{}{t}\int_\Omega |Du|^2 dx  &= 2 \int_\Omega D_i \pdv{}{t}D_i u dx = 2 \int_\Omega D_i u D_i \Delta u dx = 
+    \end{split}
+\]
+using the heat equation and the fact that u is smooth. Now, integrating by parts:
+\[
+    \begin{split}
+        -2 \int_\Omega D_i^2 u \Delta u dx = -2 \int_\Omega {|\Delta u}|^2 dx = -2 \| \Delta u \|^2_{L^3} \lneq - \frac{2}{c} \| \nabla u \|^2_{L^2}
+    \end{split}
+\]
+using Poincaré. Now by Grönwall we can find the exponential decay of $\| \nabla u\|_{L^2}^2$. This, toghether with the exponential part $\| u \|_{L^2}$ implies the exponential decay of $\|\ u \|_{W^1,2}$.
+\section{Exercise}
+Let $u : \overline{\Omega} \times [0, \infty) \to \R$ be a smooth solution to the problem
+\[
+    \pdv{u}{t} = D_i(a^{ij} D_j u) + b^i D_i u +cu , \quad u(\cdot, 0) = u_0, \quad u_{\partial \Omega \times [0, \infty)} = 0
+\]
+where $a^{i,j}, b^i, c$ are smooth, bounded, time-depend functions on $\bar \Omega$. Supposing $a^{ij}$ to uniformly elliptic, that is, there exists a constant $\lambda > 0$ such that for each $(x,t) \in \bar \Omega \times [0, \infty)$
+\[
+    a^{ij} \xi_i \xi_i \leq \lambda |\xi|^2
+\]
+We want to show the uniqueness of this solution, if it exists.
+
+To show uniqueness let us assume that there are two functions $u_1: \overline{\Omega} \times[0, \infty) \to \R$ and $u_2: \overline{\Omega} \times[0, \infty) \to \R$. And we want to show that $\| u_1 - u_2 \|_{L^1} = 0$. Let $u = u_1 - u_2$, then:
+\[
+   \begin{split}
+    \odv{}{t} \int_\Omega |u|^2 dx &= 2 \int_\Omega D_i (a^{ij} D_j u) \cdot u\, dx + \int_\Omega b^i D_i u \cdot u\, dx +  \int_\Omega cu\cdot u\, dx = \\
+    &= -2 \int_\Omega a^{ij} D_j u D_i u \cdot u\, dx + \int_\Omega b^i D_i u \cdot u\, dx +  \int_\Omega cu\cdot u\, dx
+   \end{split}
+\]
+using the ellipticity of the equation we have
+\[
+    \leq -2 \int_\Omega a^{ij} D_j UD_i u \cdot u\, dx + \int_\Omega b^i D_i u \cdot u\, dx +  \int_\Omega cu\cdot u\, dx = 
+\]
+Since the functions at the bounder are zero then we have 
+\[
+    = -2 \int_\Omega a^{ij} D_j u D_i u \cdot u\, dx + \int_\Omega cu\cdot u\, dx. \leq -2 \int_\Omega |\lambda| |Du|^2 + cu \int_\Omega |u|^2 dx \leq
+\]
+By Poincaré's inequality
+\[
+   \leq  -2 C \int_\Omega |\lambda| |u|^2 + c \int_\Omega |u|^2 dx = (c-2C)\int_\Omega |u|^2 dx 
+\]
+By Grönwall inequality we have that 
+\[
+    \|u\|^2_{L^2} \leq \|u (\cdot, 0)\|_{L^2} e^{-k t}
+\]
+But from boundary condition we have $\|u (\cdot, 0)\|_{L^2} = 0$, which implies $\|u (\cdot, t)\|_{L^2} = 0, \forall t \in [0, \infty)$. By definition of norm $\| \cdot \| \geq 0$, then $\| u \|_{L^2} = 0$ which proves the statement.
+\end{document}

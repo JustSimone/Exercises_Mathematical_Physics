@@ -1,0 +1,277 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{physics}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\f}{\mathcal{F}^{-1}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial{#2}^2}}
+
+\title{Exercises - MQT}
+\author{Simone Coli - 6771371}
+\date{Sheet 8}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+Let H be a self-adjoint $n\times n$ matrix on the Hilbert space $\C^n$ with spectrum $\lambda_1, \dots, \lambda_m$ where $m <n$ if some eigenvalues are equal. Let $\mathcal{E}_1, \dots, \mathcal{E}_m$ be the corresponding eigenspaces with $P_{\mathcal{E}_j}$ the projection onto $\mathcal{E}_j$.
+
+(a) From linear algebra, it is known that $H $ can be written as $H = U \Lambda U^*$ with $U$ unitary and $\Lambda$ a diagonal matrix with eigenvalues $\lambda_1, \dots, \lambda_m$ repeated according to their multiplicity: we want to prove that it is also possible to write $H$ as
+\[
+    H = \sum_{j = 1}^{m} \lambda_j P_{\mathcal{E}_j}
+\]
+If we have that $\widetilde{P}_{\mathcal{E}_j}$ as the matrix which is $1$ on the diagonal on the positions $j, j+1, \dots, j + n_j$ (where $n_j$ is the multiplicity of the $\lambda_j$ eigenvalue) and zero everywhere else. We can write
+\[
+    \Lambda = \sum_{m}^{j=1} \lambda_j \widetilde{P}_{\mathcal{E}_j}
+\]
+multiplying both sides by $U, U^*$:
+\[
+    U \Lambda U^* = \sum_{m}^{j=1} \lambda_j U \widetilde{P}_{\mathcal{E}_j}U^* = H
+\]
+Now defining $P_{\mathcal{E}_j} = U \widetilde{P}_{\mathcal{E}_j} U^*$ we get that the two expression are equivalent.
+
+(b) Now let us prove that the converse:
+\[
+    H = \sum_{j=1}^{m} \lambda_j P_{\mathcal{E}_j}
+\]
+using the previous definition of $ U^* P_{\mathcal{E}_j} U = \widetilde{P}_{\mathcal{E}_j}$ we get
+\[
+    U^* H U = \sum_{m}^{j=1} \lambda_j \widetilde{P}_{\mathcal{E}_j} = \Lambda
+\]
+\section{Exercise}
+
+Let $\mathbb T = \R / (2\pi \Z)$ be the one dimensional torus. Consider the function $g \in L^2(\mathbb T)$  satisfying $g(x) = \overline{g(-x)}$ for almost every $x \in \mathbb T$. Taking the operator $T$ defined as:
+\[
+    T \psi = g*\psi
+\]
+
+(a) We want to show $T$ to be bounded and defined on all $L^2(\mathbb T)$. Let us take a generic test function $\psi \in L^2 (\mathbb T)$, and consider
+\[
+    \begin{split}
+        \left| \int_\T T \psi(x) dx \right|^2 &\leq \int_\T |T\psi(x)|^2 dx = \int_\T \left| \int_\T \psi(x-y) g(y) dy \right|^2 dx \leq \\
+        & \leq \int_\T \int_\T |\psi(x-y) g(y)|^2 dy dx =
+    \end{split}
+\]
+By Fubini's theorem we can interchange the order of integration
+\[
+    = \int_\T |g(y)|^2 \int_\T |\psi(x-y)|^2 dx dy = 
+\]
+from the fact that $\psi$ is periodic since $x \in \T$
+\[
+    = \int_\T |(y)|^2 \int_\T |\psi(x)|^2 dx dy = \| g \|_2^2 \cdot\| \psi \|_2^2
+\]
+meaning it is well-defined. 
+\[
+    \| T \psi\|_2 = \| g \|_2 \|\psi \|_2 \leq C \|\psi\|_2 
+\]
+since $g \in L^2(\T)$.
+
+(b) We want to see that $T$ is self-adjoint. Since it is bounded it is also densly compact, and we are left to show that it is symmetric. Let $\psi, \varphi \in L^2$
+\[
+    \begin{split}
+        \langle \psi, T \varphi \rangle &= \int_\T \overline{\psi} (x)\, g*\varphi (x) dx = \int_\T \overline{\psi} (x) \int_\T g(y) \varphi(x-y)dy dx = \\
+    \end{split}
+\]
+let us change variable $u = x-y$ Then
+\[
+    = \int_\T \int_\T \overline{\psi}(u+y) g(y) \varphi (u) dy du = \int_\T \int_\T \overline{\psi}(u+y) \overline{g}(-y) \varphi (u) dy du = 
+\]
+changing the direction over which we are integrating around the torus 
+\[
+    \begin{split}
+        &= - \int_\T \int_{-\T} \overline{\psi}(u-y) \overline{g}(y) = \varphi (u) dy du = \int_\T \int_\T \overline{\psi}(u-y) \overline{g}(y) \varphi (u) dy du = \\
+        &= \int_\T \overline{g *\psi}(x) \varphi (x) dx = \langle \T \psi, \varphi \rangle
+    \end{split}
+\]
+showing tha it is symmetric and therefore self-adjoint.
+
+(c) We now want ro find am orthonormal system ${\{ e_n \}}_{n \in \Z}$ of $L^2(\T)$ and real numbers ${\{ \lambda_n \}}_{\in \Z}$ such that
+\[
+    T = \sum_{n \in \Z} \lambda_n \ket{e_n}\bra{e_n}
+\]
+Taking 
+\[
+    T e_n (x)= (g * e_n) (x)
+\]
+let us assume that the solution of the eigenvalue problem $T e_n = \lambda_n e_n$ is given by $e_n = e^{inx}$. Then
+\[
+    \begin{split}
+        T e_n & = \int_\T g(y) e^{in(x-y)} dy = e^{inx} \int_\T g(y) e^{-iny} dy = \\
+        &= e^{inx} \sqrt{2\pi} \hat g(n) = \lambda_n e_n
+    \end{split}
+\]
+meaning that $\lambda_n = \sqrt{2\pi} \hat g(n)$.
+
+(d) Let us now show that the spectrum of this operator is $\sigma(T) = {\{ \lambda_n \}}_{n \in \Z} \cup \{ 0 \}$. Since we found that the eigenvalues of the operator are ${\{ \lambda_n \}}_{n\in \Z}$ we have that 
+\[
+    \sigma_P (T)= {\{ \lambda_n \}}_{n\in \Z}
+\]
+We know that 
+\[
+    \sigma(T) \supset \overline{\sigma_p (T)} = {\{ \lambda_n \}}_{n\in \Z} \cup \{ 0 \}
+\]
+from the fact that 
+\[
+    \lim_{n \to \infty} \lambda_n = \lim_{n \to \infty} \int_\T g(y) e^{-iny} dy = 0
+\]
+by the Riemann lemma. We are left to show that $\sigma(T) = \overline{\sigma_p (T)}$.
+\section{Exercise}
+
+On a Hilbert space $\mathbb H = \ell^2 (\Z)$ we consider the Laplacian which acts on a sequence ${(\psi_n)}_{n \in \Z}  \in \ell^2 (\Z)$ By
+\[
+    {(\Delta_\Z \psi)}_n = \psi_{n+1} + \psi_{n-1} -2 \psi_n
+\]
+
+(a) Let us show that $\Delta_\Z$ is bounded. If we take
+\[
+    \| {(\Delta_\Z \psi)}_n \|_{\ell^2} = \| \psi_{n+1} + \psi_{n-1} -2 \psi_n \|_{\ell^2}
+\]
+using the triangular inequality:
+\[
+    \| {(\Delta_\Z \psi)}_n \|_{\ell^2} \leq \| \psi_{n+1}\|_{\ell^2} + \|\psi_{n-1}\|_{\ell^2} + 2\|\psi_n \|_{\ell^2}
+\]
+using the definition of $\ell^2$ norm
+\[
+    \| {(\Delta_\Z \psi)}_n \|_{\ell^2} \leq {\left( \sum_{n \in \Z} |\psi_{n+1}| \right)}^{1 / 2} + {\left( \sum_{n \in \Z} |\psi_{n-1}| \right)}^{1 / 2} + 2{\left( \sum_{n \in \Z} |\psi_{n}| \right)}^{1 / 2}
+\]
+doing a redefinition of the indices
+\[
+    \| {(\Delta_\Z \psi)}_n \|_{\ell^2} \leq {\left( \sum_{n \in \Z} |\psi_{n}| \right)}^{1 / 2} + {\left( \sum_{n \in \Z} |\psi_{n}| \right)}^{1 / 2} + 2{\left( \sum_{n \in \Z} |\psi_{n}| \right)}^{1 / 2} = 4 \| \psi_n \|_{\ell^2}
+\]
+
+(b) We want to show $\Delta_\Z$ self-adjoint. Since it is bounded we know it is densly-defined, we are therefore left to show it is symmetric.
+\[
+    \begin{split}
+        \langle \psi_n, \Delta_\Z \varphi_n \rangle &= \sum_{n \in \Z} \overline{\psi_n} (\varphi_{n+1} + \varphi_{n-1} -2 \varphi_n) = \\
+        & = \sum_{n \in \Z} \overline{\psi_n} \varphi_{n+1} + \sum_{n \in \Z} \overline{\psi_n} \varphi_{n-1} - 2 \sum_{n \in \Z} \overline{\psi_n} \varphi_n = \\
+        & = \sum_{n \in \Z} \overline{\psi_{n-1}} \varphi_{n} + \sum_{n \in \Z} \overline{\psi_{n+1}} \varphi_{n} - 2 \sum_{n \in \Z} \overline{\psi_n} \varphi_n = \langle \Delta_\Z \psi_n, \varphi_n \rangle
+    \end{split}
+\]
+where in we renamed the indices from the second line to the third. Proving that it is symmetric and therefore self-adjoint.
+
+(c) Using the Fourier theory let us show that $\Delta_\Z$ is unitarly equivalent to a multiplication operator. Let us consider the Fourier transform $\F : \ell^2(\Z) \to L^2 (\R / \Z)$, which for an $\ell^2$ function is defined as 
+\[
+    \F A_n = \sum_{n = -\infty}^{\infty} A_n e^{-i2\pi n x}
+\]
+Then we want to find $\mathcal{M}_g$ such that
+\[
+    \begin{split}
+        &\f\M_g \F \psi_n = \Delta_\Z \psi_n\\
+        &\M_g \F \psi_n = \F \Delta_\Z \psi_n
+    \end{split}
+\]
+Using the definition of $\Delta_\Z$ and the definition of Fourier transform 
+\[
+    \begin{split}
+        \F \Delta_\Z \psi_n &= \F (\psi_{n+1} + \psi_{n-1} -2 \psi_n) = \\
+        &= \sum_{n= -\infty}^\infty (\psi_{n+1} + \psi_{n-1} -2 \psi_n) e^{i2\pi n x} = \\
+        & = \sum_{n= -\infty}^\infty \psi_{n+1} e^{i2\pi n x} + \sum_{n= -\infty}^\infty \psi_{n-1} e^{i2\pi n x} - \sum_{n= -\infty}^\infty 2 \psi_n e^{-i2\pi n x} = \\
+        & = \sum_{n= -\infty}^\infty \psi_{n} e^{-i2\pi (n -1) x} + \sum_{n= -\infty}^\infty \psi_{n-1} e^{-i2\pi (n+1) x} - \sum_{n= -\infty}^\infty 2 \psi_n e^{- i2\pi n x} =\\ 
+    \end{split}
+\]
+where in the last step we renamed the indices
+\[
+    \begin{split}
+        \F \Delta_\Z \psi_n &= (e^{i2\pi x}+ e^{- i2\pi x} -2 ) \sum_{n= -\infty}^\infty \psi_n e^{-i 2 \pi n x} =\\
+        &= (2 \cos{(2\pi x)} -2) \F \psi_n .
+    \end{split}
+\]
+Using both the Euler identity and the fact that the last factor was equivalent to the Fourier transform of $\psi_n$. Now 
+\[
+    \mathcal M_{(2 \cos{(2\pi x)} -2)} = \F \Delta_\Z \f
+\]
+
+(d) We want to show that $\sigma(\Delta_\Z) = [ -4, 0 ]$. Let us use a property proved in the previous sheet to say that $\sigma(T) = \sigma(U T U^*)$ if $U$ is unitary, which works since $\ell^2(\Z) \cong L^2 (\R / \Z)$. Then
+\[
+    \sigma\left( \Delta_\Z \right) = \sigma\left( \F \Delta_\Z \f \right) = \sigma \left( \mathcal M_{(2 \cos{(2\pi x)} -2)} \right)
+\]
+again, from the previous sheet we proved that $\sigma(\mathcal M_f) = \mbox{ran }(f)$ which is enough to prove that
+\[
+    \sigma\left( \Delta_\Z \right) = [-4, 0]
+\]
+
+\section{Exercise}
+
+Let ${\{ V_n \}}_{n \in \Z}$ be a sequence of independent coin flip with outcomes $0$ and $v\in \R \setminus \{0\}$ occurring with probability $1 / 2$. On the Hilber space $\mathcal H = \ell^2 (\Z)$, consider the discrete Schrödinger equation operator $H$ acting on ${\{ \psi_n \}}_{n \in \Z}$ by
+\[
+    {(H \psi)}_n = {(-\Delta_\Z \psi)}_n + V_n \psi_n
+\]
+
+(a) We want to show that $H$ is bounded by $\| H \| \leq 4 + |v|$, and it is self adjoint. The definition of bound operator requires that 
+\[
+    \| H \| = \sup_{\psi \in \mathbb H} \frac{\| {(H \psi)}_n \|_{\ell^2}}{\| \psi_n \|_{\ell^2}} \leq C
+\]
+Let us start by considering 
+\[
+    \| {(H \psi)}_n \|_{\ell^2} = \| - \Delta_\Z \psi_n  + V_n \psi_n\|_{\ell^2} \leq \| \Delta_\Z \psi_n \|_{\ell^2} + \| V_n \psi_n\|_{\ell^2}
+\]
+using the triangular inequality. Moreover, from part (a) of exercise 3, we have that $\| \Delta_\Z  \| \leq 4$ from which
+\[
+    \| \Delta_\Z \psi_n \|_{\ell^2} + \| V_n \psi_n\|_{\ell^2} \leq 4 \| \psi_n \| + \| V_n \psi_n\|_{\ell^2} 
+\]
+Now we want to bound from above $\| V_n \psi_n\|_{\ell^2}$. By definition of $\ell^2(\Z)$ we have that:
+\[
+    \| V_n \psi_n\|_{\ell^2} = {\left(\sum_{n= -\infty}^\infty |V_n \psi_n|^2\right)}^{1 / 2} 
+\]
+We can construct a new sequence $W_n = V_{\sigma(n)}$ such that
+\[
+    W_n = \begin{cases}
+        v & n \geq 0\\
+        0 & n < 0
+    \end{cases}
+\]
+So that we did not change the result of the sum:
+\[
+    \sum_{n= -\infty}^\infty |V_n \psi_n|^2 = \sum_{n= -\infty}^\infty |W_n \psi_n|^2 = \sum_{n= -\infty}^{-1} |0 \psi_n|^2 + \sum_{n= 0}^\infty |v \psi_n|^2 = |v|^2 \sum_{n= -\infty}^\infty | \psi_n|^2
+\]
+Then we have that
+\[
+    \| V_n \psi_n\|_{\ell^2} = |v| \|\psi_n\|_{\ell^2}
+\]
+and
+\[
+    \| {(H \psi)}_n \|_{\ell^2} \leq 4 \| \psi_n \|_{\ell^2} + |v| \|\psi_n\|_{\ell^2}
+\]
+Using the definition we prove $\|H\|_{\ell^2}$ is bounded
+\[
+    \| H \| = \sup_{\psi \in \mathcal H} \frac{\| {(H \psi)}_n \|_{\ell^2}}{\| \psi_n \|_{\ell^2}} \leq \frac{(4 + |v|) \|\psi_n\|_{\ell^2}}{\|\psi_n\|_{\ell^2}} = 4 + |v|
+\]
+We now want to show that it is self-adjoint, i.e.\ symmetric and densly defined. The second is guaranteed by the fact that it is bounded, let us show that it is symmetric to complete the proof.
+\[
+    \langle \psi_n, {(H \varphi)}_n \rangle = \langle \psi_n , -\Delta_Z \varphi_n + V_n \varphi \rangle = \langle - \Delta_\Z \psi_n ,\varphi_n \rangle + \langle \psi_n , V_n \varphi_n \rangle
+\]
+since by (b) of exercise 3 $\Delta_\Z$ is self-adjoint. Now using the definition of ar product in $\ell^2(\Z)$:
+\[
+    \langle \psi_n ,V_n \varphi_n \rangle = \sum_{n = -\infty}^\infty \overline{\psi_n} V_n \varphi_n = \sum_{n = -\infty}^\infty \overline{V_n \psi_n} \varphi_n = \langle V_n \psi_n, \varphi_n \rangle
+\]
+since $V_n$ is real-valued. Showing it is symmetric and therefore self-adjoint.
+
+(b) We now want to prove that $\sigma(H) = [0,4] \cup [v, v+4]$ holds with probability $1$. Using a procedure similar to part (d) of exercise 3 we look for a multiplication operator $\mathcal{M}_g$ such that
+\[
+    \f \mathcal{M} \F \psi_n = {(H \psi)}_n = (-\Delta_\Z + V_n)\psi_n
+\]
+which means finding the Fourier transform of:
+\[
+    \begin{split}
+        \F (-\Delta_\Z + V_n) \psi_n &= \F ( -\psi_{n+1} - \psi_{n-1} + 2 \psi_n + V_n) = \\
+        &= \sum_{n= -\infty}^\infty (- \psi_{n+1} - \psi_{n-1} +2 \psi_n + V_n) e^{i2\pi n x} = 
+    \end{split}
+\]
+using the same strategy as before, we arrive at a point in which we need to consider the two cases $V_n = 0$, in which the result is the same as in part (d) of exercise 3, but with inverted signs, and $V_n = v$ which just adds a scalar factor $v$ to the multiplier ($\mathcal{M}_{2+ 2\cos{(2\pi x)} +v}$) whose range becomes $[v, v+4]$. The probability of having $[0,4]$ and $[v, v+4]$ is both $1 / 2$. The union of the two cases gives us the range of the total Schrödinger operator $H$, $\sigma(H) = [0,4] \cup [v, v+4]$ with probability $1$.
+
+\end{document}

@@ -1,0 +1,201 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand\cs{\stackrel{\mathclap{\tiny\mbox{C.S.}}}{\leq}}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial{#2}^2}}
+
+\title{Exercises - MQT}
+\author{Simone Coli - 6771371}
+\date{Sheet 9}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+Let $P: \mathcal{B} (R) \to \mathcal{L} (\mathcal{H})$ be a projection-valued measure. Let $\Omega_1, \Omega_2, \Omega$ be Borel sets. 
+
+(a) By definition of complement $\R = \Omega^c \sqcup \Omega\$$ then
+\[
+    P(\Omega^c \sqcup \Omega) = P(\Omega^c) + P(\Omega) = P(\R) = 1
+\]
+\[
+    P(\Omega^c) = 1 - P(\Omega)
+\]
+Now since $\emptyset$ is the complement of $\R$ then, by the previous result
+\[
+    P(\emptyset) = 1 - P(\R) = 0
+\]
+
+(b) From the definition of disjoint union we have that $(\Omega_1 \cap \Omega_2) \sqcup (\Omega_1 \cup \Omega_2) = \Omega_1 \sqcup \Omega_2$, then:
+\[
+    P(\Omega_1 \cap \Omega_2) + P(\Omega_1 \cup \Omega_2) = P(\Omega_1) + P(\Omega_2)
+\]
+\[
+    P(\Omega_1 \cup \Omega_2) = P(\Omega_1) + P(\Omega_2) - P(\Omega_1 \cap \Omega_2)
+\]
+
+(c) From the previous case we have that $P(\Omega_1 \cap \Omega_2) + P(\Omega_1 \cup \Omega_2) = P(\Omega_1) + P(\Omega_2)$, squaring the right-hand side of the equation we find:
+\[
+    P^2(\Omega_1 \sqcup \Omega_2) = P(\Omega_1) + P(\Omega_2) +2P(\Omega_1)(\Omega_2) 
+\]
+from which we observe that $P(\Omega_1) \cdot (\Omega_2) = 0$ if the two sets are disjoint.\footnote{Let us call $P_1 = P(\Omega_1), P_2 = P(\Omega_2)$. Then using the properties of orthogonal projection $P_1 P_2 = {(P_1 P_2)}^* = P_2^* P_1^* = P_2 P_1$. This allows us to write ${(P_1 + P_2)}^2 = P_1^2 + P_2^2 + 2 P_1 P_2$.} Then let us consider $\Omega_1 = (\Omega_1 \setminus \Omega_2) \sqcup (\Omega_1 \cap \Omega_2)$ and similarly $\Omega_2 = (\Omega_2 \setminus \Omega_1) \sqcup (\Omega_1 \cap \Omega_2)$ Then:
+\[
+    P(\Omega_1) \cdot P(\Omega_2) = (P(\Omega_1 \setminus \Omega_2) + P(\Omega_1 \cap \Omega_2)) \cdot (P(\Omega_2 \setminus \Omega_1) + P(\Omega_1 \cap \Omega_2))
+\]
+Expanding the product we find that all the factors are multiplications between disjoint elements except for $P^2(\Omega_1 \cap \Omega_2)$, meaning that this is the only factor of the multiplication which does not vanish, and by the properties of the orthogonal projection
+\[
+    P(\Omega_1)\cdot P(\Omega_2) = P^2(\Omega_1 \cap \Omega_2) = P(\Omega_1 \cap \Omega_2)
+\]
+
+(d) Now let us assume that $\Omega_1 \subset \Omega_2$ then:
+\[
+    {(P(\Omega_1) - P(\Omega_2))}^2 > 0
+\]
+\[
+    P^2(\Omega_1) + P^2(\Omega_2) - 2P(\Omega_1)P(\Omega_2) = P(\Omega_1) + P(\Omega_2) - 2P(\Omega_1)P(\Omega_2) > 0
+\]
+Using the previous result we have that $P(\Omega_1)P(\Omega_2) = P(\Omega_1 \cap \Omega_2)$ which in our case is just $P_{\Omega_1}$, then
+\[
+    P(\Omega_1) + P(\Omega_2) - 2P(\Omega_1 \cap \Omega_2) = P(\Omega_1) + P(\Omega_2) - 2P(\Omega_2) > 0
+\]
+which gives us $P(\Omega_1) < P(\Omega_2)$ Proving the statement.
+\section{Exercise}
+Let $f : \R \to \R$ be Borel measurable. We want to show that:
+\[
+    P(\Omega) = \chi_{f^{-1}(\Omega)}
+\]
+is a projection-valued measure.
+
+To show this we need to show that it satisfies the definition of projection-valued measure.
+
+(1)
+\[
+    P^2(\Omega) = \chi_{f^{-1}(\Omega)}^2 = \chi_{f^{-1}(\Omega)} = P(\Omega)
+\]
+from the definition of characteristic function. Moreover, since it is a real-valued function we have that:
+\[
+    P^*(\Omega) = \chi_{f^{-1}(\Omega)}^* = \chi_{f^{-1}(\Omega)} = P(\Omega)
+\]
+
+(2) Now from the existence of the inverse, ($f^{-1}$) we know that $f$ must be bijective which implies that $f^{-1}(\R) = \R$ and therefore
+\[
+    P(\R) = \chi_{f^{-1}(\R)} = 1
+\]
+
+(3) We now want to show that $P(\Omega_1 \sqcup \Omega_2) = P(\Omega_1) + P(\Omega_2)$, which is equivalent to show that $f^{-1}(\Omega_1 \sqcup \Omega_2) = f^{-1}(\Omega_1) \sqcup f^{-1}(\Omega_2)$. 
+\\ Let $A \subset B \subset X$ and $g:X \to X$ be a function. Taking $ x \in f(A)$, and $x = f(a)$ with $a \in A$. However, by hypothesis, $A \subset B$ meaning that $a \in B$ and $f(a) \in f(B)$, therefore $x=f(a) \in f(B)$ showing that $f(A)\subset f(B)$. Now since
+\[
+    \Omega_1 \subset \Omega_1 \sqcup \Omega_2, \quad \Omega_2 \subset \Omega_1 \sqcup \Omega_2
+\]
+we have
+\[
+    f^{-1}(\Omega_1) \subset f^{-1}(\Omega_1 \sqcup \Omega_2)
+\]
+\[
+    f^{-1}(\Omega_2) \subset f^{-1}(\Omega_1 \sqcup \Omega_2)
+\]
+Meaning that 
+\[
+    f^{-1}(\Omega_1) \sqcup f^{-1}(\Omega_2) \subset f^{-1}(\Omega_1 \sqcup \Omega_2)
+\]
+Similarly if we take $x \in \Omega_1 \sqcup \Omega_2$ then it will be either in $\Omega_1$ or $\Omega_2$ which means that $f^{-1}(x) \in f^{-1}(\Omega_1 \sqcup \Omega_2)$ will be in $f^{-1}(\Omega_1)$ or $f^{-1}(\Omega_2)$ meaning
+\[
+    f^{-1}(\Omega_1) \sqcup f^{-1}(\Omega_2) \supset f^{-1}(\Omega_1 \sqcup \Omega_2)
+\]
+and therefore $f^{-1}(\Omega_1) \sqcup f^{-1}(\Omega_2) = f^{-1}(\Omega_1 \sqcup \Omega_2)$. From the properties of the characteristic function we have 
+\[
+    \begin{split}
+        P(\Omega_1 \sqcup \Omega_2) &= \chi_{f^{-1}(\Omega_1 \sqcup \Omega_2)} = \chi_{f^{-1}(\Omega_1) \sqcup f^{-1} (\Omega_2)} =\\
+        &= \chi_{f^{-1}(\Omega_1)} + \chi_{f^{-1}(\Omega_2)} = P(\Omega_1) + P(\Omega_2)
+    \end{split}
+\]
+Which proves the statement.
+\section{Exercise}
+Consider the self-adjoint operator $T = - \Delta$ with $D(T) = H^2(\R^d)$ we define its PVM as:
+\[
+    P(\Omega) = \F^{-1}\chi_\Omega (k) \F
+\]
+which satisfies the definition of PVM directly from the properties of the characteristic function. Moreover, given $\psi \in L^2(\R^d)$ then
+\[
+    \int_\R |k|^2 \| \chi_\Omega(k) \psi \| dk 
+\]
+is bounded since $\chi_\Omega(k) \psi \in L^2 (\Omega)$ and $|k|^2$ is just a constant. It is also possible to express 
+\[
+    \langle \hat\varphi, -\Delta \hat\psi \rangle = \int_\R k \langle \hat\varphi, \chi_{\Omega} (k) \hat \psi \rangle dk
+\]
+\section{Exercise}
+Let $T \in \mathcal{L}(\mathcal{H})$ be a bounded linear operator.\\
+(a) Liouville’s theorem from complex analysis says that any bounded analytic function $f:\C to \C$ is constant. Using this fact we want to show that $\sigma(T) \neq \emptyset$.
+
+We can look for a function $g$ such that
+\[
+    \F^{-1} \mathcal{M}_g \F \psi = T \psi
+\]
+which is equivalent to say 
+\[
+    \mathcal{M}_g \F \psi = \F T \psi.
+\]
+Taking the $\mathcal{H}$ norm of both sides we have that:
+\[
+    \|\mathcal{M}_g \F \psi\| =  \| \F T \psi \| = \| T\psi \|< C \| \psi\|
+\]
+meaning that $\mathcal{M}_g \F$ is bounded which is true only if $g$ is bounded. Using Liouville’s theorem we obtain that $g$ must be a constant function, i.e. $g(x) = c$. From a previous exercise sheet we have that $\sigma(T) = \sigma (U T U^*)$ and that $\sigma(\mathcal{M}_g) = \overline{\mbox{ran }(g)}$. Now
+\[
+    \sigma(T) = \sigma(\F T \F^{-1}) = \sigma(\mathcal{M}_c) = \{ c \}
+\]
+proving that $\sigma(T) \neq \emptyset$.\\
+(b) Let $r(T)$ be the spectral radius of $T$, defined as
+\[
+    r(T) = \sup_{\lambda \in \sigma(T)} |\lambda|
+\]
+We want to show that $\|T\|\geq r(T)$.
+
+Since it is bounded we know that 
+\[
+    \| T \| = \sup_{\psi \in \mathcal{H}} \frac{{\| T \psi\|}_\mathcal{H}}{{\| \psi \|}_\mathcal{H}} \geq \frac{{\| T \psi\|}_\mathcal{H}}{{\| \psi \|}_\mathcal{H}} = \frac{{\| \lambda \psi\|}_\mathcal{H}}{{\| \psi \|}_\mathcal{H}} = |\lambda| \frac{{\|\psi\|}_\mathcal{H}}{{\| \psi \|}_\mathcal{H}}
+\]
+since it has to be true for all $\lambda \in \sigma(T)$:
+\[
+    \| T \| \geq \sup_{\lambda \in \sigma(T)} |\lambda| \frac{{\|\psi\|}_\mathcal{H}}{{\| \psi \|}_\mathcal{H}} = \sup_{\lambda \in \sigma(T)} |\lambda| = r(T)
+\]
+(c) Gelfand’s spectral radius formula says that $r(T) = \lim_{n\to \infty} {\| T^n \|}^{1/n}$ we want to show that $r(T) = \|T\|$. We want to show that since $T$ is self-adjoint then $r(T) = \|T\|$.
+
+We first want to show that $\|T^n\| = \|T\|^n$ when $T$ is self-adjoint. From the realtion $\| A B\| \leq \|A\| \|B\|$ we get that 
+\[
+    \|T^2\| = \|TT\| = \|T^*T\| \leq \|T\| \|T\| = {\|T\|}^2
+\]
+Then 
+\[
+   \begin{split}
+     {\|T\|}^2 &= \sup_{\|\psi\| = 1} {\|T \psi\|}^2 = \sup_{\|\psi\| = 1}\langle T \psi, T \psi \rangle = \sup_{\|\psi\| = 1}\langle TT \psi, \psi \rangle \cs\\
+     &\cs \sup_{\|\psi\| = 1} {\|T\psi\|}^2 {\|\psi\|}^2 = \|T^2\|\\ 
+   \end{split}
+\]
+Now using induction the statement follows. From the definition of limit we have that 
+\[
+    |r(T) - \|T^n\|^{\frac{1}{n}}|<\varepsilon
+\]
+from what we just proved:
+\[
+    |r(T) - \|T\|^{\frac{n}{n}}| = |r(T) - \|T\||<\varepsilon
+\]
+meaning that 
+\[
+    r(T) = \lim_{n\to \infty} \|T\| = \|T\|
+\]
+
+\end{document}

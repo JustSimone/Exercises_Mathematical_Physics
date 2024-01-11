@@ -1,0 +1,152 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial{#2}^2}}
+
+\title{Exercises - PDEs}
+\author{Simone Coli - 6771371}
+\date{Sheet 10}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+Let us consider the problem:
+\begin{equation} \label{eq:1}
+    \begin{cases}
+        \begin{aligned}
+            \pdv{u}{t}(x,t) - D_i a^{ij}(x,t) D_j u(x,t) &- a^{ij}(x,t) D_i D_j u(x,t) -\\
+            &- b^i(x,t) D_i u(x,t) = 0
+        \end{aligned}\\
+        u(\cdot, 0) = u_0 (x)\\
+        u|_{\partial \Omega \times [0,T]} = 0
+    \end{cases}
+\end{equation}
+assuming that the coefficients $a^{ij}, b^i$ are smooth and bounded with $a^{ij}$ uniformly elliptic. We want to show that
+\[
+    \sup_{\Omega \times (0,T]} |u(x,t)| \leq \sup_{\Omega} |u_0 (x)|
+\]
+Meaning that the maximum is attained on the temporal boundary.
+
+Let us assume not, meaning that the maximum is attained at some point $(x_0, t_0) \in \Omega \times (0,T]$ (with $T$ finite), and show that it implies a contradiction.\\
+Because $u(x_0, t_0)$ is a maximum than 
+\[
+    \partial_t u(x_0, t_0) \geq 0
+\]
+Moreover, for the same reason at $(x_0, t_0)$ we have that $D_i u(x_0, t_0) = 0$ and $D_i D_j u(x_0, t_0) \leq 0$ (where $D_i D_j u$ is the hessian matrix). Then
+\[
+    \begin{split}
+        &D_i a^{ij}(x_0,t_0) D_j u(x_0,t_0) = 0\\
+        &b^i(x_0,t_0) D_i u(x_0,t_0) = 0
+    \end{split}
+\]
+In addition to that,
+\[
+    a^{ij} D_i D_j u(x_0,t_0) \leq 0
+\]
+from uniform ellipticity. Then:
+\[
+    \begin{split}
+        \partial_t u(x_0,t_0) - L_0 u(x_0,t_0) &:= \partial_t u(x_0,t_0) - D_i a^{ij}(x_0,t_0) D_j u(x_0,t_0) -\\
+        &- a^{ij}(x_0,t_0) D_i D_j u(x_0,t_0) 
+        - b^i(x_0,t_0) D_i u(x_0,t_0) \geq 0
+    \end{split}
+\]
+Let us consider $u^\varepsilon (x,t)=u(x,t) - \varepsilon t$, with $\varepsilon > 0$ which is the solution of $\partial_t u^\varepsilon (x,t) - L_0 u^\varepsilon (x, t) = - \varepsilon$, with the same boundary condition as eq~\eqref{eq:1}. Since at $(x_0, t_0)$
+\[
+    -\varepsilon = \partial_t u^\varepsilon -L_0 u^\varepsilon \geq 0
+\]
+we have a contradiction. Meaning that $t_0 = 0$ and
+\[
+    \sup_{\Omega \times (0,T]} |u^\varepsilon(x,t)| = \sup_{\Omega} |u^\varepsilon_0 (x)|
+\]
+from which
+\[
+    \sup_{\Omega \times (0,T]} |u(x,t) |- \varepsilon T \leq \sup_{\Omega \times (0,T]} |u(x,t) - \varepsilon t| = \sup_{\Omega} |u_0 (x)|
+\]
+and
+\[
+    \sup_{\Omega \times (0,T]} |u(x,t) | \leq \sup_{\Omega} |u_0 (x)| + \varepsilon T 
+\]
+since $\varepsilon$ was arbitrary we can make it go to zero obtaining the statement.
+\section{Exercise}
+Let $u \in W^{1,2}(\Omega)$ be a weak solution to the equation:
+\[
+    Lu = D_i(a^{ij}D_j u + b^i u) + c^i D_i u + du = D_i g^i - f
+\]
+on $\Omega \in \R^n$ and with bounded coefficients. Suppose $a^{ij}$ is uniformly elliptic and $g^i, f \in L^2$. We want to show that for every subdomain $\Omega' \subset \subset \Omega$ there exists a constant $C>0$ depending only on the coefficients and the distance function such that:
+\[
+    \|u\|_{W^{1,2}(\Omega)} \leq C \left( \|u\|_{L^2(\Omega)} + \| f \|_{L^2(\Omega)} + \sum_{i=1}^{n}\|g^i\|_{L^2(\Omega)} \right)
+\]
+
+Let us consider
+\[
+    \begin{split}
+        \mathcal{L} (u,v) & := \int_{\Omega} a^{ij} D_i u D_j v + b^i u D_i v -c^i D_i u v + d u v dx =\\
+        & = \int_{\Omega} (D_i g^i - f) v dx =: \mathcal{F}(v) 
+    \end{split}
+\]
+Let us define the test function $v := \eta^ u$ with $\eta$ the cut-off function in $\Omega' \subset \subset \Omega$. Then 
+\[
+    \begin{split}
+        \mathcal{L} (u,v) & := \int_{\Omega} a^{ij} \eta^2 D_i u D_j u + 2a^{ij} D_i u D_j \eta \eta u + 2 b^i u^2 \eta D_i \eta + b^i \eta^2 u D_i u - \\
+        & - c^i u \eta^2 D_i u  + d u^2 \eta^2 dx
+        = \int_{\Omega} D_i g^i u \eta^2 - f u \eta^2 dx = \\
+        & = - \int_{\Omega} g^i (D_i u \eta^2 + 2u \eta D_i \eta) - f u \eta^2 dx =: \mathcal{F}(v) 
+    \end{split}
+\]
+integrating by parts. Using the ellipticity of $a^{ij}$ we have
+\[
+    \begin{split}
+        \lambda \int_{\Omega} \eta^2 |D u|^2 dx &\leq \sup{|a|} \int_{\Omega} 2 |D u| |D \eta| \eta |u| dx +\\
+        &+ \sup{|b|}\left( \int_{\Omega} 2 |u|^2 \eta |D \eta| dx + \int_{\Omega} \eta^2 |u| |D u|dx \right) + \\
+        & + \sup{|c|} \int_{\Omega} |u| \eta^2 |D u| dx + \sup{|d|}\int_{\Omega} |u|^2 \eta^2 dx + \\
+        &+ \int_{\Omega} |g^i| |D u| \eta^2 + \int_{\Omega} 2|g^i| |u| \eta |D \eta| + \int_{\Omega} |f| |u| \eta^2 dx
+    \end{split}
+\]
+We want to bound each term. Using Peter-Paul inequality we have that 
+\[
+    \begin{split}
+        \sup{|a|} \int_{\Omega} 2 |D u| |D \eta| \eta |u| dx &\leq \frac{\lambda}{10} \int_{\Omega} |Du|^2 \eta^2 dx + \frac{10}{\lambda} \|a\|_\infty^2 \int_{\Omega} |Du|^2 |\eta|^2 dx \leq\\
+        & \leq \frac{\lambda}{10} \int_{\Omega} |Du|^2 \eta^2 dx + \frac{10}{\lambda} C(\sup{|a|}, d(\Omega', \partial \Omega)) \|u\|_{L^2(\Omega)}
+    \end{split}
+\]
+since the square derivative of $|D\eta|^2 \leq \frac{c}{d(\Omega', \partial \Omega)}$. We can bound all the other terms using the same criteria. All but the last one which also require using Cauchy Schwarz
+\[
+    \int_{\Omega} |f| |u| \eta^2 dx \leq \|f\|_{L^2(\Omega)} \|u\|_{L^2(\Omega)}
+\]
+now using Peter-Paul
+\[
+    \int_{\Omega} |f| |u| \eta^2 dx \leq c \|f\|_{L^2(\Omega)} + \frac{1}{c} \|u\|_{L^2(\Omega)}
+\]
+The final inequality becomes:
+\[
+    \begin{split}
+        \lambda \int_{\Omega} |D u|^2 \eta^2 dx & \leq \frac{\lambda}{10} \int_{\Omega} |Du|^2 \eta^2 dx + C(\lambda, \sup{|a|}, d(\Omega', \partial \Omega))\|u\|_{L^2(\Omega)} + \\
+        & + C( \sup{|b|}, d(\Omega', \partial \Omega))\|u\|_{L^2(\Omega)} + \\
+        & + \frac{\lambda}{10} \int_{\Omega} |Du|^2 \eta^2 dx + C(\lambda, \sup{|b|}, d(\Omega', \partial \Omega))\|u\|_{L^2(\Omega)} + \\
+        & + \frac{\lambda}{10} \int_{\Omega} |Du|^2 \eta^2 dx + C(\lambda, \sup{|c|}, d(\Omega', \partial \Omega))\|u\|_{L^2(\Omega)} + \\
+        & + C(\sup{|d|})\|u\|_{L^2(\Omega)} + C \|f\|_{L^2(\Omega)} + \frac{1}{C} \|u\|_{L^2(\Omega)} + \\
+        & + C(d(\Omega', \partial \Omega))\|u\|_{L^2(\Omega)} + C \|g^i\|_{L^2(\Omega)} +\\
+        & + \frac{\lambda}{10} \int_{\Omega} |Du|^2 \eta^2 dx + C(\lambda)\|g^i\|_{L^2(\Omega)}
+    \end{split}
+\]
+which gives us 
+\[
+    \int_{\Omega} |D u|^2 \eta^2 dx \leq C (\|u\|_{L^2(\Omega)} +  \|g^i\|_{L^2(\Omega)} + \|f\|_{L^2(\Omega)})
+\]
+where $C = C(\lambda, d(\Omega', \partial \Omega), \sup{|a|}, \sup{|b|}, \sup{|c|},\sup{|d|})$. Using the fact that $\Omega' \subset, \subset \Omega$ as well as Poincaré, which gives us the equivalence between the $\mathcal{H}$ and the $W^{1,2}(\Omega)$ norm, we obtain the claim.
+\end{document}

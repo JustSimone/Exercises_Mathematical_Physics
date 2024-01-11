@@ -1,0 +1,205 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{derivative}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ex}{\textit}
+\newcommand{\sol}{\\ \textbf{Solution: }}
+\newcommand{\proof}{\\ \textbf{Proof: }}
+\newcommand*{\eqdef}{\ensuremath{\overset{\mathclap{\text{\tiny def}}}{=}}}
+\usepackage{graphicx} % Required for inserting images
+\newcommand{\ssubset}{\subset\joinrel\subset}
+\newcommand{\ppdv}[2]{\frac{\partial^2 #1}{\partial{#2}^2}}
+
+\title{Exercises - PDEs}
+\author{Simone Coli - 6771371}
+\date{Sheet 8}
+\begin{document}
+\maketitle
+
+\section{Exercise}
+
+Let $\Omega \in \R^n$ be bounded and regular enough such that the embeddings $W^{1,p} \hookrightarrow L^q (\Omega)$ are compact for all $1 \leq p < n$ and $1 \leq q < \frac{np}{n-p}$ We want to show that there exists a constant $C$ such that 
+\[
+    \| u- \bar u \|_{\frac{np}{n-p}} \leq C \| Du \|_p
+\]
+(all the norms are over the set $\Omega$) holding for all $u \in W^{1,p}(\Omega)$ such that
+\[
+    \bar u := \frac{1}{|\Omega|}\int_\Omega u\, dx
+\]
+
+Let us use a contradiction argument. Let us suppose that $\exists \{u_k \}_k \subset W^{1,p}(\Omega)$ such that 
+\[
+    \| u - \bar u_k\|_p > k \| D v_k \|_p
+\]
+Let us take $\| u_k - \bar u_k \| = 1$ since otherwise we can always find a new sequence $v_k = u_k - \bar u_k / \| u_k - \bar u_k \|$ and if $\| u_k - \bar u_k \| = 0$ we already have an absurdity. Because of these considerations we have that $\bar u_k = 0$.\\
+Moreover, we have that 
+\[
+    \| D u_k \|_p < \frac{1}{k}
+\]
+which means that $u_k$ must be bounded in $W^{1,p}$. From the compactness of the embedding we can construct a subsequence $\{u_{k_j} \} \in W^{1,p} (\Omega)$ which converges to $u \in L^p(\Omega)$ in $L^p(\Omega)$, meaning that $\bar u = 0$ and $\| u \|_p = 1$. We therefore have that
+\[
+    k \| Du \|_p < 1
+\]
+and since $k$ is arbitrary we can find $k $ big enough such that the inequality does not hold. Showing the contradiction. We proved that
+\[
+    \| u - \bar u_k\|_p \leq C \| D v_k \|_p
+\]
+since $p$ is arbitrary, let us take $\frac{np}{n-p}$, Then since
+\[
+    \frac{np}{n-p}>p
+\]
+we have that $L^{\frac{np}{n-p} \subset L^p}$ from a previous result meaning
+\[
+    \| u - \bar u_k\|_{\frac{np}{n-p}} \leq C \| D v_k \|_p
+\]
+\section{Exercise}
+
+Let us consider a continuous embedding
+\[
+    X \hookrightarrow Y \hookrightarrow  Z
+\]
+between Banach spaces, we want to show that if $X \hookrightarrow Y$ is a compact embedding then $\forall \varepsilon > 0, \exists C_\varepsilon > 0 : \forall u \in X$
+\[
+    \| u \|_Y \leq \varepsilon \| u \|_X + C_\varepsilon \| u \|_Z
+\]
+
+Let us consider the contradiction of our previous statement and show that it implies an absurdity. $\exists \varepsilon > 0\, \&\, \exists \{ u_k \} \in X$:
+\[
+    \| u_k \|_Y > \varepsilon \| u_k \|_X + k \| u_k \|_Z 
+\]
+By definition of continuous embedding we have that
+\[
+    \| u_k \|_Z \leq C_1 \| u_k \|, \quad C_1 > 0
+\]
+meaning that
+\[
+    \| u_k \|_Y - kC_1 \| u_k\|_Y = (1- kC_1) \|u_k\|_Y  > \varepsilon \| u_k \|_X
+\]
+Now we can assume that $\| u_k \|_X \neq 0$ since in this case we already have that the contradiction of the statement generates an absurdity since $\| u \|_V < C_2 \| u \|_X$:
+\[
+    0>0
+\]
+In this case it is always possible to find a sequence such that $\| u_k\|= 1$ since otherwise we can just take the sequence $v_k = u_k / \| u_k \|_Y$. It follows that
+\[
+    (1-kC_1)\|u_k\| > \varepsilon
+\]
+Because the embedding from $X$ to $Y$ is compact we know that $\| u_k \|_Y < 1$ meaning that $\exists u_{k_i} \to u$ in $Y$ so that $\| u_{k_i} - u \| < \delta, \, \forall \delta$. Then
+\[
+    \| u_{k_i} \| \leq \| u \|_Y + \delta_{k_i}
+\]
+Let us consider $\delta = \varepsilon/2$.
+\[
+    (1-k_i C_1)( \frac{\delta}{2} + \|u\|_Y) > \varepsilon
+\]
+\[
+    (1-k_i C_1) \|u\|_Y > \frac{\varepsilon}{2}
+\]
+Then if $\|u\|_Y = 0$ we have the contradiction, while in the other case we can choose $k$ big enough to make it not a contradiction.
+
+\section{Exercise}
+
+For $p>1, \, \Omega \subset \R^n$ and $v\in W^{1,p} (\Omega)$ we want to find the Euler-Lagrange equation of the energy:
+\[
+    J(v) : = \int_{\Omega} |v|^p \sqrt{1 + {|Dv|}^2} dx
+\]
+
+From the theorem we have introduced about the Euler-Lagrange equation, in which 
+\[
+    F(x, v(x), Dv(x)) = |v|^p \sqrt{1 + {|Dv|}^2},
+\]
+since we know $F \in C^1(\Omega)$ because it is the product of differentiable function ($|v|^p$ is differentiable for $p>1$, which it is by hypothesis). We then have that\\
+\[
+    \pdv{F}{v} = p v|v|^{p-2} \sqrt{1+ {|Dv|}^2}
+\]
+\[
+    \begin{split}
+        -D_i \pdv{F}{D^i v} &= -D_i \left( |v|^p \frac{D_i v}{\sqrt{1+ {|Dv|}^2}} \right) \\
+        & =  - \frac{|v|^p}{\sqrt{1+{|Dv|}^2}} A v - \frac{{|Dv|}^2 p|v|^{p-2}}{\sqrt{1+ {|Dv|}^2}}
+    \end{split}
+\]
+where:\\
+\[
+    A v = a_{ij}(Dv) D_i D_j v
+\]
+\[
+    a_{ij}(Dv) = \frac{1}{\sqrt{1+{|Dv|}^2}} \left( \delta_{ij} - \frac{D_i v D_j v}{1+{|Dv|}^2} \right)
+\]\\
+Putting them together
+\[
+    p v|v|^{p-2} \sqrt{1+ {|Dv|}^2} - \frac{|v|^p}{\sqrt{1+{|Dv|}^2}} A v - \frac{{|Dv|}^2 p|v|^{p-2}}{\sqrt{1+ {|Dv|}^2}} = 0
+\]
+Now since the only factor depending on $D_i D_j v$ is the one containing $a_{ij}$ from the fact that $|v|^p \geq 0$ and $\sqrt{1+{|Dv|}^2}\geq 0$ by definition, and $a_{ij}(Dv) \xi^i \xi^j >0$ from class, then we proved that such a PDE is elliptical.
+
+Now let us assume that $n = 1$ and $p = 1$. Then
+\[
+    \begin{split}
+        & p v|v|^{p-2} \sqrt{1+ {|Dv|}^2}-D_i \left( |v|^p \frac{D_i v}{\sqrt{1+ {|Dv|}^2}} \right) = 0\\
+        & v|v|^{-1} \sqrt{1+ {\left|\odv{v}{x}\right|}^2}- \odv{}{x} \left( |v| \odv{v}{x} \frac{1}{\sqrt{1+ {\left|\odv{v}{x} \right|}^2}} \right) = 0\\
+    \end{split}
+\]
+Let us assume that $v(x) = c e^{i\lambda x}$ solves the equation.
+\[
+    \begin{split}
+        & e^{i\lambda x} \sqrt{1+ {c^2 \lambda^2}^2}- \odv{}{x} \left( i \lambda c^2 e^{i\lambda x} \frac{1}{\sqrt{1+ c^2 \lambda^2}} \right) = 0\\
+        & e^{i\lambda x} \sqrt{1+ {c^2 \lambda^2}^2} =  - \lambda^2 c^2 e^{i\lambda x} \frac{1}{\sqrt{1+ c^2 \lambda^2}} \\
+        & 1+ {c^2 \lambda^2}^2 =  - \lambda^2 c^2\\
+    \end{split}
+\]
+which tells us that $\lambda = \pm \frac{i}{c\sqrt{2}}$ and $v(x) = c e^{\pm x/c\sqrt{2}}$. Choosing $c = \frac{1}{2}$ we have that the combination of the two solutions gives us
+\[
+    v = \frac{1}{2} (e^{x \sqrt{2}} + e^{-x \sqrt{2}})
+\]
+which is almost the form of a catenary.
+\[
+    y = a \cosh{\frac{x}{a}} = \frac{a}{2} (e^{\frac{x}{a}} + e^{-\frac{x}{a}})
+\]
+\section{Exercise}
+Let us consider $\Omega \subset \R^n$ open with $\varphi \in C^2(\partial \Omega)$ and $\psi \in C^2(\bar \Omega)$ such that $\psi|_{\partial \Omega} < \varphi$ Now let us consider the energy
+\[
+    J(v) : = \int_\Omega |Dv|^2 dx
+\]
+on the function space $K = \{ v \in C^{0,1}(\bar \Omega): v\geq \psi,\, v = \varphi \}$ with $u \in W^{2,\infty} (\Omega)$ such that minimize the energy on $K$.
+
+a) We want to show that $\Delta u \leq 0$ a.e. To do so, we can use the variational characterization of minimizer which states that given a $u \in K$ to be the unique solution such that:
+\[
+    J(u) = \min_{v \in K} J(v)
+\]
+Then
+\[
+    \int_\Omega Du D(v-u)dx \geq 0
+\]
+We can take a test function $\eta \in C^\infty_c$ such that $v:= u + \eta$, notice that if $u, \eta \in K$ than also $v$ will be in $K$ since 
+\[
+    |v(x) - v(y)| \leq |u(x) - u(y)| + |\eta(x) - \eta(y)| < (C+C') |x-y|
+\]
+then we can write:
+\[
+    \int_\Omega Du D\eta\, dx \geq 0
+\]
+Since $u \in W^{2,\infty} (\Omega)$  we can integrate by parts 
+\[
+    - \int_\Omega \Delta u\, \eta\, dx \geq 0
+\]
+For $ \eta \geq 0$ we have that $\Delta u \leq 0$ almost everywhere
+
+b) To prove that in a subset of $\Omega$ such that $ \Omega' := \{ x \in \Omega: u(x) > \psi(x) \}$. Now if we fix a test function $ \eta \in C^\infty_c (\Omega')$ and fix $|s|$ such that this holds $v = u + s\eta \geq \psi$. Using the variational characterization of minimizer we have that the inequality
+\[
+    s \int_\Omega Du D\eta\, dx \geq 0
+\]
+is true for sufficiently small values of $s$ both positive and negative, meaning that
+\[
+    0 \leq s \int_\Omega Du D\eta\, dx \leq 0
+\]
+which implies
+\[
+    \int_\Omega Du D\eta\, dx = 0
+\]
+Using integration by parts we get the result $\Delta u = 0$ a.e. on $\Omega '$.
+\end{document}

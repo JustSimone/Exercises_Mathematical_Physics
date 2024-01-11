@@ -115,6 +115,19 @@ while the spectrum is:
 \[
     \sigma(\M_f) = \mbox{ran }f
 \]
+
+b) We want to find a function which is not constant by has point spectrum $\sigma_P = \{ a \}$ with $a \in \C$. A function with this property is just a function of the type:
+\[
+    f(x) = \begin{cases}
+        a & x<0\\
+        x + a & x \geq 0 
+    \end{cases}
+\]
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width = 0.5 \textwidth]{TeX/IMG/desmos-graph.png}
+\end{figure}\\
+so that it has both continuous and point spectrum. In particular from what we found in part (a), we have $\sigma (\M_f) = \mbox{ran }f = \{ a\leq x \leq \infty \}$, where $\sigma_P(\M_f) = \{ a \}$ and $\sigma_C (\M_f) = {a < x \leq \infty}$.
 \section{Exercise}
 a) Let $U : \to \mathcal{H} \to \mathcal H $ be unitary and $(T, D(T))$ an unbounded operator. We want to show that 
 \[
@@ -146,7 +159,13 @@ Moreover, from $(*)$ we have that the inverse of $UTU^* -z$ is the composition f
 \[
     \sigma (T) = \sigma_P(T) \sqcup  \sigma_C (T) \sqcup \sigma_R(T) = \sigma (UTU^*)
 \]
-the also $\sigma_{\#} (T) = \sigma_\# (UTU^*)$.
+the also $\sigma_{\#} (T) = \sigma_\# (UTU^*)$ since
+\[
+    \sigma (UTU^*)= \sigma_P(UTU^*) \sqcup  \sigma_C (UTU^+) \sqcup \sigma_R(UTU^*)
+\]
+is a disjoint union.
+
+b) Let us consider the momentum operator $(-i d / dx, H^1(\R^d))$ on $L^2(\R^d)$. We want to find a unitary transformation which makes it a multiplication operator and the Fourier transform does exactly that. It transforms the momentum operator into the position operator, which is a multiplication operator.
 
 c) Identify the spectrum, the point spectrum, and the continuous spectrum of
 the momentum operator. From what we have seen in class, we know that the position operator has spectrum $\sigma(\M_x) = \R$ from part (a) of thi exercise we have that
